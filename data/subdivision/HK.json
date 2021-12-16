@@ -1,0 +1,17 @@
+{
+  "country_code": "HK",
+  "subdivisions": {
+    "Kowloon": {
+      "name": "九龍",
+      "has_children": true
+    },
+    "Hong Kong Island": {
+      "name": "香港島",
+      "has_children": true
+    },
+    "New Territories": {
+      "name": "新界",
+      "has_children": true
+    }
+  }
+}
