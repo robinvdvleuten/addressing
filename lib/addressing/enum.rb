@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Addressing
   class Enum
     class << self
