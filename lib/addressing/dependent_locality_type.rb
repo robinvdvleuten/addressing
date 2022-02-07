@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "addressing/enum"
-
 module Addressing
   # Enumerates available dependent locality types.
   class DependentLocalityType < Enum

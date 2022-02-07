@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "addressing/enum"
-
 module Addressing
   # Enumerates available postal code types.
   class PostalCodeType < Enum

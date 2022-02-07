@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
 require "cgi"
+require "digest"
 require "json"
 
+require "addressing/enum"
 require "addressing/address"
 require "addressing/address_field"
 require "addressing/address_format"

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "digest"
-
 module Addressing
   class Subdivision
     class << self
