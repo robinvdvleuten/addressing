@@ -180,6 +180,26 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 This gem wouldn't exist when there wasn't the awesome PHP [addressing](https://github.com/commerceguys/addressing) library. The [CommerceGuys](https://github.com/commerceguys) did an excellent job figuring out how to parse Google's address data, as described by their [backstory](https://drupalcommerce.org/blog/16864/commerce-2x-stories-addressing). Unfortunately for me, they created a PHP library where I needed a Ruby gem so this project was born.
 
+## Contributing
+
+Everyone is encouraged to help improve this project. Here are a few ways you can help:
+
+- [Report bugs](https://github.com/robinvdvleuten/addressing/issues)
+- Fix bugs and [submit pull requests](https://github.com/robinvdvleuten/addressing/pulls)
+- Write, clarify, or fix documentation
+- Suggest or add new features
+
+To get started with development:
+
+```
+git clone https://github.com/robinvdvleuten/addressing.git
+cd addressing
+bundle install
+bundle exec rake test
+```
+
+Feel free to open an issue to get feedback on your idea before spending too much time on it.
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
