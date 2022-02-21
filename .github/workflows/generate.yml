@@ -22,4 +22,4 @@ jobs:
             commit-message: Generate addressing data
             title: Generate addressing data
             branch: generate-addressing-data
-            branch-suffix: branch-suffix
+            branch-suffix: random
