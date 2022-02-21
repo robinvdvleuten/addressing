@@ -1,0 +1,18 @@
+name: generate
+on:
+  schedule:
+    - cron:  "0 0 * * 0"
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1
+          bundler-cache: true
+      - run: bundle install
+      - run: bundle exec rake addressing:download
+      - run: bundle exec rake addressing:generate_address_data
+      - run: bundle exec rake addressing:generate_country_data
+      - run: bundle exec rake addressing:dump
