@@ -172,6 +172,16 @@ p formatter.format(address, origin_country: "FR")
 # ÉTATS-UNIS - UNITED STATES
 ```
 
+### Validating addresses
+
+For Active Record models, use:
+
+```rb
+class User < ApplicationRecord
+  validates_address_format
+end
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
@@ -203,4 +213,3 @@ Feel free to open an issue to get feedback on your idea before spending too much
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
