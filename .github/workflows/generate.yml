@@ -2,6 +2,7 @@ name: generate
 on:
   schedule:
     - cron:  "0 0 * * 0"
+  workflow_dispatch:
 jobs:
   generate:
     runs-on: ubuntu-latest
