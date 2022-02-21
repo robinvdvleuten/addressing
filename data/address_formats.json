@@ -42,7 +42,7 @@
 {"country_code": "CX","format": "%organization\n%given_name %family_name\n%address_line1\n%address_line2\n%locality %administrative_area %postal_code","uppercase_fields": ["locality","administrative_area"],"postal_code_pattern": "6798"}
 {"country_code": "CY","format": "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%postal_code %locality","postal_code_pattern": "\\d{4}"}
 {"country_code": "CZ","format": "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%postal_code %locality","required_fields": ["address_line1","locality","postal_code"],"postal_code_pattern": "\\d{3} ?\\d{2}"}
-{"country_code": "DE","format": "%organization\n%given_name %family_name\n%address_line1\n%address_line2\n%postalCode %locality","required_fields": ["address_line1","locality","postal_code"],"postal_code_pattern": "\\d{5}"}
+{"country_code": "DE","format": "%organization\n%given_name %family_name\n%address_line1\n%address_line2\n%postal_code %locality","required_fields": ["address_line1","locality","postal_code"],"postal_code_pattern": "\\d{5}"}
 {"country_code": "DK","format": "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%postal_code %locality","required_fields": ["address_line1","locality","postal_code"],"postal_code_pattern": "\\d{4}"}
 {"country_code": "DO","format": "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%postal_code %locality","postal_code_pattern": "\\d{5}"}
 {"country_code": "DZ","format": "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%postal_code %locality","postal_code_pattern": "\\d{5}"}

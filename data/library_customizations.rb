@@ -24,7 +24,7 @@ def address_format_customizations(country_code)
   # Switch %organization and %recipient.
   # https://github.com/googlei18n/libaddressinput/issues/83
   format_customizations["DE"] = {
-    "format" => "%organization\n%given_name %family_name\n%address_line1\n%address_line2\n%postalCode %locality"
+    "format" => "%organization\n%given_name %family_name\n%address_line1\n%address_line2\n%postal_code %locality"
   }
 
   # Revert the removal of %sortingCode.
