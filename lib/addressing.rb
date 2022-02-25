@@ -28,3 +28,10 @@ module Addressing
 
   class UnknownLocaleError < Error; end
 end
+
+if defined?(ActiveSupport.on_load)
+  ActiveSupport.on_load(:active_record) do
+    require "addressing/model"
+    extend Addressing::Model
+  end
+end

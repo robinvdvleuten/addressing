@@ -18,6 +18,11 @@ module Addressing
       @subdivisions.any?
     end
 
+    def empty?
+      do_initialize unless @initialized
+      @subdivisions.empty?
+    end
+
     private
 
     def do_initialize
