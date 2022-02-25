@@ -2,16 +2,16 @@
 
 module Addressing
   module Model
-    def validates_address_format(**options)
+    def validates_address_format(fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], **options)
+      fields = Array(fields)
+
       class_eval do
         validate :verify_address_format, **options
 
         define_method :verify_address_format do
-          fields = [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale].each_with_object({}) do |field, fields|
-            fields[field] = send(field)
-          end
+          values = fields.each_with_object({}) { |f, v| v[f] = send(f) }
+          address = Address.new(**values)
 
-          address = Address.new(**fields)
           return unless address.country_code.present?
 
           address_format = AddressFormat.get(address.country_code)

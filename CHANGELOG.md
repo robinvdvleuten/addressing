@@ -2,6 +2,10 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## Unreleased
+
+- Allow used address fields to be configured
+
 ## 0.2.0 (25-02-2022)
 
 - Add ActiveRecord validations
