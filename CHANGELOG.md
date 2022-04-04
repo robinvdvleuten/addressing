@@ -2,7 +2,7 @@
 
 All notable changes to `addressing` will be documented in this file.
 
-## Unreleased
+## 0.3.0 (04-04-2022)
 
 - Allow field validation to be overridden
 - Only verify address when one of the field changes
