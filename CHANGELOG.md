@@ -2,6 +2,11 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## Unreleased
+
+- Break with both subdivisions and parents when subdivision field is empty
+- Only retrieve field if it exists on model
+
 ## 0.3.0 (04-04-2022)
 
 - Allow field validation to be overridden

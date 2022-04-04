@@ -44,20 +44,19 @@ module Addressing
           end
 
           # Validate subdivisions.
-          subdivisions = verify_subdivisions(address, address_format)
+          subdivisions = verify_subdivisions(address, address_format, field_overrides)
 
           # Validate postal code.
           verify_postal_code(address.postal_code, subdivisions, address_format) if used_fields.include?(AddressField::POSTAL_CODE)
         end
 
-        define_method :verify_subdivisions do |address, address_format|
+        define_method :verify_subdivisions do |address, address_format, field_overrides|
           # No predefined subdivisions exist, nothing to validate against.
           return [] if address_format.subdivision_depth < 1
 
           subdivisions, _parents = address_format.used_subdivision_fields.each_with_index.inject([[], []]) do |(subdivisions, parents), (field, index)|
             # The field is empty or validation is disabled.
-            # break subdivisions if address.send(field).blank? || address_format.hidden_fields.include?(field)
-            break subdivisions if address.send(field).blank?
+            break [subdivisions, parents] if address.send(field).blank? || field_overrides.hidden_fields.include?(field)
 
             parents << (index > 0 ? address.send(address_format.used_subdivision_fields[index - 1]) : address_format.country_code)
             subdivision = Subdivision.get(address.send(field), parents)
