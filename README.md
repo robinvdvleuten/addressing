@@ -182,6 +182,14 @@ class User < ApplicationRecord
 end
 ```
 
+For performance, the address is only verified if at least one of the fields changes. Set your own condition with:
+
+```rb
+class User < ApplicationRecord
+  validates_address if: -> { something_changed? }, ...
+end
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

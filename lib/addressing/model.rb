@@ -4,6 +4,7 @@ module Addressing
   module Model
     def validates_address_format(fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], **options)
       fields = Array(fields)
+      options[:if] ||= -> { fields.any? { |f| changes.key?(f.to_s) } } unless options[:unless]
 
       class_eval do
         validate :verify_address_format, **options

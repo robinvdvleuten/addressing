@@ -4,6 +4,7 @@ All notable changes to `addressing` will be documented in this file.
 
 ## Unreleased
 
+- Only verify address when one of the field changes
 - Allow used address fields to be configured
 
 ## 0.2.0 (25-02-2022)
