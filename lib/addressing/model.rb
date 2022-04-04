@@ -13,7 +13,7 @@ module Addressing
         validate :verify_address_format, **options
 
         define_method :verify_address_format do
-          values = fields.each_with_object({}) { |f, v| v[f] = send(f) }
+          values = fields.each_with_object({}) { |f, v| v[f] = send(f) if self.respond_to?(f) }
           address = Address.new(**values)
 
           return unless address.country_code.present?
