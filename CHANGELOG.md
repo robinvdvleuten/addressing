@@ -4,6 +4,7 @@ All notable changes to `addressing` will be documented in this file.
 
 ## Unreleased
 
+- Allow field validation to be overridden
 - Only verify address when one of the field changes
 - Allow used address fields to be configured
 

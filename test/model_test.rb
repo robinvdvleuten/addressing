@@ -234,4 +234,55 @@ class ModelTest < Minitest::Test
     assert !address.valid?
     assert address.errors.key?(:postal_code)
   end
+
+  def test_overriding_required_fields
+    address_klass = Class.new(Address) do
+      validates_address_format field_overrides: Addressing::FieldOverrides.new({ "given_name" => Addressing::FieldOverride::OPTIONAL, "family_name" => Addressing::FieldOverride::OPTIONAL })
+    end
+
+    address = address_klass.new(
+      country_code: "CN",
+      administrative_area: "Beijing Shi",
+      locality: "Xicheng Qu",
+      postal_code: "123456",
+      address_line1: "Yitiao Lu",
+    )
+    assert address.valid?
+  end
+
+  def test_hidden_postal_code_field
+    address_klass = Class.new(Address) do
+      validates_address_format field_overrides: Addressing::FieldOverrides.new({ "postal_code" => Addressing::FieldOverride::HIDDEN })
+    end
+
+    address = address_klass.new(
+      country_code: "CN",
+      administrative_area: "Beijing Shi",
+      locality: "Xicheng Qu",
+      address_line1: "Yitiao Lu",
+      postal_code: "INVALID",
+      given_name: "John",
+      family_name: "Smith"
+    )
+    assert !address.valid?
+    assert address.errors.key?(:postal_code)
+  end
+
+  def test_hidden_subdivision_field
+    address_klass = Class.new(Address) do
+      validates_address_format field_overrides: Addressing::FieldOverrides.new({ "administrative_area" => Addressing::FieldOverride::HIDDEN })
+    end
+
+    address = address_klass.new(
+      country_code: "CN",
+      administrative_area: "INVALID",
+      locality: "Xicheng Qu",
+      address_line1: "Yitiao Lu",
+      postal_code: "123456",
+      given_name: "John",
+      family_name: "Smith"
+    )
+    assert !address.valid?
+    assert address.errors.key?(:administrative_area)
+  end
 end

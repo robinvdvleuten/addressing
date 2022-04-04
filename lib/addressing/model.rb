@@ -2,8 +2,11 @@
 
 module Addressing
   module Model
-    def validates_address_format(fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], **options)
+    def validates_address_format(
+      fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], field_overrides: nil, **options)
       fields = Array(fields)
+      field_overrides ||= FieldOverrides.new({})
+
       options[:if] ||= -> { fields.any? { |f| changes.key?(f.to_s) } } unless options[:unless]
 
       class_eval do
@@ -24,14 +27,16 @@ module Addressing
           address_format.used_fields
 
           # Validate the presence of required fields.
-          address_format.required_fields.each do |required_field|
+          AddressFormatHelper::required_fields(address_format, field_overrides).each do |required_field|
             next unless address.send(required_field).blank?
 
             errors.add(required_field, "should not be blank")
           end
 
+          used_fields = address_format.used_fields - field_overrides.hidden_fields
+
           # Validate the absence of unused fields.
-          unused_fields = AddressField.all.values - address_format.used_fields
+          unused_fields = AddressField.all.values - used_fields
           unused_fields.each do |unused_field|
             next if address.send(unused_field).blank?
 
@@ -42,7 +47,7 @@ module Addressing
           subdivisions = verify_subdivisions(address, address_format)
 
           # Validate postal code.
-          verify_postal_code(address.postal_code, subdivisions, address_format) if address_format.used_fields.include?(AddressField::POSTAL_CODE)
+          verify_postal_code(address.postal_code, subdivisions, address_format) if used_fields.include?(AddressField::POSTAL_CODE)
         end
 
         define_method :verify_subdivisions do |address, address_format|

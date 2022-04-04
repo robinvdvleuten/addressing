@@ -141,4 +141,25 @@ module Addressing
       fields & used_fields
     end
   end
+
+  class AddressFormatHelper
+    class << self
+      # Gets the required fields.
+      #
+      # Applies field overrides to the required fields
+      # specified by the address format.
+      def required_fields(address_format, field_overrides)
+        required_fields = address_format.required_fields
+        required_fields = required_fields - field_overrides.optional_fields
+        required_fields = required_fields - field_overrides.hidden_fields
+
+        if field_overrides.required_fields
+          required_fields = required_fields + field_overrides.required_fields
+          required_fields = required_fields.uniq
+        end
+
+        required_fields
+      end
+    end
+  end
 end
