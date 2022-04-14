@@ -2,6 +2,10 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## Unreleased
+
+- Update CLDR to v41
+
 ## 0.3.1 (04-04-2022)
 
 - Break with both subdivisions and parents when subdivision field is empty
