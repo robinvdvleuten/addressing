@@ -285,4 +285,24 @@ class ModelTest < Minitest::Test
     assert !address.valid?
     assert address.errors.key?(:administrative_area)
   end
+
+  def test_without_characters_in_address_fields
+    address_klass = Class.new(Address) do
+      validates_address_format without: /[@;&]/
+    end
+
+    address = address_klass.new(
+      country_code: "CN",
+      administrative_area: "Beijing Shi",
+      locality: "Xich&eng Qu",
+      address_line1: "Yiti@ao Lu",
+      postal_code: "123456",
+      given_name: "J;ohn",
+      family_name: "Smith"
+    )
+    assert !address.valid?
+    assert address.errors.key?(:locality)
+    assert address.errors.key?(:address_line1)
+    assert address.errors.key?(:given_name)
+  end
 end

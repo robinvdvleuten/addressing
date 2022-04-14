@@ -3,7 +3,7 @@
 module Addressing
   module Model
     def validates_address_format(
-      fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], field_overrides: nil, **options)
+      fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], field_overrides: nil, without: nil, **options)
       fields = Array(fields)
       field_overrides ||= FieldOverrides.new({})
 
@@ -41,6 +41,15 @@ module Addressing
             next if address.send(unused_field).blank?
 
             errors.add(unused_field, "should be blank")
+          end
+
+          if without&.is_a?(Regexp)
+            fields.each do |field|
+              address_field = address.send(field)
+              next if address_field.blank? || address_field.scan(without).empty?
+
+              errors.add(field, "should not contain any excluded characters")
+            end
           end
 
           # Validate subdivisions.
