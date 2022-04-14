@@ -46,9 +46,12 @@ module Addressing
           if without&.is_a?(Regexp)
             fields.each do |field|
               address_field = address.send(field)
-              next if address_field.blank? || address_field.scan(without).empty?
+              next if address_field.blank?
 
-              errors.add(field, "should not contain any excluded characters")
+              scanned_chars = address_field.scan(without)
+              next if scanned_chars.empty?
+
+              errors.add(field, "should not contain '#{scanned_chars.uniq.join("', '")}'")
             end
           end
 
