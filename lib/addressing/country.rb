@@ -7,19 +7,20 @@ module Addressing
 
       @@available_locales = [
         "af", "am", "ar", "ar-LY", "ar-SA", "as", "az", "be", "bg", "bn",
-        "bn-IN", "bs", "ca", "cs", "cy", "da", "de", "de-AT", "de-CH", "el",
-        "en", "en-001", "en-CA", "en-GB", "en-MV", "es", "es-419", "es-AR",
-        "es-BO", "es-CL", "es-CO", "es-CR", "es-DO", "es-EC", "es-GT", "es-HN",
-        "es-MX", "es-NI", "es-PA", "es-PE", "es-PR", "es-PY", "es-SV", "es-US",
-        "es-VE", "et", "eu", "fa", "fa-AF", "fi", "fil", "fr", "fr-BE", "fr-CA",
-        "ga", "gl", "gu", "he", "hi", "hi-Latn", "hr", "hu", "hy", "id", "is",
-        "it", "ja", "ka", "kk", "km", "ko", "ko-KP", "ky", "lo", "lt", "lv",
-        "mk", "ml", "mn", "mr", "ms", "my", "ne", "nl", "nn", "no", "or", "pa",
-        "pl", "ps", "ps-PK", "pt", "pt-PT", "ro", "ro-MD", "ru", "ru-UA", "sd",
-        "si", "sk", "sl", "so", "sq", "sr", "sr-Cyrl-BA", "sr-Cyrl-ME",
-        "sr-Cyrl-XK", "sr-Latn", "sr-Latn-BA", "sr-Latn-ME", "sr-Latn-XK", "sv",
-        "sw", "sw-CD", "sw-KE", "ta", "te", "th", "tk", "tr", "uk", "ur",
-        "ur-IN", "uz", "vi", "yue", "zh", "zh-Hant", "zh-Hant-HK", "zu"
+        "bn-IN", "bs", "ca", "chr", "cs", "cy", "da", "de", "de-AT", "de-CH",
+        "dsb", "el", "en", "en-001", "en-AU", "en-CA", "en-MV", "es", "es-419",
+        "es-AR", "es-BO", "es-CL", "es-CO", "es-CR", "es-DO", "es-EC", "es-GT",
+        "es-HN", "es-MX", "es-NI", "es-PA", "es-PE", "es-PR", "es-PY", "es-SV",
+        "es-US", "es-VE", "et", "eu", "fa", "fa-AF", "fi", "fil", "fr",
+        "fr-BE", "fr-CA", "ga", "gd", "gl", "gu", "he", "hi", "hi-Latn", "hr",
+        "hsb", "hu", "hy", "id", "ig", "is", "it", "ja", "ka", "kk", "km",
+        "ko", "ko-KP", "kok", "ky", "lo", "lt", "lv", "mk", "ml", "mn", "mr",
+        "ms", "my", "ne", "nl", "nn", "no", "or", "pa", "pcm", "pl", "ps",
+        "ps-PK", "pt", "pt-PT", "qu", "ro", "ro-MD", "ru", "ru-UA", "si", "sk",
+        "sl", "so", "sq", "sr", "sr-Cyrl-BA", "sr-Cyrl-ME", "sr-Cyrl-XK",
+        "sr-Latn", "sr-Latn-BA", "sr-Latn-ME", "sr-Latn-XK", "sv", "sw",
+        "sw-CD", "sw-KE", "ta", "te", "th", "tk", "tr", "uk", "ur", "ur-IN",
+        "uz", "vi", "yue", "yue-Hans", "zh", "zh-Hant", "zh-Hant-HK", "zu",
       ]
 
       def get(country_code, locale = "en", fallback_locale = "en")
@@ -185,7 +186,7 @@ module Addressing
           "HK" => ["HKG", "344", "HKD"],
           "HM" => ["HMD", "334", "AUD"],
           "HN" => ["HND", "340", "HNL"],
-          "HR" => ["HRV", "191", "HRK"],
+          "HR" => ["HRV", "191", "EUR"],
           "HT" => ["HTI", "332", "USD"],
           "HU" => ["HUN", "348", "HUF"],
           "IC" => [nil, nil, "EUR"],
@@ -291,7 +292,7 @@ module Addressing
           "SI" => ["SVN", "705", "EUR"],
           "SJ" => ["SJM", "744", "NOK"],
           "SK" => ["SVK", "703", "EUR"],
-          "SL" => ["SLE", "694", "SLL"],
+          "SL" => ["SLE", "694", "SLE"],
           "SM" => ["SMR", "674", "EUR"],
           "SN" => ["SEN", "686", "XOF"],
           "SO" => ["SOM", "706", "SOS"],
@@ -365,7 +366,7 @@ module Addressing
     # Gets the timezones.
     #
     # Note that a country can span more than one timezone.
-    # For example, Germany has ['Europe/Berlin', 'Europe/Busingen'].
+    # For example, Germany has ["Europe/Berlin", "Europe/Busingen"].
     def timezones
       @timezones ||= TZInfo::Country.get(@country_code).zone_identifiers
     end

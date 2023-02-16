@@ -17,7 +17,7 @@ namespace :addressing do
 
     # Fetch country data (CLDR).
     puts "Fetching country data."
-    system "git clone --depth 1 --branch 41.0.0 https://github.com/unicode-org/cldr-json.git tmp/cldr"
+    system "git clone --depth 1 --branch 42.0.0 https://github.com/unicode-org/cldr-json.git tmp/cldr"
 
     # Fetch address data (Google).
     puts "Generating the url list.\n"
