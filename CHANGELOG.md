@@ -2,6 +2,10 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## Unreleased
+
+- Update CLDR to v42
+
 ## 0.4.0 (13-07-2022)
 
 - Update CLDR to v41
