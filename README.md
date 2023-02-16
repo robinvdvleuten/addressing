@@ -10,7 +10,7 @@ A Ruby addressing library, powered by CLDR and Google's address data.
 
 All data is [stored locally](data) as JSON and automatically updated through scheduled Github Actions. Countries are generated from [CLDR v41](https://github.com/unicode-org/cldr-json.git). Address formats and subdivisions are generated from [Google's Address Data Service](https://chromium-i18n.appspot.com/ssl-address).
 
-[![Build Status](https://img.shields.io/github/workflow/status/robinvdvleuten/addressing/test.svg)](https://github.com/robinvdvleuten/addressing/actions?query=workflow%3Atest)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/robinvdvleuten/addressing/test.yml?branch=main)](https://github.com/robinvdvleuten/addressing/actions?query=workflow%3Atest)
 [![MIT license](https://img.shields.io/github/license/robinvdvleuten/addressing.svg)](https://github.com/robinvdvleuten/addressing/blob/main/LICENSE)
 
 ## Installation
