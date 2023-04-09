@@ -1,6 +1,105 @@
 {
   "country_code": "CO",
   "subdivisions": {
+    "Amazonas": {
+      "iso_code": "CO-AMA"
+    },
+    "Antioquia": {
+      "iso_code": "CO-ANT"
+    },
+    "Arauca": {
+      "iso_code": "CO-ARA"
+    },
+    "Atlántico": {
+      "iso_code": "CO-ATL"
+    },
+    "Bogotá": {
+      "iso_code": "CO-DC"
+    },
+    "Bolívar": {
+      "iso_code": "CO-BOL"
+    },
+    "Boyacá": {
+      "iso_code": "CO-BOY"
+    },
+    "Caldas": {
+      "iso_code": "CO-CAL"
+    },
+    "Caquetá": {
+      "iso_code": "CO-CAQ"
+    },
+    "Casanare": {
+      "iso_code": "CO-CAS"
+    },
+    "Cauca": {
+      "iso_code": "CO-CAU"
+    },
+    "Cesar": {
+      "iso_code": "CO-CES"
+    },
+    "Chocó": {
+      "iso_code": "CO-CHO"
+    },
+    "Córdoba": {
+      "iso_code": "CO-COR"
+    },
+    "Cundinamarca": {
+      "iso_code": "CO-CUN"
+    },
+    "Guainía": {
+      "iso_code": "CO-GUA"
+    },
+    "Guaviare": {
+      "iso_code": "CO-GUV"
+    },
+    "Huila": {
+      "iso_code": "CO-HUI"
+    },
+    "La Guajira": {
+      "iso_code": "CO-LAG"
+    },
+    "Magdalena": {
+      "iso_code": "CO-MAG"
+    },
+    "Meta": {
+      "iso_code": "CO-MET"
+    },
+    "Nariño": {
+      "iso_code": "CO-NAR"
+    },
+    "Norte de Santander": {
+      "iso_code": "CO-NSA"
+    },
+    "Putumayo": {
+      "iso_code": "CO-PUT"
+    },
+    "Quindío": {
+      "iso_code": "CO-QUI"
+    },
+    "Risaralda": {
+      "iso_code": "CO-RIS"
+    },
+    "San Andrés y Providencia": {
+      "iso_code": "CO-SAP"
+    },
+    "Santander": {
+      "iso_code": "CO-SAN"
+    },
+    "Sucre": {
+      "iso_code": "CO-SUC"
+    },
+    "Tolima": {
+      "iso_code": "CO-TOL"
+    },
+    "Valle del Cauca": {
+      "iso_code": "CO-VAC"
+    },
+    "Vaupés": {
+      "iso_code": "CO-VAU"
+    },
+    "Vichada": {
+      "iso_code": "CO-VID"
+    },
     "DC": {
       "name": "Distrito Capital de Bogotá",
       "iso_code": "CO-DC",
