@@ -58,7 +58,8 @@
       "has_children": true
     },
     "Ñuble": {
-      "iso_code": "CL-NB"
+      "iso_code": "CL-NB",
+      "has_children": true
     },
     "Tarapacá": {
       "iso_code": "CL-TA",
