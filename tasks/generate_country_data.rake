@@ -170,7 +170,7 @@ def discover_locales
     # Africa secondary languages.
     "bm", "byn", "dje", "dyo", "ff", "ha", "shi", "vai", "wo", "yo",
     # Infrequently used locales.
-    "jv", "kn", "row", "sat", "sd", "to",
+    "jv", "kn", "row", "sat", "sd", "to"
   ]
 
   Dir.entries(LOCALE_DIR).inject([]) do |locales, entry|
@@ -205,7 +205,7 @@ def prepare_currencies(currencies)
     if a == b
       0
     else
-      (a < b ? -1 : 1)
+      ((a < b) ? -1 : 1)
     end
   end
 

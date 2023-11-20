@@ -37,7 +37,7 @@ module Addressing
       output = clean_output(output)
 
       if options[:html]
-        output = output.gsub(/\n/, "<br>\n")
+        output = output.gsub("\n", "<br>\n")
         # Add the HTML wrapper element.
         output = render_html_element(value: "\n#{output}\n", html_tag: options[:html_tag], html_attributes: options[:html_attributes])
       end
@@ -105,7 +105,7 @@ module Addressing
           break
         end
 
-        parents << (index > 0 ? original_values[subdivision_fields[index - 1]] : address.country_code)
+        parents << ((index > 0) ? original_values[subdivision_fields[index - 1]] : address.country_code)
 
         subdivision = Subdivision.get(values[field], parents)
         if subdivision.nil?

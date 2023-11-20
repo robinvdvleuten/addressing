@@ -20,7 +20,7 @@ module Addressing
         "sl", "so", "sq", "sr", "sr-Cyrl-BA", "sr-Cyrl-ME", "sr-Cyrl-XK",
         "sr-Latn", "sr-Latn-BA", "sr-Latn-ME", "sr-Latn-XK", "sv", "sw",
         "sw-CD", "sw-KE", "ta", "te", "th", "tk", "tr", "uk", "ur", "ur-IN",
-        "uz", "vi", "yue", "yue-Hans", "zh", "zh-Hant", "zh-Hant-HK", "zu",
+        "uz", "vi", "yue", "yue-Hans", "zh", "zh-Hant", "zh-Hant-HK", "zu"
       ]
 
       def get(country_code, locale = "en", fallback_locale = "en")

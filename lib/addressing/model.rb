@@ -3,7 +3,8 @@
 module Addressing
   module Model
     def validates_address_format(
-      fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], field_overrides: nil, **options)
+      fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], field_overrides: nil, **options
+    )
       fields = Array(fields)
       field_overrides ||= FieldOverrides.new({})
 
@@ -13,7 +14,7 @@ module Addressing
         validate :verify_address_format, **options
 
         define_method :verify_address_format do
-          values = fields.each_with_object({}) { |f, v| v[f] = send(f) if self.respond_to?(f) }
+          values = fields.each_with_object({}) { |f, v| v[f] = send(f) if respond_to?(f) }
           address = Address.new(**values)
 
           return unless address.country_code.present?
@@ -27,7 +28,7 @@ module Addressing
           address_format.used_fields
 
           # Validate the presence of required fields.
-          AddressFormatHelper::required_fields(address_format, field_overrides).each do |required_field|
+          AddressFormatHelper.required_fields(address_format, field_overrides).each do |required_field|
             next unless address.send(required_field).blank?
 
             errors.add(required_field, "should not be blank")
@@ -58,7 +59,7 @@ module Addressing
             # The field is empty or validation is disabled.
             break [subdivisions, parents] if address.send(field).blank? || field_overrides.hidden_fields.include?(field)
 
-            parents << (index > 0 ? address.send(address_format.used_subdivision_fields[index - 1]) : address_format.country_code)
+            parents << ((index > 0) ? address.send(address_format.used_subdivision_fields[index - 1]) : address_format.country_code)
             subdivision = Subdivision.get(address.send(field), parents)
             if subdivision.nil?
               errors.add(field, "should be valid")
@@ -91,7 +92,7 @@ module Addressing
             match = postal_code.match(Regexp.new(pattern.gsub("\\\\", "\\").to_s, "i"))
             if match.nil? || match[0] != postal_code
               errors.add(AddressField::POSTAL_CODE, "should be valid")
-              return
+              nil
             end
           end
         end

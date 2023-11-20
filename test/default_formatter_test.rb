@@ -20,7 +20,7 @@ class DefaultFormatterTest < Minitest::Test
   end
 
   def test_andorra_address
-    address = (Addressing::Address.new)
+    address = Addressing::Address.new
       .with_country_code("AD")
       .with_locality("Parròquia d'Andorra la Vella")
       .with_postal_code("AD500")
@@ -39,7 +39,7 @@ class DefaultFormatterTest < Minitest::Test
   end
 
   def test_el_salvadar_address
-    address = (Addressing::Address.new)
+    address = Addressing::Address.new
       .with_country_code("SV")
       .with_administrative_area("Ahuachapán")
       .with_locality("Ahuachapán")
@@ -95,7 +95,7 @@ class DefaultFormatterTest < Minitest::Test
   def test_taiwan_address
     # Real addresses in the major-to-minor order would be completely in
     # Traditional Chinese. That's not the case here, for readability.
-    address = (Addressing::Address.new)
+    address = Addressing::Address.new
       .with_country_code("TW")
       .with_administrative_area("Taipei City")
       .with_locality("Da'an District")
@@ -136,7 +136,7 @@ class DefaultFormatterTest < Minitest::Test
   end
 
   def test_united_states_incomplete_address
-    address = (Addressing::Address.new)
+    address = Addressing::Address.new
       .with_country_code("US")
       .with_administrative_area("CA")
       .with_postal_code("94043")

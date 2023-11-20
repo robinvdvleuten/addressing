@@ -10,7 +10,7 @@ class AddressFormatHelperTest < Minitest::Test
       required_fields: [
         Addressing::AddressField::ADMINISTRATIVE_AREA,
         Addressing::AddressField::LOCALITY,
-        Addressing::AddressField::POSTAL_CODE,
+        Addressing::AddressField::POSTAL_CODE
       ]
     )
 
@@ -18,18 +18,18 @@ class AddressFormatHelperTest < Minitest::Test
     expected_required_fields = [
       Addressing::AddressField::ADMINISTRATIVE_AREA,
       Addressing::AddressField::LOCALITY,
-      Addressing::AddressField::POSTAL_CODE,
+      Addressing::AddressField::POSTAL_CODE
     ]
     assert_equal expected_required_fields, Addressing::AddressFormatHelper.required_fields(address_format, field_overrides)
 
     field_overrides = Addressing::FieldOverrides.new({
       Addressing::AddressField::ADMINISTRATIVE_AREA => Addressing::FieldOverride::HIDDEN,
       Addressing::AddressField::POSTAL_CODE => Addressing::FieldOverride::OPTIONAL,
-      Addressing::AddressField::ADDRESS_LINE1 => Addressing::FieldOverride::REQUIRED,
+      Addressing::AddressField::ADDRESS_LINE1 => Addressing::FieldOverride::REQUIRED
     })
     expected_required_fields = [
       Addressing::AddressField::LOCALITY,
-      Addressing::AddressField::ADDRESS_LINE1,
+      Addressing::AddressField::ADDRESS_LINE1
     ]
     assert_equal expected_required_fields, Addressing::AddressFormatHelper.required_fields(address_format, field_overrides)
   end

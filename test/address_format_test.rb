@@ -75,7 +75,7 @@ class AddressFormatTest < Minitest::Test
       locality_type: Addressing::LocalityType::CITY,
       dependent_locality_type: Addressing::DependentLocalityType::DISTRICT,
       postal_code_type: Addressing::PostalCodeType::ZIP,
-      postal_code_pattern: "(\d{5})(?:[ \-](\d{4}))?",
+      postal_code_pattern: "(\d{5})(?:[ -](\d{4}))?",
       # US doesn't use postal code prefixes, fake one for test purposes.
       postal_code_prefix: "US",
       subdivision_depth: 1

@@ -38,7 +38,7 @@ class SubdivisionTest < Minitest::Test
         parents: ["BR", "SC"],
         locale: "pt",
         subdivisions: {
-          'Abelardo Luz': {}
+          "Abelardo Luz": {}
         }
       }
     end

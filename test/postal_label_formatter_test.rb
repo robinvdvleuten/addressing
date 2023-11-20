@@ -19,7 +19,7 @@ class PostalLabelFormatterTest < Minitest::Test
   end
 
   def test_united_states_address
-    address = (Addressing::Address.new)
+    address = Addressing::Address.new
       .with_country_code("US")
       .with_administrative_area("CA")
       .with_locality("Mt View")
@@ -47,7 +47,7 @@ class PostalLabelFormatterTest < Minitest::Test
   end
 
   def test_japan_address_shipped_from_france
-    address = (Addressing::Address.new)
+    address = Addressing::Address.new
       .with_country_code("JP")
       .with_administrative_area("Hokkaido")
       .with_locality("Some City")
@@ -70,7 +70,7 @@ class PostalLabelFormatterTest < Minitest::Test
   end
 
   def test_address_leading_post_prefix
-    address = (Addressing::Address.new)
+    address = Addressing::Address.new
       .with_country_code("CH")
       .with_locality("Herrliberg")
       .with_postal_code("8047")
