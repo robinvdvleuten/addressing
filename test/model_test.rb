@@ -72,8 +72,7 @@ class ModelTest < Minitest::Test
       given_name: "John",
       family_name: "Smith"
     )
-    assert !address.valid?
-    assert address.errors.key?(:postal_code)
+    assert address.valid?
   end
 
   def test_china_valid
@@ -235,7 +234,7 @@ class ModelTest < Minitest::Test
     assert address.errors.key?(:postal_code)
   end
 
-  def test_overriding_required_fields
+  def test_overridden_required_fields
     address_klass = Class.new(Address) do
       validates_address_format field_overrides: Addressing::FieldOverrides.new({ "given_name" => Addressing::FieldOverride::OPTIONAL, "family_name" => Addressing::FieldOverride::OPTIONAL })
     end

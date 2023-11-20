@@ -20,7 +20,6 @@ class SubdivisionTest < Minitest::Test
             name: "Santa Catarina",
             iso_code: "BR-SC",
             postal_code_pattern: "8[89]",
-            postal_code_pattern_type: "full",
             has_children: true
           },
           SP: {
@@ -57,7 +56,6 @@ class SubdivisionTest < Minitest::Test
     assert_equal "Santa Catarina", subdivision.name
     assert_equal "BR-SC", subdivision.iso_code
     assert_equal "8[89]", subdivision.postal_code_pattern
-    assert_equal Addressing::PatternType::FULL, subdivision.postal_code_pattern_type
 
     children = subdivision.children
     assert_same_elements subdivision_child.to_h, children["Abelardo Luz"].to_h
@@ -123,7 +121,6 @@ class SubdivisionTest < Minitest::Test
       local_name: "California!",
       iso_code: "US-CA",
       postal_code_pattern: "9[0-5]|96[01]",
-      postal_code_pattern_type: Addressing::PatternType::START,
       children: children
     )
 
@@ -136,7 +133,6 @@ class SubdivisionTest < Minitest::Test
     assert_equal "California!", subdivision.local_name
     assert_equal "US-CA", subdivision.iso_code
     assert_equal "9[0-5]|96[01]", subdivision.postal_code_pattern
-    assert_equal Addressing::PatternType::START, subdivision.postal_code_pattern_type
     assert_equal children, subdivision.children
     assert subdivision.children?
   end

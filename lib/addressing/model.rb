@@ -79,28 +79,19 @@ module Addressing
           # Nothing to validate.
           return if postal_code.blank?
 
-          full_pattern, start_pattern = subdivisions.inject([address_format.postal_code_pattern, nil]) do |(full_pattern, start_pattern), subdivision|
-            pattern = subdivision.postal_code_pattern
-            next [full_pattern, start_pattern] if pattern.blank?
-            next [pattern, start_pattern] if subdivision.postal_code_pattern_type == PatternType::FULL
+          pattern = subdivisions.inject(address_format.postal_code_pattern) do |pattern, subdivision|
+            subdivision_pattern = subdivision.postal_code_pattern
+            next pattern if subdivision_pattern.blank?
 
-            [full_pattern, pattern]
+            subdivision_pattern
           end
 
-          if full_pattern
+          if pattern
             # The pattern must match the provided value completely.
-            match = postal_code.match(Regexp.new(full_pattern.gsub("\\\\", "\\").to_s, "i"))
+            match = postal_code.match(Regexp.new(pattern.gsub("\\\\", "\\").to_s, "i"))
             if match.nil? || match[0] != postal_code
               errors.add(AddressField::POSTAL_CODE, "should be valid")
               return
-            end
-          end
-
-          if start_pattern
-            # The pattern must match the start of the provided value.
-            match = postal_code.match(Regexp.new(start_pattern.gsub("\\\\", "\\").to_s, "i"))
-            if match.nil? || postal_code.index(match[0]) != 0
-              errors.add(AddressField::POSTAL_CODE, "should be valid")
             end
           end
         end

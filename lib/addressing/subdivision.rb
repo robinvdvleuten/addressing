@@ -187,13 +187,12 @@ module Addressing
           local_name: definition["local_name"],
           iso_code: definition["iso_code"],
           postal_code_pattern: definition["postal_code_pattern"],
-          postal_code_pattern_type: definition["postal_code_pattern_type"],
           children: definition["children"] || {}
         )
       end
     end
 
-    attr_reader :parent, :country_code, :locale, :code, :local_code, :name, :local_name, :iso_code, :postal_code_pattern, :postal_code_pattern_type, :children
+    attr_reader :parent, :country_code, :locale, :code, :local_code, :name, :local_name, :iso_code, :postal_code_pattern, :children
 
     def initialize(definition = {})
       # Validate the presence of required properties.
@@ -211,7 +210,6 @@ module Addressing
         local_name: nil,
         iso_code: nil,
         postal_code_pattern: nil,
-        postal_code_pattern_type: PatternType.default,
         children: {}
       }.merge(definition)
 
@@ -224,7 +222,6 @@ module Addressing
       @local_name = definition[:local_name]
       @iso_code = definition[:iso_code]
       @postal_code_pattern = definition[:postal_code_pattern]
-      @postal_code_pattern_type = definition[:postal_code_pattern_type]
       @children = definition[:children]
     end
 
@@ -243,7 +240,6 @@ module Addressing
         local_name: local_name,
         iso_code: iso_code,
         postal_code_pattern: postal_code_pattern,
-        postal_code_pattern_type: postal_code_pattern_type,
         children: children
       }
     end

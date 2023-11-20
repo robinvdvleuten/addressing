@@ -103,7 +103,7 @@ The [Subdivision](lib/addressing/subdivision.rb) class provides the following in
 - The subdivision code (used to represent the subdivison on a parcel/envelope, e.g. CA for California)
 - The subdivison name (shown to the user in a dropdown)
 - The local code and name, if the country uses a non-latin script (e.g. Cyrilic in Russia).
-- The postal code prefix (used to ensure that a postal code begins with the expected characters)
+- The postal code pattern (if different from the one on the address format).
 
 Subdivisions are hierarchical and can have up to three levels: Administrative Area -> Locality -> Dependent Locality.
 

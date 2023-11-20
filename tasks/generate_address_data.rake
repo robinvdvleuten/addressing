@@ -281,12 +281,6 @@ def create_subdivision_definition(country_code, code, raw_definition)
 
   if raw_definition.key?("xzip")
     subdivision["postal_code_pattern"] = raw_definition["xzip"]
-    subdivision["postal_code_pattern_type"] = "full"
-  elsif raw_definition.key?("zip")
-    subdivision["postal_code_pattern"] = raw_definition["zip"]
-    # There are more than 12 000 subdivisions, but only a few Chinese
-    # ones specify a full pattern. Therefore, the postal_code_pattern_type
-    # value is the same for most subdivisions, and omitted to save space.
   end
 
   subdivision
@@ -336,7 +330,7 @@ def process_locale(locale)
   Addressing::Locale.canonicalize(locale)
 end
 
-# Converts google's field symbols to the expected values.
+# Converts Google's field symbols to the expected values.
 def convert_fields(fields, type)
   return nil if fields.nil?
   return [] if fields.empty?
