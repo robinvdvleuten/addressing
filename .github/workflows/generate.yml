@@ -21,6 +21,6 @@ jobs:
       - uses: peter-evans/create-pull-request@v3
         with:
             commit-message: Generate addressing data
-            title: Generate addressing data
+            title: "feat: Generate addressing data"
             branch: generate-addressing-data
             branch-suffix: random
