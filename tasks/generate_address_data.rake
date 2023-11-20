@@ -29,7 +29,7 @@ namespace :addressing do
 
     lines = definitions.map do |country_code, definition|
       normalize_definition(definition)
-      JSON.generate({"country_code" => country_code}.merge(definition), space: " ")
+      JSON.generate({"country_code" => country_code}.merge(definition))
     end
 
     puts "Writing definitions to data\n"
