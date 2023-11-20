@@ -16,11 +16,11 @@ namespace :addressing do
     puts "Extracting definitions from AddressFormatRepository.php\n"
 
     # Extract definitions from the getDefinitions() method.
-    definitions_match = address_format_repo.match(/getDefinitions\(\): array\s*\{.+?(\$.*\];)/m)
+    definitions_match = address_format_repo.match(/getDefinitions\(\): array\s*\{.+?(\[.*\]);/m)
     raise "Unable to extract definitions from AddressFormatRepository.php" if definitions_match.nil?
 
     # Moving the extracted definitions to PHP file."
-    File.write("tmp/definitions.php", "<?php\n#{definitions_match[1]}\necho json_encode($definitions);")
+    File.write("tmp/definitions.php", "<?php\n$definitions = #{definitions_match[1]};\necho json_encode($definitions);")
 
     # Retrieve definitions from PHP file as JSON.
     system "php tmp/definitions.php > tmp/definitions.json"

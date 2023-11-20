@@ -15,6 +15,7 @@ module Addressing
     PARISH = "parish"
     PREFECTURE = "prefecture"
     PROVINCE = "province"
+    REGION = "region"
     STATE = "state"
 
     # Gets the default value.
