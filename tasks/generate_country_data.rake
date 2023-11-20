@@ -1,7 +1,7 @@
 LOCALE_DIR = File.expand_path("../../tmp/cldr/cldr-json/cldr-localenames-modern/main", __FILE__)
 
 namespace :addressing do
-  task :generate_country_data do
+  task :generate do
     require "addressing"
     require "date"
     require "ffi-icu"
