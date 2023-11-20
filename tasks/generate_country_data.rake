@@ -1,7 +1,7 @@
 LOCALE_DIR = File.expand_path("../../tmp/cldr/cldr-json/cldr-localenames-modern/main", __FILE__)
 
 namespace :addressing do
-  task :generate do
+  task :generate_country_data do
     require "addressing"
     require "date"
     require "ffi-icu"
@@ -45,15 +45,19 @@ namespace :addressing do
 
     FileUtils.cp_r("tmp/country/", "data", remove_destination: true)
 
-    # p localizations.keys.sort
+    puts "Available locales (for copying to lib/addressing/country.rb):\n"
+    p localizations.keys.sort
 
-    # export_base_data = base_data.each do |country_code, country_data|
-    #   three_letter_code = country_data.key?("three_letter_code") ? "\"#{country_data["three_letter_code"]}\"" : "nil"
-    #   numeric_code = country_data.key?("numeric_code") ? "\"#{country_data["numeric_code"]}\"" : "nil"
-    #   currency_code = country_data.key?("currency_code") ? "\"#{country_data["currency_code"]}\"" : "nil"
+    export_base_data = base_data.map do |country_code, country_data|
+      three_letter_code = country_data.key?("three_letter_code") ? "\"#{country_data["three_letter_code"]}\"" : "nil"
+      numeric_code = country_data.key?("numeric_code") ? "\"#{country_data["numeric_code"]}\"" : "nil"
+      currency_code = country_data.key?("currency_code") ? "\"#{country_data["currency_code"]}\"" : "nil"
 
-    #   puts "\"#{country_code}\" => [#{three_letter_code}, #{numeric_code}, #{currency_code}],"
-    # end
+      "\"#{country_code}\" => [#{three_letter_code}, #{numeric_code}, #{currency_code}],"
+    end
+
+    puts "Available definitions (for copying to lib/addressing/country.rb):\n"
+    puts export_base_data.join("\n")
 
     puts "Done."
   end

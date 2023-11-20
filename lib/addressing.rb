@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+# stdlib
 require "cgi"
 require "digest"
 require "json"
 
+# modules
 require "addressing/enum"
 require "addressing/address"
 require "addressing/address_field"
