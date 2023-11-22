@@ -2,7 +2,7 @@
 
 A Ruby addressing library, powered by CLDR and Google's address data.
 
-- Countries, with translations for over 250 locales. Powered by [CLDR](http://cldr.unicode.org) v42.
+- Countries, with translations for over 250 locales. Powered by [CLDR](http://cldr.unicode.org) v43.
 - Address formats for over 200 countries.
 - Subdivisions (administrative areas, localities, dependent localities) for 44 countries.
 - Both latin and local subdivision names, when relevant (e.g: Okinawa / 沖縄県).
