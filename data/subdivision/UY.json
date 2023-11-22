@@ -1,62 +1,62 @@
 {
-  "country_code": "UY",
-  "subdivisions": {
-    "Artigas": {
-      "iso_code": "UY-AR"
-    },
-    "Canelones": {
-      "iso_code": "UY-CA"
-    },
-    "Cerro Largo": {
-      "iso_code": "UY-CL"
-    },
-    "Colonia": {
-      "iso_code": "UY-CO"
-    },
-    "Durazno": {
-      "iso_code": "UY-DU"
-    },
-    "Flores": {
-      "iso_code": "UY-FS"
-    },
-    "Florida": {
-      "iso_code": "UY-FD"
-    },
-    "Lavalleja": {
-      "iso_code": "UY-LA"
-    },
-    "Maldonado": {
-      "iso_code": "UY-MA"
-    },
-    "Montevideo": {
-      "iso_code": "UY-MO"
-    },
-    "Paysandú": {
-      "iso_code": "UY-PA"
-    },
-    "Río Negro": {
-      "iso_code": "UY-RN"
-    },
-    "Rivera": {
-      "iso_code": "UY-RV"
-    },
-    "Rocha": {
-      "iso_code": "UY-RO"
-    },
-    "Salto": {
-      "iso_code": "UY-SA"
-    },
-    "San José": {
-      "iso_code": "UY-SJ"
-    },
-    "Soriano": {
-      "iso_code": "UY-SO"
-    },
-    "Tacuarembó": {
-      "iso_code": "UY-TA"
-    },
-    "Treinta y Tres": {
-      "iso_code": "UY-TT"
-    }
-  }
+	"country_code": "UY",
+	"subdivisions": {
+		"Artigas": {
+			"iso_code": "UY-AR"
+		},
+		"Canelones": {
+			"iso_code": "UY-CA"
+		},
+		"Cerro Largo": {
+			"iso_code": "UY-CL"
+		},
+		"Colonia": {
+			"iso_code": "UY-CO"
+		},
+		"Durazno": {
+			"iso_code": "UY-DU"
+		},
+		"Flores": {
+			"iso_code": "UY-FS"
+		},
+		"Florida": {
+			"iso_code": "UY-FD"
+		},
+		"Lavalleja": {
+			"iso_code": "UY-LA"
+		},
+		"Maldonado": {
+			"iso_code": "UY-MA"
+		},
+		"Montevideo": {
+			"iso_code": "UY-MO"
+		},
+		"Paysandú": {
+			"iso_code": "UY-PA"
+		},
+		"Río Negro": {
+			"iso_code": "UY-RN"
+		},
+		"Rivera": {
+			"iso_code": "UY-RV"
+		},
+		"Rocha": {
+			"iso_code": "UY-RO"
+		},
+		"Salto": {
+			"iso_code": "UY-SA"
+		},
+		"San José": {
+			"iso_code": "UY-SJ"
+		},
+		"Soriano": {
+			"iso_code": "UY-SO"
+		},
+		"Tacuarembó": {
+			"iso_code": "UY-TA"
+		},
+		"Treinta y Tres": {
+			"iso_code": "UY-TT"
+		}
+	}
 }

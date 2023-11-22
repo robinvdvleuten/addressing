@@ -1,56 +1,56 @@
 {
-  "country_code": "NI",
-  "subdivisions": {
-    "Boaco": {
-      "iso_code": "NI-BO"
-    },
-    "Carazo": {
-      "iso_code": "NI-CA"
-    },
-    "Chinandega": {
-      "iso_code": "NI-CI"
-    },
-    "Chontales": {
-      "iso_code": "NI-CO"
-    },
-    "Estelí": {
-      "iso_code": "NI-ES"
-    },
-    "Granada": {
-      "iso_code": "NI-GR"
-    },
-    "Jinotega": {
-      "iso_code": "NI-JI"
-    },
-    "León": {
-      "iso_code": "NI-LE"
-    },
-    "Madriz": {
-      "iso_code": "NI-MD"
-    },
-    "Managua": {
-      "iso_code": "NI-MN"
-    },
-    "Masaya": {
-      "iso_code": "NI-MS"
-    },
-    "Matagalpa": {
-      "iso_code": "NI-MT"
-    },
-    "Nueva Segovia": {
-      "iso_code": "NI-NS"
-    },
-    "Región Autónoma de la Costa Caribe Norte": {
-      "iso_code": "NI-AN"
-    },
-    "Región Autónoma de la Costa Caribe Sur": {
-      "iso_code": "NI-AS"
-    },
-    "Río San Juan": {
-      "iso_code": "NI-SJ"
-    },
-    "Rivas": {
-      "iso_code": "NI-RI"
-    }
-  }
+	"country_code": "NI",
+	"subdivisions": {
+		"Boaco": {
+			"iso_code": "NI-BO"
+		},
+		"Carazo": {
+			"iso_code": "NI-CA"
+		},
+		"Chinandega": {
+			"iso_code": "NI-CI"
+		},
+		"Chontales": {
+			"iso_code": "NI-CO"
+		},
+		"Estelí": {
+			"iso_code": "NI-ES"
+		},
+		"Granada": {
+			"iso_code": "NI-GR"
+		},
+		"Jinotega": {
+			"iso_code": "NI-JI"
+		},
+		"León": {
+			"iso_code": "NI-LE"
+		},
+		"Madriz": {
+			"iso_code": "NI-MD"
+		},
+		"Managua": {
+			"iso_code": "NI-MN"
+		},
+		"Masaya": {
+			"iso_code": "NI-MS"
+		},
+		"Matagalpa": {
+			"iso_code": "NI-MT"
+		},
+		"Nueva Segovia": {
+			"iso_code": "NI-NS"
+		},
+		"Región Autónoma de la Costa Caribe Norte": {
+			"iso_code": "NI-AN"
+		},
+		"Región Autónoma de la Costa Caribe Sur": {
+			"iso_code": "NI-AS"
+		},
+		"Río San Juan": {
+			"iso_code": "NI-SJ"
+		},
+		"Rivas": {
+			"iso_code": "NI-RI"
+		}
+	}
 }

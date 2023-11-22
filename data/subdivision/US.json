@@ -1,242 +1,242 @@
 {
-  "country_code": "US",
-  "subdivisions": {
-    "AL": {
-      "name": "Alabama",
-      "iso_code": "US-AL"
-    },
-    "AK": {
-      "name": "Alaska",
-      "iso_code": "US-AK"
-    },
-    "AS": {
-      "name": "American Samoa"
-    },
-    "AZ": {
-      "name": "Arizona",
-      "iso_code": "US-AZ"
-    },
-    "AR": {
-      "name": "Arkansas",
-      "iso_code": "US-AR"
-    },
-    "AA": {
-      "name": "Armed Forces (AA)"
-    },
-    "AE": {
-      "name": "Armed Forces (AE)"
-    },
-    "AP": {
-      "name": "Armed Forces (AP)"
-    },
-    "CA": {
-      "name": "California",
-      "iso_code": "US-CA"
-    },
-    "CO": {
-      "name": "Colorado",
-      "iso_code": "US-CO"
-    },
-    "CT": {
-      "name": "Connecticut",
-      "iso_code": "US-CT"
-    },
-    "DE": {
-      "name": "Delaware",
-      "iso_code": "US-DE"
-    },
-    "DC": {
-      "name": "District of Columbia",
-      "iso_code": "US-DC"
-    },
-    "FL": {
-      "name": "Florida",
-      "iso_code": "US-FL"
-    },
-    "GA": {
-      "name": "Georgia",
-      "iso_code": "US-GA"
-    },
-    "GU": {
-      "name": "Guam"
-    },
-    "HI": {
-      "name": "Hawaii",
-      "iso_code": "US-HI"
-    },
-    "ID": {
-      "name": "Idaho",
-      "iso_code": "US-ID"
-    },
-    "IL": {
-      "name": "Illinois",
-      "iso_code": "US-IL"
-    },
-    "IN": {
-      "name": "Indiana",
-      "iso_code": "US-IN"
-    },
-    "IA": {
-      "name": "Iowa",
-      "iso_code": "US-IA"
-    },
-    "KS": {
-      "name": "Kansas",
-      "iso_code": "US-KS"
-    },
-    "KY": {
-      "name": "Kentucky",
-      "iso_code": "US-KY"
-    },
-    "LA": {
-      "name": "Louisiana",
-      "iso_code": "US-LA"
-    },
-    "ME": {
-      "name": "Maine",
-      "iso_code": "US-ME"
-    },
-    "MH": {
-      "name": "Marshall Islands"
-    },
-    "MD": {
-      "name": "Maryland",
-      "iso_code": "US-MD"
-    },
-    "MA": {
-      "name": "Massachusetts",
-      "iso_code": "US-MA"
-    },
-    "MI": {
-      "name": "Michigan",
-      "iso_code": "US-MI"
-    },
-    "FM": {
-      "name": "Micronesia"
-    },
-    "MN": {
-      "name": "Minnesota",
-      "iso_code": "US-MN"
-    },
-    "MS": {
-      "name": "Mississippi",
-      "iso_code": "US-MS"
-    },
-    "MO": {
-      "name": "Missouri",
-      "iso_code": "US-MO"
-    },
-    "MT": {
-      "name": "Montana",
-      "iso_code": "US-MT"
-    },
-    "NE": {
-      "name": "Nebraska",
-      "iso_code": "US-NE"
-    },
-    "NV": {
-      "name": "Nevada",
-      "iso_code": "US-NV"
-    },
-    "NH": {
-      "name": "New Hampshire",
-      "iso_code": "US-NH"
-    },
-    "NJ": {
-      "name": "New Jersey",
-      "iso_code": "US-NJ"
-    },
-    "NM": {
-      "name": "New Mexico",
-      "iso_code": "US-NM"
-    },
-    "NY": {
-      "name": "New York",
-      "iso_code": "US-NY"
-    },
-    "NC": {
-      "name": "North Carolina",
-      "iso_code": "US-NC"
-    },
-    "ND": {
-      "name": "North Dakota",
-      "iso_code": "US-ND"
-    },
-    "MP": {
-      "name": "Northern Mariana Islands"
-    },
-    "OH": {
-      "name": "Ohio",
-      "iso_code": "US-OH"
-    },
-    "OK": {
-      "name": "Oklahoma",
-      "iso_code": "US-OK"
-    },
-    "OR": {
-      "name": "Oregon",
-      "iso_code": "US-OR"
-    },
-    "PW": {
-      "name": "Palau"
-    },
-    "PA": {
-      "name": "Pennsylvania",
-      "iso_code": "US-PA"
-    },
-    "PR": {
-      "name": "Puerto Rico"
-    },
-    "RI": {
-      "name": "Rhode Island",
-      "iso_code": "US-RI"
-    },
-    "SC": {
-      "name": "South Carolina",
-      "iso_code": "US-SC"
-    },
-    "SD": {
-      "name": "South Dakota",
-      "iso_code": "US-SD"
-    },
-    "TN": {
-      "name": "Tennessee",
-      "iso_code": "US-TN"
-    },
-    "TX": {
-      "name": "Texas",
-      "iso_code": "US-TX"
-    },
-    "UT": {
-      "name": "Utah",
-      "iso_code": "US-UT"
-    },
-    "VT": {
-      "name": "Vermont",
-      "iso_code": "US-VT"
-    },
-    "VI": {
-      "name": "Virgin Islands"
-    },
-    "VA": {
-      "name": "Virginia",
-      "iso_code": "US-VA"
-    },
-    "WA": {
-      "name": "Washington",
-      "iso_code": "US-WA"
-    },
-    "WV": {
-      "name": "West Virginia",
-      "iso_code": "US-WV"
-    },
-    "WI": {
-      "name": "Wisconsin",
-      "iso_code": "US-WI"
-    },
-    "WY": {
-      "name": "Wyoming",
-      "iso_code": "US-WY"
-    }
-  }
+	"country_code": "US",
+	"subdivisions": {
+		"AL": {
+			"name": "Alabama",
+			"iso_code": "US-AL"
+		},
+		"AK": {
+			"name": "Alaska",
+			"iso_code": "US-AK"
+		},
+		"AS": {
+			"name": "American Samoa"
+		},
+		"AZ": {
+			"name": "Arizona",
+			"iso_code": "US-AZ"
+		},
+		"AR": {
+			"name": "Arkansas",
+			"iso_code": "US-AR"
+		},
+		"AA": {
+			"name": "Armed Forces (AA)"
+		},
+		"AE": {
+			"name": "Armed Forces (AE)"
+		},
+		"AP": {
+			"name": "Armed Forces (AP)"
+		},
+		"CA": {
+			"name": "California",
+			"iso_code": "US-CA"
+		},
+		"CO": {
+			"name": "Colorado",
+			"iso_code": "US-CO"
+		},
+		"CT": {
+			"name": "Connecticut",
+			"iso_code": "US-CT"
+		},
+		"DE": {
+			"name": "Delaware",
+			"iso_code": "US-DE"
+		},
+		"DC": {
+			"name": "District of Columbia",
+			"iso_code": "US-DC"
+		},
+		"FL": {
+			"name": "Florida",
+			"iso_code": "US-FL"
+		},
+		"GA": {
+			"name": "Georgia",
+			"iso_code": "US-GA"
+		},
+		"GU": {
+			"name": "Guam"
+		},
+		"HI": {
+			"name": "Hawaii",
+			"iso_code": "US-HI"
+		},
+		"ID": {
+			"name": "Idaho",
+			"iso_code": "US-ID"
+		},
+		"IL": {
+			"name": "Illinois",
+			"iso_code": "US-IL"
+		},
+		"IN": {
+			"name": "Indiana",
+			"iso_code": "US-IN"
+		},
+		"IA": {
+			"name": "Iowa",
+			"iso_code": "US-IA"
+		},
+		"KS": {
+			"name": "Kansas",
+			"iso_code": "US-KS"
+		},
+		"KY": {
+			"name": "Kentucky",
+			"iso_code": "US-KY"
+		},
+		"LA": {
+			"name": "Louisiana",
+			"iso_code": "US-LA"
+		},
+		"ME": {
+			"name": "Maine",
+			"iso_code": "US-ME"
+		},
+		"MH": {
+			"name": "Marshall Islands"
+		},
+		"MD": {
+			"name": "Maryland",
+			"iso_code": "US-MD"
+		},
+		"MA": {
+			"name": "Massachusetts",
+			"iso_code": "US-MA"
+		},
+		"MI": {
+			"name": "Michigan",
+			"iso_code": "US-MI"
+		},
+		"FM": {
+			"name": "Micronesia"
+		},
+		"MN": {
+			"name": "Minnesota",
+			"iso_code": "US-MN"
+		},
+		"MS": {
+			"name": "Mississippi",
+			"iso_code": "US-MS"
+		},
+		"MO": {
+			"name": "Missouri",
+			"iso_code": "US-MO"
+		},
+		"MT": {
+			"name": "Montana",
+			"iso_code": "US-MT"
+		},
+		"NE": {
+			"name": "Nebraska",
+			"iso_code": "US-NE"
+		},
+		"NV": {
+			"name": "Nevada",
+			"iso_code": "US-NV"
+		},
+		"NH": {
+			"name": "New Hampshire",
+			"iso_code": "US-NH"
+		},
+		"NJ": {
+			"name": "New Jersey",
+			"iso_code": "US-NJ"
+		},
+		"NM": {
+			"name": "New Mexico",
+			"iso_code": "US-NM"
+		},
+		"NY": {
+			"name": "New York",
+			"iso_code": "US-NY"
+		},
+		"NC": {
+			"name": "North Carolina",
+			"iso_code": "US-NC"
+		},
+		"ND": {
+			"name": "North Dakota",
+			"iso_code": "US-ND"
+		},
+		"MP": {
+			"name": "Northern Mariana Islands"
+		},
+		"OH": {
+			"name": "Ohio",
+			"iso_code": "US-OH"
+		},
+		"OK": {
+			"name": "Oklahoma",
+			"iso_code": "US-OK"
+		},
+		"OR": {
+			"name": "Oregon",
+			"iso_code": "US-OR"
+		},
+		"PW": {
+			"name": "Palau"
+		},
+		"PA": {
+			"name": "Pennsylvania",
+			"iso_code": "US-PA"
+		},
+		"PR": {
+			"name": "Puerto Rico"
+		},
+		"RI": {
+			"name": "Rhode Island",
+			"iso_code": "US-RI"
+		},
+		"SC": {
+			"name": "South Carolina",
+			"iso_code": "US-SC"
+		},
+		"SD": {
+			"name": "South Dakota",
+			"iso_code": "US-SD"
+		},
+		"TN": {
+			"name": "Tennessee",
+			"iso_code": "US-TN"
+		},
+		"TX": {
+			"name": "Texas",
+			"iso_code": "US-TX"
+		},
+		"UT": {
+			"name": "Utah",
+			"iso_code": "US-UT"
+		},
+		"VT": {
+			"name": "Vermont",
+			"iso_code": "US-VT"
+		},
+		"VI": {
+			"name": "Virgin Islands"
+		},
+		"VA": {
+			"name": "Virginia",
+			"iso_code": "US-VA"
+		},
+		"WA": {
+			"name": "Washington",
+			"iso_code": "US-WA"
+		},
+		"WV": {
+			"name": "West Virginia",
+			"iso_code": "US-WV"
+		},
+		"WI": {
+			"name": "Wisconsin",
+			"iso_code": "US-WI"
+		},
+		"WY": {
+			"name": "Wyoming",
+			"iso_code": "US-WY"
+		}
+	}
 }

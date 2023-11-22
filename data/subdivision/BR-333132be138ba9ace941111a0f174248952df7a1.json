@@ -1,11 +1,11 @@
 {
-  "country_code": "BR",
-  "parents": [
-    "BR",
-    "DF"
-  ],
-  "subdivisions": {
-    "Brasília": {
-    }
-  }
+	"country_code": "BR",
+	"parents": [
+		"BR",
+		"DF"
+	],
+	"subdivisions": {
+		"Brasília": {
+		}
+	}
 }

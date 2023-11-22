@@ -1,31 +1,31 @@
 {
-  "country_code": "CL",
-  "parents": [
-    "CL",
-    "Magallanes"
-  ],
-  "subdivisions": {
-    "Antártica": {
-    },
-    "Cabo de Hornos": {
-    },
-    "Laguna Blanca": {
-    },
-    "Natales": {
-    },
-    "Porvenir": {
-    },
-    "Primavera": {
-    },
-    "Punta Arenas": {
-    },
-    "Río Verde": {
-    },
-    "San Gregorio": {
-    },
-    "Timaukel": {
-    },
-    "Torres del Paine": {
-    }
-  }
+	"country_code": "CL",
+	"parents": [
+		"CL",
+		"Magallanes"
+	],
+	"subdivisions": {
+		"Antártica": {
+		},
+		"Cabo de Hornos": {
+		},
+		"Laguna Blanca": {
+		},
+		"Natales": {
+		},
+		"Porvenir": {
+		},
+		"Primavera": {
+		},
+		"Punta Arenas": {
+		},
+		"Río Verde": {
+		},
+		"San Gregorio": {
+		},
+		"Timaukel": {
+		},
+		"Torres del Paine": {
+		}
+	}
 }

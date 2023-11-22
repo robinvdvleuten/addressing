@@ -1,23 +1,23 @@
 {
-  "country_code": "CL",
-  "parents": [
-    "CL",
-    "Tarapacá"
-  ],
-  "subdivisions": {
-    "Alto Hospicio": {
-    },
-    "Camiña": {
-    },
-    "Colchane": {
-    },
-    "Huara": {
-    },
-    "Iquique": {
-    },
-    "Pica": {
-    },
-    "Pozo Almonte": {
-    }
-  }
+	"country_code": "CL",
+	"parents": [
+		"CL",
+		"Tarapacá"
+	],
+	"subdivisions": {
+		"Alto Hospicio": {
+		},
+		"Camiña": {
+		},
+		"Colchane": {
+		},
+		"Huara": {
+		},
+		"Iquique": {
+		},
+		"Pica": {
+		},
+		"Pozo Almonte": {
+		}
+	}
 }

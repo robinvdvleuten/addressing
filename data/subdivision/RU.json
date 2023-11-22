@@ -1,345 +1,345 @@
 {
-  "country_code": "RU",
-  "locale": "ru",
-  "subdivisions": {
-    "Altayskiy kray": {
-      "local_code": "Алтайский край",
-      "iso_code": "RU-ALT"
-    },
-    "Amurskaya oblast'": {
-      "local_code": "Амурская область",
-      "iso_code": "RU-AMU"
-    },
-    "Arkhangelskaya oblast'": {
-      "local_code": "Архангельская область",
-      "iso_code": "RU-ARK"
-    },
-    "Astrakhanskaya oblast'": {
-      "local_code": "Астраханская область",
-      "iso_code": "RU-AST"
-    },
-    "Belgorodskaya oblast'": {
-      "local_code": "Белгородская область",
-      "iso_code": "RU-BEL"
-    },
-    "Bryanskaya oblast'": {
-      "local_code": "Брянская область",
-      "iso_code": "RU-BRY"
-    },
-    "Vladimirskaya oblast'": {
-      "local_code": "Владимирская область",
-      "iso_code": "RU-VLA"
-    },
-    "Volgogradskaya oblast'": {
-      "local_code": "Волгоградская область",
-      "iso_code": "RU-VGG"
-    },
-    "Vologodskaya oblast'": {
-      "local_code": "Вологодская область",
-      "iso_code": "RU-VLG"
-    },
-    "Voronezhskaya oblast'": {
-      "local_code": "Воронежская область",
-      "iso_code": "RU-VOR"
-    },
-    "Evreyskaya avtonomnaya oblast'": {
-      "local_code": "Еврейская автономная область",
-      "iso_code": "RU-YEV"
-    },
-    "Zabaykalskiy kray": {
-      "local_code": "Забайкальский край",
-      "iso_code": "RU-ZAB"
-    },
-    "Ivanovskaya oblast'": {
-      "local_code": "Ивановская область",
-      "iso_code": "RU-IVA"
-    },
-    "Irkutskaya oblast'": {
-      "local_code": "Иркутская область",
-      "iso_code": "RU-IRK"
-    },
-    "Kabardino-Balkarskaya Republits": {
-      "local_code": "Кабардино-Балкарская Республика",
-      "iso_code": "RU-KB"
-    },
-    "Kaliningradskaya oblast'": {
-      "local_code": "Калининградская область",
-      "iso_code": "RU-KGD"
-    },
-    "Kaluzhskaya oblast'": {
-      "local_code": "Калужская область",
-      "iso_code": "RU-KLU"
-    },
-    "Kamchatskiy kray": {
-      "local_code": "Камчатский край",
-      "iso_code": "RU-KAM"
-    },
-    "Karachaevo-Cherkesskaya Republits": {
-      "local_code": "Карачаево-Черкесская Республика",
-      "iso_code": "RU-KC"
-    },
-    "Kemerovskaya oblast'": {
-      "local_code": "Кемеровская область",
-      "iso_code": "RU-KEM"
-    },
-    "Kirovskaya oblast'": {
-      "local_code": "Кировская область",
-      "iso_code": "RU-KIR"
-    },
-    "Kostromskaya oblast'": {
-      "local_code": "Костромская область",
-      "iso_code": "RU-KOS"
-    },
-    "Krasnodarskiy kray": {
-      "local_code": "Краснодарский край",
-      "iso_code": "RU-KDA"
-    },
-    "Krasnoyarskiy kray": {
-      "local_code": "Красноярский край",
-      "iso_code": "RU-KYA"
-    },
-    "Kurganskaya oblast'": {
-      "local_code": "Курганская область",
-      "iso_code": "RU-KGN"
-    },
-    "Kurskaya oblast'": {
-      "local_code": "Курская область",
-      "iso_code": "RU-KRS"
-    },
-    "Leningradskaya oblast'": {
-      "local_code": "Ленинградская область",
-      "iso_code": "RU-LEN"
-    },
-    "Lipetskaya oblast'": {
-      "local_code": "Липецкая область",
-      "iso_code": "RU-LIP"
-    },
-    "Magadanskaya oblast'": {
-      "local_code": "Магаданская область",
-      "iso_code": "RU-MAG"
-    },
-    "Moskva": {
-      "local_code": "Москва",
-      "iso_code": "RU-MOW"
-    },
-    "Moskovskaya oblast'": {
-      "local_code": "Московская область",
-      "iso_code": "RU-MOS"
-    },
-    "Murmanskaya oblast'": {
-      "local_code": "Мурманская область",
-      "iso_code": "RU-MUR"
-    },
-    "Nenetskiy": {
-      "local_code": "Ненецкий автономный округ",
-      "iso_code": "RU-NEN"
-    },
-    "Nizhegorodskaya oblast'": {
-      "local_code": "Нижегородская область",
-      "iso_code": "RU-NIZ"
-    },
-    "Novgorodskaya oblast'": {
-      "local_code": "Новгородская область",
-      "iso_code": "RU-NGR"
-    },
-    "Novosibirskaya oblast'": {
-      "local_code": "Новосибирская область",
-      "iso_code": "RU-NVS"
-    },
-    "Omskaya oblast'": {
-      "local_code": "Омская область",
-      "iso_code": "RU-OMS"
-    },
-    "Orenburgskaya oblast'": {
-      "local_code": "Оренбургская область",
-      "iso_code": "RU-ORE"
-    },
-    "Orlovskaya oblast'": {
-      "local_code": "Орловская область",
-      "iso_code": "RU-ORL"
-    },
-    "Penzenskaya oblast'": {
-      "local_code": "Пензенская область",
-      "iso_code": "RU-PNZ"
-    },
-    "Permskiy kray": {
-      "local_code": "Пермский край",
-      "iso_code": "RU-PER"
-    },
-    "Primorskiy kray": {
-      "local_code": "Приморский край",
-      "iso_code": "RU-PRI"
-    },
-    "Pskovskaya oblast'": {
-      "local_code": "Псковская область",
-      "iso_code": "RU-PSK"
-    },
-    "Respublika Adygeya": {
-      "local_code": "Республика Адыгея",
-      "iso_code": "RU-AD"
-    },
-    "Altay Republits": {
-      "local_code": "Республика Алтай",
-      "iso_code": "RU-AL"
-    },
-    "Bashkortostan Republits": {
-      "local_code": "Республика Башкортостан",
-      "iso_code": "RU-BA"
-    },
-    "Buryatiya Republits": {
-      "local_code": "Республика Бурятия",
-      "iso_code": "RU-BU"
-    },
-    "Dagestan Republits": {
-      "local_code": "Республика Дагестан",
-      "iso_code": "RU-DA"
-    },
-    "Ingushetiya Republits": {
-      "local_code": "Республика Ингушетия",
-      "iso_code": "RU-IN"
-    },
-    "Respublika Kalmykiya": {
-      "local_code": "Республика Калмыкия",
-      "iso_code": "RU-KL"
-    },
-    "Kareliya Republits": {
-      "local_code": "Республика Карелия",
-      "iso_code": "RU-KR"
-    },
-    "Komi Republits": {
-      "local_code": "Республика Коми",
-      "iso_code": "RU-KO"
-    },
-    "Respublika Krym": {
-      "local_code": "Автономна Республіка Крим",
-      "local_name": "Республика Крым"
-    },
-    "Respublika Mariy El": {
-      "local_code": "Республика Марий Эл",
-      "iso_code": "RU-ME"
-    },
-    "Respublika Mordoviya": {
-      "local_code": "Республика Мордовия",
-      "iso_code": "RU-MO"
-    },
-    "Sakha (Yakutiya) Republits": {
-      "local_code": "Республика Саха (Якутия)",
-      "iso_code": "RU-SA"
-    },
-    "Respublika Severnaya Osetiya-Alaniya": {
-      "local_code": "Республика Северная Осетия-Алания",
-      "iso_code": "RU-SE"
-    },
-    "Respublika Tatarstan": {
-      "local_code": "Республика Татарстан",
-      "iso_code": "RU-TA"
-    },
-    "Tyva Republits": {
-      "local_code": "Республика Тыва",
-      "iso_code": "RU-TY"
-    },
-    "Udmurtskaja Respublika": {
-      "local_code": "Республика Удмуртия",
-      "iso_code": "RU-UD"
-    },
-    "Khakasiya Republits": {
-      "local_code": "Республика Хакасия",
-      "iso_code": "RU-KK"
-    },
-    "Rostovskaya oblast'": {
-      "local_code": "Ростовская область",
-      "iso_code": "RU-ROS"
-    },
-    "Ryazanskaya oblast'": {
-      "local_code": "Рязанская область",
-      "iso_code": "RU-RYA"
-    },
-    "Samarskaya oblast'": {
-      "local_code": "Самарская область",
-      "iso_code": "RU-SAM"
-    },
-    "Sankt-Peterburg": {
-      "local_code": "Санкт-Петербург",
-      "iso_code": "RU-SPE"
-    },
-    "Saratovskaya oblast'": {
-      "local_code": "Саратовская область",
-      "iso_code": "RU-SAR"
-    },
-    "Sakhalinskaya oblast'": {
-      "local_code": "Сахалинская область",
-      "iso_code": "RU-SAK"
-    },
-    "Sverdlovskaya oblast'": {
-      "local_code": "Свердловская область",
-      "iso_code": "RU-SVE"
-    },
-    "Sevastopol'": {
-      "local_code": "Севастополь"
-    },
-    "Smolenskaya oblast'": {
-      "local_code": "Смоленская область",
-      "iso_code": "RU-SMO"
-    },
-    "Stavropolskiy kray": {
-      "local_code": "Ставропольский край",
-      "iso_code": "RU-STA"
-    },
-    "Tambovskaya oblast'": {
-      "local_code": "Тамбовская область",
-      "iso_code": "RU-TAM"
-    },
-    "Tverskaya oblast'": {
-      "local_code": "Тверская область",
-      "iso_code": "RU-TVE"
-    },
-    "Tomskaya oblast'": {
-      "local_code": "Томская область",
-      "iso_code": "RU-TOM"
-    },
-    "Tulskaya oblast'": {
-      "local_code": "Тульская область",
-      "iso_code": "RU-TUL"
-    },
-    "Tyumenskaya oblast'": {
-      "local_code": "Тюменская область",
-      "iso_code": "RU-TYU"
-    },
-    "Ulyanovskaya oblast'": {
-      "local_code": "Ульяновская область",
-      "iso_code": "RU-ULY"
-    },
-    "Khabarovskiy kray": {
-      "local_code": "Хабаровский край",
-      "iso_code": "RU-KHA"
-    },
-    "Khanty-Mansiyskiy avtonomnyy okrug": {
-      "local_code": "Ханты-Мансийский автономный округ",
-      "iso_code": "RU-KHM"
-    },
-    "Chelyabinskaya oblast'": {
-      "local_code": "Челябинская область",
-      "iso_code": "RU-CHE"
-    },
-    "Chechenskaya Republits": {
-      "local_code": "Чеченская Республика",
-      "iso_code": "RU-CE"
-    },
-    "Chuvashia": {
-      "local_code": "Чувашская Республика",
-      "iso_code": "RU-CU"
-    },
-    "Chukotskiy": {
-      "local_code": "Чукотский автономный округ",
-      "iso_code": "RU-CHU"
-    },
-    "Yamalo-Nenetskiy": {
-      "local_code": "Ямало-Ненецкий автономный округ",
-      "iso_code": "RU-YAN"
-    },
-    "Yaroslavskaya oblast'": {
-      "local_code": "Ярославская область",
-      "iso_code": "RU-YAR"
-    }
-  }
+	"country_code": "RU",
+	"locale": "ru",
+	"subdivisions": {
+		"Altayskiy kray": {
+			"local_code": "Алтайский край",
+			"iso_code": "RU-ALT"
+		},
+		"Amurskaya oblast'": {
+			"local_code": "Амурская область",
+			"iso_code": "RU-AMU"
+		},
+		"Arkhangelskaya oblast'": {
+			"local_code": "Архангельская область",
+			"iso_code": "RU-ARK"
+		},
+		"Astrakhanskaya oblast'": {
+			"local_code": "Астраханская область",
+			"iso_code": "RU-AST"
+		},
+		"Belgorodskaya oblast'": {
+			"local_code": "Белгородская область",
+			"iso_code": "RU-BEL"
+		},
+		"Bryanskaya oblast'": {
+			"local_code": "Брянская область",
+			"iso_code": "RU-BRY"
+		},
+		"Vladimirskaya oblast'": {
+			"local_code": "Владимирская область",
+			"iso_code": "RU-VLA"
+		},
+		"Volgogradskaya oblast'": {
+			"local_code": "Волгоградская область",
+			"iso_code": "RU-VGG"
+		},
+		"Vologodskaya oblast'": {
+			"local_code": "Вологодская область",
+			"iso_code": "RU-VLG"
+		},
+		"Voronezhskaya oblast'": {
+			"local_code": "Воронежская область",
+			"iso_code": "RU-VOR"
+		},
+		"Evreyskaya avtonomnaya oblast'": {
+			"local_code": "Еврейская автономная область",
+			"iso_code": "RU-YEV"
+		},
+		"Zabaykalskiy kray": {
+			"local_code": "Забайкальский край",
+			"iso_code": "RU-ZAB"
+		},
+		"Ivanovskaya oblast'": {
+			"local_code": "Ивановская область",
+			"iso_code": "RU-IVA"
+		},
+		"Irkutskaya oblast'": {
+			"local_code": "Иркутская область",
+			"iso_code": "RU-IRK"
+		},
+		"Kabardino-Balkarskaya Republits": {
+			"local_code": "Кабардино-Балкарская Республика",
+			"iso_code": "RU-KB"
+		},
+		"Kaliningradskaya oblast'": {
+			"local_code": "Калининградская область",
+			"iso_code": "RU-KGD"
+		},
+		"Kaluzhskaya oblast'": {
+			"local_code": "Калужская область",
+			"iso_code": "RU-KLU"
+		},
+		"Kamchatskiy kray": {
+			"local_code": "Камчатский край",
+			"iso_code": "RU-KAM"
+		},
+		"Karachaevo-Cherkesskaya Republits": {
+			"local_code": "Карачаево-Черкесская Республика",
+			"iso_code": "RU-KC"
+		},
+		"Kemerovskaya oblast'": {
+			"local_code": "Кемеровская область",
+			"iso_code": "RU-KEM"
+		},
+		"Kirovskaya oblast'": {
+			"local_code": "Кировская область",
+			"iso_code": "RU-KIR"
+		},
+		"Kostromskaya oblast'": {
+			"local_code": "Костромская область",
+			"iso_code": "RU-KOS"
+		},
+		"Krasnodarskiy kray": {
+			"local_code": "Краснодарский край",
+			"iso_code": "RU-KDA"
+		},
+		"Krasnoyarskiy kray": {
+			"local_code": "Красноярский край",
+			"iso_code": "RU-KYA"
+		},
+		"Kurganskaya oblast'": {
+			"local_code": "Курганская область",
+			"iso_code": "RU-KGN"
+		},
+		"Kurskaya oblast'": {
+			"local_code": "Курская область",
+			"iso_code": "RU-KRS"
+		},
+		"Leningradskaya oblast'": {
+			"local_code": "Ленинградская область",
+			"iso_code": "RU-LEN"
+		},
+		"Lipetskaya oblast'": {
+			"local_code": "Липецкая область",
+			"iso_code": "RU-LIP"
+		},
+		"Magadanskaya oblast'": {
+			"local_code": "Магаданская область",
+			"iso_code": "RU-MAG"
+		},
+		"Moskva": {
+			"local_code": "Москва",
+			"iso_code": "RU-MOW"
+		},
+		"Moskovskaya oblast'": {
+			"local_code": "Московская область",
+			"iso_code": "RU-MOS"
+		},
+		"Murmanskaya oblast'": {
+			"local_code": "Мурманская область",
+			"iso_code": "RU-MUR"
+		},
+		"Nenetskiy": {
+			"local_code": "Ненецкий автономный округ",
+			"iso_code": "RU-NEN"
+		},
+		"Nizhegorodskaya oblast'": {
+			"local_code": "Нижегородская область",
+			"iso_code": "RU-NIZ"
+		},
+		"Novgorodskaya oblast'": {
+			"local_code": "Новгородская область",
+			"iso_code": "RU-NGR"
+		},
+		"Novosibirskaya oblast'": {
+			"local_code": "Новосибирская область",
+			"iso_code": "RU-NVS"
+		},
+		"Omskaya oblast'": {
+			"local_code": "Омская область",
+			"iso_code": "RU-OMS"
+		},
+		"Orenburgskaya oblast'": {
+			"local_code": "Оренбургская область",
+			"iso_code": "RU-ORE"
+		},
+		"Orlovskaya oblast'": {
+			"local_code": "Орловская область",
+			"iso_code": "RU-ORL"
+		},
+		"Penzenskaya oblast'": {
+			"local_code": "Пензенская область",
+			"iso_code": "RU-PNZ"
+		},
+		"Permskiy kray": {
+			"local_code": "Пермский край",
+			"iso_code": "RU-PER"
+		},
+		"Primorskiy kray": {
+			"local_code": "Приморский край",
+			"iso_code": "RU-PRI"
+		},
+		"Pskovskaya oblast'": {
+			"local_code": "Псковская область",
+			"iso_code": "RU-PSK"
+		},
+		"Respublika Adygeya": {
+			"local_code": "Республика Адыгея",
+			"iso_code": "RU-AD"
+		},
+		"Altay Republits": {
+			"local_code": "Республика Алтай",
+			"iso_code": "RU-AL"
+		},
+		"Bashkortostan Republits": {
+			"local_code": "Республика Башкортостан",
+			"iso_code": "RU-BA"
+		},
+		"Buryatiya Republits": {
+			"local_code": "Республика Бурятия",
+			"iso_code": "RU-BU"
+		},
+		"Dagestan Republits": {
+			"local_code": "Республика Дагестан",
+			"iso_code": "RU-DA"
+		},
+		"Ingushetiya Republits": {
+			"local_code": "Республика Ингушетия",
+			"iso_code": "RU-IN"
+		},
+		"Respublika Kalmykiya": {
+			"local_code": "Республика Калмыкия",
+			"iso_code": "RU-KL"
+		},
+		"Kareliya Republits": {
+			"local_code": "Республика Карелия",
+			"iso_code": "RU-KR"
+		},
+		"Komi Republits": {
+			"local_code": "Республика Коми",
+			"iso_code": "RU-KO"
+		},
+		"Respublika Krym": {
+			"local_code": "Автономна Республіка Крим",
+			"local_name": "Республика Крым"
+		},
+		"Respublika Mariy El": {
+			"local_code": "Республика Марий Эл",
+			"iso_code": "RU-ME"
+		},
+		"Respublika Mordoviya": {
+			"local_code": "Республика Мордовия",
+			"iso_code": "RU-MO"
+		},
+		"Sakha (Yakutiya) Republits": {
+			"local_code": "Республика Саха (Якутия)",
+			"iso_code": "RU-SA"
+		},
+		"Respublika Severnaya Osetiya-Alaniya": {
+			"local_code": "Республика Северная Осетия-Алания",
+			"iso_code": "RU-SE"
+		},
+		"Respublika Tatarstan": {
+			"local_code": "Республика Татарстан",
+			"iso_code": "RU-TA"
+		},
+		"Tyva Republits": {
+			"local_code": "Республика Тыва",
+			"iso_code": "RU-TY"
+		},
+		"Udmurtskaja Respublika": {
+			"local_code": "Республика Удмуртия",
+			"iso_code": "RU-UD"
+		},
+		"Khakasiya Republits": {
+			"local_code": "Республика Хакасия",
+			"iso_code": "RU-KK"
+		},
+		"Rostovskaya oblast'": {
+			"local_code": "Ростовская область",
+			"iso_code": "RU-ROS"
+		},
+		"Ryazanskaya oblast'": {
+			"local_code": "Рязанская область",
+			"iso_code": "RU-RYA"
+		},
+		"Samarskaya oblast'": {
+			"local_code": "Самарская область",
+			"iso_code": "RU-SAM"
+		},
+		"Sankt-Peterburg": {
+			"local_code": "Санкт-Петербург",
+			"iso_code": "RU-SPE"
+		},
+		"Saratovskaya oblast'": {
+			"local_code": "Саратовская область",
+			"iso_code": "RU-SAR"
+		},
+		"Sakhalinskaya oblast'": {
+			"local_code": "Сахалинская область",
+			"iso_code": "RU-SAK"
+		},
+		"Sverdlovskaya oblast'": {
+			"local_code": "Свердловская область",
+			"iso_code": "RU-SVE"
+		},
+		"Sevastopol'": {
+			"local_code": "Севастополь"
+		},
+		"Smolenskaya oblast'": {
+			"local_code": "Смоленская область",
+			"iso_code": "RU-SMO"
+		},
+		"Stavropolskiy kray": {
+			"local_code": "Ставропольский край",
+			"iso_code": "RU-STA"
+		},
+		"Tambovskaya oblast'": {
+			"local_code": "Тамбовская область",
+			"iso_code": "RU-TAM"
+		},
+		"Tverskaya oblast'": {
+			"local_code": "Тверская область",
+			"iso_code": "RU-TVE"
+		},
+		"Tomskaya oblast'": {
+			"local_code": "Томская область",
+			"iso_code": "RU-TOM"
+		},
+		"Tulskaya oblast'": {
+			"local_code": "Тульская область",
+			"iso_code": "RU-TUL"
+		},
+		"Tyumenskaya oblast'": {
+			"local_code": "Тюменская область",
+			"iso_code": "RU-TYU"
+		},
+		"Ulyanovskaya oblast'": {
+			"local_code": "Ульяновская область",
+			"iso_code": "RU-ULY"
+		},
+		"Khabarovskiy kray": {
+			"local_code": "Хабаровский край",
+			"iso_code": "RU-KHA"
+		},
+		"Khanty-Mansiyskiy avtonomnyy okrug": {
+			"local_code": "Ханты-Мансийский автономный округ",
+			"iso_code": "RU-KHM"
+		},
+		"Chelyabinskaya oblast'": {
+			"local_code": "Челябинская область",
+			"iso_code": "RU-CHE"
+		},
+		"Chechenskaya Republits": {
+			"local_code": "Чеченская Республика",
+			"iso_code": "RU-CE"
+		},
+		"Chuvashia": {
+			"local_code": "Чувашская Республика",
+			"iso_code": "RU-CU"
+		},
+		"Chukotskiy": {
+			"local_code": "Чукотский автономный округ",
+			"iso_code": "RU-CHU"
+		},
+		"Yamalo-Nenetskiy": {
+			"local_code": "Ямало-Ненецкий автономный округ",
+			"iso_code": "RU-YAN"
+		},
+		"Yaroslavskaya oblast'": {
+			"local_code": "Ярославская область",
+			"iso_code": "RU-YAR"
+		}
+	}
 }

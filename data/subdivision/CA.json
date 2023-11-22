@@ -1,84 +1,84 @@
 {
-  "country_code": "CA",
-  "locale": "fr",
-  "subdivisions": {
-    "AB": {
-      "local_code": "AB",
-      "local_name": "Alberta",
-      "name": "Alberta",
-      "iso_code": "CA-AB"
-    },
-    "BC": {
-      "local_code": "BC",
-      "local_name": "Colombie-Britannique",
-      "name": "British Columbia",
-      "iso_code": "CA-BC"
-    },
-    "MB": {
-      "local_code": "MB",
-      "local_name": "Manitoba",
-      "name": "Manitoba",
-      "iso_code": "CA-MB"
-    },
-    "NB": {
-      "local_code": "NB",
-      "local_name": "Nouveau-Brunswick",
-      "name": "New Brunswick",
-      "iso_code": "CA-NB"
-    },
-    "NL": {
-      "local_code": "NL",
-      "local_name": "Terre-Neuve-et-Labrador",
-      "name": "Newfoundland and Labrador",
-      "iso_code": "CA-NL"
-    },
-    "NT": {
-      "local_code": "NT",
-      "local_name": "Territoires du Nord-Ouest",
-      "name": "Northwest Territories",
-      "iso_code": "CA-NT"
-    },
-    "NS": {
-      "local_code": "NS",
-      "local_name": "Nouvelle-Écosse",
-      "name": "Nova Scotia",
-      "iso_code": "CA-NS"
-    },
-    "NU": {
-      "local_code": "NU",
-      "local_name": "Nunavut",
-      "name": "Nunavut",
-      "iso_code": "CA-NU"
-    },
-    "ON": {
-      "local_code": "ON",
-      "local_name": "Ontario",
-      "name": "Ontario",
-      "iso_code": "CA-ON"
-    },
-    "PE": {
-      "local_code": "PE",
-      "local_name": "Île-du-Prince-Édouard",
-      "name": "Prince Edward Island",
-      "iso_code": "CA-PE"
-    },
-    "QC": {
-      "local_code": "QC",
-      "local_name": "Québec",
-      "name": "Quebec",
-      "iso_code": "CA-QC"
-    },
-    "SK": {
-      "local_code": "SK",
-      "local_name": "Saskatchewan",
-      "name": "Saskatchewan",
-      "iso_code": "CA-SK"
-    },
-    "YT": {
-      "local_code": "YT",
-      "local_name": "Yukon",
-      "name": "Yukon",
-      "iso_code": "CA-YT"
-    }
-  }
+	"country_code": "CA",
+	"locale": "fr",
+	"subdivisions": {
+		"AB": {
+			"local_code": "AB",
+			"local_name": "Alberta",
+			"name": "Alberta",
+			"iso_code": "CA-AB"
+		},
+		"BC": {
+			"local_code": "BC",
+			"local_name": "Colombie-Britannique",
+			"name": "British Columbia",
+			"iso_code": "CA-BC"
+		},
+		"MB": {
+			"local_code": "MB",
+			"local_name": "Manitoba",
+			"name": "Manitoba",
+			"iso_code": "CA-MB"
+		},
+		"NB": {
+			"local_code": "NB",
+			"local_name": "Nouveau-Brunswick",
+			"name": "New Brunswick",
+			"iso_code": "CA-NB"
+		},
+		"NL": {
+			"local_code": "NL",
+			"local_name": "Terre-Neuve-et-Labrador",
+			"name": "Newfoundland and Labrador",
+			"iso_code": "CA-NL"
+		},
+		"NT": {
+			"local_code": "NT",
+			"local_name": "Territoires du Nord-Ouest",
+			"name": "Northwest Territories",
+			"iso_code": "CA-NT"
+		},
+		"NS": {
+			"local_code": "NS",
+			"local_name": "Nouvelle-Écosse",
+			"name": "Nova Scotia",
+			"iso_code": "CA-NS"
+		},
+		"NU": {
+			"local_code": "NU",
+			"local_name": "Nunavut",
+			"name": "Nunavut",
+			"iso_code": "CA-NU"
+		},
+		"ON": {
+			"local_code": "ON",
+			"local_name": "Ontario",
+			"name": "Ontario",
+			"iso_code": "CA-ON"
+		},
+		"PE": {
+			"local_code": "PE",
+			"local_name": "Île-du-Prince-Édouard",
+			"name": "Prince Edward Island",
+			"iso_code": "CA-PE"
+		},
+		"QC": {
+			"local_code": "QC",
+			"local_name": "Québec",
+			"name": "Quebec",
+			"iso_code": "CA-QC"
+		},
+		"SK": {
+			"local_code": "SK",
+			"local_name": "Saskatchewan",
+			"name": "Saskatchewan",
+			"iso_code": "CA-SK"
+		},
+		"YT": {
+			"local_code": "YT",
+			"local_name": "Yukon",
+			"name": "Yukon",
+			"iso_code": "CA-YT"
+		}
+	}
 }

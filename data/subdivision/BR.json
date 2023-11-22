@@ -1,140 +1,140 @@
 {
-  "country_code": "BR",
-  "subdivisions": {
-    "AC": {
-      "name": "Acre",
-      "iso_code": "BR-AC",
-      "has_children": true
-    },
-    "AL": {
-      "name": "Alagoas",
-      "iso_code": "BR-AL",
-      "has_children": true
-    },
-    "AP": {
-      "name": "Amapá",
-      "iso_code": "BR-AP",
-      "has_children": true
-    },
-    "AM": {
-      "name": "Amazonas",
-      "iso_code": "BR-AM",
-      "has_children": true
-    },
-    "BA": {
-      "name": "Bahia",
-      "iso_code": "BR-BA",
-      "has_children": true
-    },
-    "CE": {
-      "name": "Ceará",
-      "iso_code": "BR-CE",
-      "has_children": true
-    },
-    "DF": {
-      "name": "Distrito Federal",
-      "iso_code": "BR-DF",
-      "has_children": true
-    },
-    "ES": {
-      "name": "Espírito Santo",
-      "iso_code": "BR-ES",
-      "has_children": true
-    },
-    "GO": {
-      "name": "Goiás",
-      "iso_code": "BR-GO",
-      "has_children": true
-    },
-    "MA": {
-      "name": "Maranhão",
-      "iso_code": "BR-MA",
-      "has_children": true
-    },
-    "MT": {
-      "name": "Mato Grosso",
-      "iso_code": "BR-MT",
-      "has_children": true
-    },
-    "MS": {
-      "name": "Mato Grosso do Sul",
-      "iso_code": "BR-MS",
-      "has_children": true
-    },
-    "MG": {
-      "name": "Minas Gerais",
-      "iso_code": "BR-MG",
-      "has_children": true
-    },
-    "PA": {
-      "name": "Pará",
-      "iso_code": "BR-PA",
-      "has_children": true
-    },
-    "PB": {
-      "name": "Paraíba",
-      "iso_code": "BR-PB",
-      "has_children": true
-    },
-    "PR": {
-      "name": "Paraná",
-      "iso_code": "BR-PR",
-      "has_children": true
-    },
-    "PE": {
-      "name": "Pernambuco",
-      "iso_code": "BR-PE",
-      "has_children": true
-    },
-    "PI": {
-      "name": "Piauí",
-      "iso_code": "BR-PI",
-      "has_children": true
-    },
-    "RJ": {
-      "name": "Rio de Janeiro",
-      "iso_code": "BR-RJ",
-      "has_children": true
-    },
-    "RN": {
-      "name": "Rio Grande do Norte",
-      "iso_code": "BR-RN",
-      "has_children": true
-    },
-    "RS": {
-      "name": "Rio Grande do Sul",
-      "iso_code": "BR-RS",
-      "has_children": true
-    },
-    "RO": {
-      "name": "Rondônia",
-      "iso_code": "BR-RO",
-      "has_children": true
-    },
-    "RR": {
-      "name": "Roraima",
-      "iso_code": "BR-RR",
-      "has_children": true
-    },
-    "SC": {
-      "name": "Santa Catarina",
-      "iso_code": "BR-SC",
-      "has_children": true
-    },
-    "SP": {
-      "name": "São Paulo",
-      "iso_code": "BR-SP",
-      "has_children": true
-    },
-    "SE": {
-      "name": "Sergipe",
-      "iso_code": "BR-SE",
-      "has_children": true
-    },
-    "TO": {
-      "name": "Tocantins",
-      "iso_code": "BR-TO",
-      "has_children": true
-    }
-  }
+	"country_code": "BR",
+	"subdivisions": {
+		"AC": {
+			"name": "Acre",
+			"iso_code": "BR-AC",
+			"has_children": true
+		},
+		"AL": {
+			"name": "Alagoas",
+			"iso_code": "BR-AL",
+			"has_children": true
+		},
+		"AP": {
+			"name": "Amapá",
+			"iso_code": "BR-AP",
+			"has_children": true
+		},
+		"AM": {
+			"name": "Amazonas",
+			"iso_code": "BR-AM",
+			"has_children": true
+		},
+		"BA": {
+			"name": "Bahia",
+			"iso_code": "BR-BA",
+			"has_children": true
+		},
+		"CE": {
+			"name": "Ceará",
+			"iso_code": "BR-CE",
+			"has_children": true
+		},
+		"DF": {
+			"name": "Distrito Federal",
+			"iso_code": "BR-DF",
+			"has_children": true
+		},
+		"ES": {
+			"name": "Espírito Santo",
+			"iso_code": "BR-ES",
+			"has_children": true
+		},
+		"GO": {
+			"name": "Goiás",
+			"iso_code": "BR-GO",
+			"has_children": true
+		},
+		"MA": {
+			"name": "Maranhão",
+			"iso_code": "BR-MA",
+			"has_children": true
+		},
+		"MT": {
+			"name": "Mato Grosso",
+			"iso_code": "BR-MT",
+			"has_children": true
+		},
+		"MS": {
+			"name": "Mato Grosso do Sul",
+			"iso_code": "BR-MS",
+			"has_children": true
+		},
+		"MG": {
+			"name": "Minas Gerais",
+			"iso_code": "BR-MG",
+			"has_children": true
+		},
+		"PA": {
+			"name": "Pará",
+			"iso_code": "BR-PA",
+			"has_children": true
+		},
+		"PB": {
+			"name": "Paraíba",
+			"iso_code": "BR-PB",
+			"has_children": true
+		},
+		"PR": {
+			"name": "Paraná",
+			"iso_code": "BR-PR",
+			"has_children": true
+		},
+		"PE": {
+			"name": "Pernambuco",
+			"iso_code": "BR-PE",
+			"has_children": true
+		},
+		"PI": {
+			"name": "Piauí",
+			"iso_code": "BR-PI",
+			"has_children": true
+		},
+		"RJ": {
+			"name": "Rio de Janeiro",
+			"iso_code": "BR-RJ",
+			"has_children": true
+		},
+		"RN": {
+			"name": "Rio Grande do Norte",
+			"iso_code": "BR-RN",
+			"has_children": true
+		},
+		"RS": {
+			"name": "Rio Grande do Sul",
+			"iso_code": "BR-RS",
+			"has_children": true
+		},
+		"RO": {
+			"name": "Rondônia",
+			"iso_code": "BR-RO",
+			"has_children": true
+		},
+		"RR": {
+			"name": "Roraima",
+			"iso_code": "BR-RR",
+			"has_children": true
+		},
+		"SC": {
+			"name": "Santa Catarina",
+			"iso_code": "BR-SC",
+			"has_children": true
+		},
+		"SP": {
+			"name": "São Paulo",
+			"iso_code": "BR-SP",
+			"has_children": true
+		},
+		"SE": {
+			"name": "Sergipe",
+			"iso_code": "BR-SE",
+			"has_children": true
+		},
+		"TO": {
+			"name": "Tocantins",
+			"iso_code": "BR-TO",
+			"has_children": true
+		}
+	}
 }

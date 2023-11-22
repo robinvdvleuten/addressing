@@ -1,108 +1,108 @@
 {
-  "country_code": "KR",
-  "locale": "ko",
-  "subdivisions": {
-    "Gangwon-do": {
-      "local_code": "강원도",
-      "local_name": "강원",
-      "iso_code": "KR-42",
-      "has_children": true
-    },
-    "Gyeonggi-do": {
-      "local_code": "경기도",
-      "local_name": "경기",
-      "iso_code": "KR-41",
-      "has_children": true
-    },
-    "Gyeongsangnam-do": {
-      "local_code": "경상남도",
-      "local_name": "경남",
-      "iso_code": "KR-48",
-      "has_children": true
-    },
-    "Gyeongsangbuk-do": {
-      "local_code": "경상북도",
-      "local_name": "경북",
-      "iso_code": "KR-47",
-      "has_children": true
-    },
-    "Gwangju": {
-      "local_code": "광주광역시",
-      "local_name": "광주",
-      "iso_code": "KR-29",
-      "has_children": true
-    },
-    "Daegu": {
-      "local_code": "대구광역시",
-      "local_name": "대구",
-      "iso_code": "KR-27",
-      "has_children": true
-    },
-    "Daejeon": {
-      "local_code": "대전광역시",
-      "local_name": "대전",
-      "iso_code": "KR-30",
-      "has_children": true
-    },
-    "Busan": {
-      "local_code": "부산광역시",
-      "local_name": "부산",
-      "iso_code": "KR-26",
-      "has_children": true
-    },
-    "Seoul": {
-      "local_code": "서울특별시",
-      "local_name": "서울",
-      "iso_code": "KR-11",
-      "has_children": true
-    },
-    "Sejong": {
-      "local_code": "세종특별자치시",
-      "local_name": "세종",
-      "iso_code": "KR-50",
-      "has_children": true
-    },
-    "Ulsan": {
-      "local_code": "울산광역시",
-      "local_name": "울산",
-      "iso_code": "KR-31",
-      "has_children": true
-    },
-    "Incheon": {
-      "local_code": "인천광역시",
-      "local_name": "인천",
-      "iso_code": "KR-28",
-      "has_children": true
-    },
-    "Jeollanam-do": {
-      "local_code": "전라남도",
-      "local_name": "전남",
-      "iso_code": "KR-46",
-      "has_children": true
-    },
-    "Jeollabuk-do": {
-      "local_code": "전라북도",
-      "local_name": "전북",
-      "iso_code": "KR-45",
-      "has_children": true
-    },
-    "Jeju-do": {
-      "local_code": "제주특별자치도",
-      "local_name": "제주",
-      "iso_code": "KR-49",
-      "has_children": true
-    },
-    "Chungcheongnam-do": {
-      "local_code": "충청남도",
-      "local_name": "충남",
-      "iso_code": "KR-44",
-      "has_children": true
-    },
-    "Chungcheongbuk-do": {
-      "local_code": "충청북도",
-      "local_name": "충북",
-      "iso_code": "KR-43",
-      "has_children": true
-    }
-  }
+	"country_code": "KR",
+	"locale": "ko",
+	"subdivisions": {
+		"Gangwon-do": {
+			"local_code": "강원도",
+			"local_name": "강원",
+			"iso_code": "KR-42",
+			"has_children": true
+		},
+		"Gyeonggi-do": {
+			"local_code": "경기도",
+			"local_name": "경기",
+			"iso_code": "KR-41",
+			"has_children": true
+		},
+		"Gyeongsangnam-do": {
+			"local_code": "경상남도",
+			"local_name": "경남",
+			"iso_code": "KR-48",
+			"has_children": true
+		},
+		"Gyeongsangbuk-do": {
+			"local_code": "경상북도",
+			"local_name": "경북",
+			"iso_code": "KR-47",
+			"has_children": true
+		},
+		"Gwangju": {
+			"local_code": "광주광역시",
+			"local_name": "광주",
+			"iso_code": "KR-29",
+			"has_children": true
+		},
+		"Daegu": {
+			"local_code": "대구광역시",
+			"local_name": "대구",
+			"iso_code": "KR-27",
+			"has_children": true
+		},
+		"Daejeon": {
+			"local_code": "대전광역시",
+			"local_name": "대전",
+			"iso_code": "KR-30",
+			"has_children": true
+		},
+		"Busan": {
+			"local_code": "부산광역시",
+			"local_name": "부산",
+			"iso_code": "KR-26",
+			"has_children": true
+		},
+		"Seoul": {
+			"local_code": "서울특별시",
+			"local_name": "서울",
+			"iso_code": "KR-11",
+			"has_children": true
+		},
+		"Sejong": {
+			"local_code": "세종특별자치시",
+			"local_name": "세종",
+			"iso_code": "KR-50",
+			"has_children": true
+		},
+		"Ulsan": {
+			"local_code": "울산광역시",
+			"local_name": "울산",
+			"iso_code": "KR-31",
+			"has_children": true
+		},
+		"Incheon": {
+			"local_code": "인천광역시",
+			"local_name": "인천",
+			"iso_code": "KR-28",
+			"has_children": true
+		},
+		"Jeollanam-do": {
+			"local_code": "전라남도",
+			"local_name": "전남",
+			"iso_code": "KR-46",
+			"has_children": true
+		},
+		"Jeollabuk-do": {
+			"local_code": "전라북도",
+			"local_name": "전북",
+			"iso_code": "KR-45",
+			"has_children": true
+		},
+		"Jeju-do": {
+			"local_code": "제주특별자치도",
+			"local_name": "제주",
+			"iso_code": "KR-49",
+			"has_children": true
+		},
+		"Chungcheongnam-do": {
+			"local_code": "충청남도",
+			"local_name": "충남",
+			"iso_code": "KR-44",
+			"has_children": true
+		},
+		"Chungcheongbuk-do": {
+			"local_code": "충청북도",
+			"local_name": "충북",
+			"iso_code": "KR-43",
+			"has_children": true
+		}
+	}
 }

@@ -1,116 +1,116 @@
 {
-  "country_code": "IN",
-  "subdivisions": {
-    "Andaman and Nicobar Islands": {
-      "name": "Andaman & Nicobar",
-      "iso_code": "IN-AN"
-    },
-    "Andhra Pradesh": {
-      "iso_code": "IN-AP"
-    },
-    "Arunachal Pradesh": {
-      "iso_code": "IN-AR"
-    },
-    "Assam": {
-      "iso_code": "IN-AS"
-    },
-    "Bihar": {
-      "iso_code": "IN-BR"
-    },
-    "Chandigarh": {
-      "iso_code": "IN-CH"
-    },
-    "Chhattisgarh": {
-      "iso_code": "IN-CT"
-    },
-    "Dadra and Nagar Haveli and Daman and Diu": {
-      "name": "Dadra & Nagar Haveli & Daman & Diu",
-      "iso_code": "IN-DH"
-    },
-    "Delhi": {
-      "iso_code": "IN-DL"
-    },
-    "Goa": {
-      "iso_code": "IN-GA"
-    },
-    "Gujarat": {
-      "iso_code": "IN-GJ"
-    },
-    "Haryana": {
-      "iso_code": "IN-HR"
-    },
-    "Himachal Pradesh": {
-      "iso_code": "IN-HP"
-    },
-    "Jammu and Kashmir": {
-      "name": "Jammu & Kashmir",
-      "iso_code": "IN-JK"
-    },
-    "Jharkhand": {
-      "iso_code": "IN-JH"
-    },
-    "Karnataka": {
-      "iso_code": "IN-KA"
-    },
-    "Kerala": {
-      "iso_code": "IN-KL"
-    },
-    "Ladakh": {
-      "iso_code": "IN-LA"
-    },
-    "Lakshadweep": {
-      "iso_code": "IN-LD"
-    },
-    "Madhya Pradesh": {
-      "iso_code": "IN-MP"
-    },
-    "Maharashtra": {
-      "iso_code": "IN-MH"
-    },
-    "Manipur": {
-      "iso_code": "IN-MN"
-    },
-    "Meghalaya": {
-      "iso_code": "IN-ML"
-    },
-    "Mizoram": {
-      "iso_code": "IN-MZ"
-    },
-    "Nagaland": {
-      "iso_code": "IN-NL"
-    },
-    "Odisha": {
-      "iso_code": "IN-OR"
-    },
-    "Puducherry": {
-      "iso_code": "IN-PY"
-    },
-    "Punjab": {
-      "iso_code": "IN-PB"
-    },
-    "Rajasthan": {
-      "iso_code": "IN-RJ"
-    },
-    "Sikkim": {
-      "iso_code": "IN-SK"
-    },
-    "Tamil Nadu": {
-      "iso_code": "IN-TN"
-    },
-    "Telangana": {
-      "iso_code": "IN-TG"
-    },
-    "Tripura": {
-      "iso_code": "IN-TR"
-    },
-    "Uttar Pradesh": {
-      "iso_code": "IN-UP"
-    },
-    "Uttarakhand": {
-      "iso_code": "IN-UT"
-    },
-    "West Bengal": {
-      "iso_code": "IN-WB"
-    }
-  }
+	"country_code": "IN",
+	"subdivisions": {
+		"Andaman and Nicobar Islands": {
+			"name": "Andaman & Nicobar",
+			"iso_code": "IN-AN"
+		},
+		"Andhra Pradesh": {
+			"iso_code": "IN-AP"
+		},
+		"Arunachal Pradesh": {
+			"iso_code": "IN-AR"
+		},
+		"Assam": {
+			"iso_code": "IN-AS"
+		},
+		"Bihar": {
+			"iso_code": "IN-BR"
+		},
+		"Chandigarh": {
+			"iso_code": "IN-CH"
+		},
+		"Chhattisgarh": {
+			"iso_code": "IN-CT"
+		},
+		"Dadra and Nagar Haveli and Daman and Diu": {
+			"name": "Dadra & Nagar Haveli & Daman & Diu",
+			"iso_code": "IN-DH"
+		},
+		"Delhi": {
+			"iso_code": "IN-DL"
+		},
+		"Goa": {
+			"iso_code": "IN-GA"
+		},
+		"Gujarat": {
+			"iso_code": "IN-GJ"
+		},
+		"Haryana": {
+			"iso_code": "IN-HR"
+		},
+		"Himachal Pradesh": {
+			"iso_code": "IN-HP"
+		},
+		"Jammu and Kashmir": {
+			"name": "Jammu & Kashmir",
+			"iso_code": "IN-JK"
+		},
+		"Jharkhand": {
+			"iso_code": "IN-JH"
+		},
+		"Karnataka": {
+			"iso_code": "IN-KA"
+		},
+		"Kerala": {
+			"iso_code": "IN-KL"
+		},
+		"Ladakh": {
+			"iso_code": "IN-LA"
+		},
+		"Lakshadweep": {
+			"iso_code": "IN-LD"
+		},
+		"Madhya Pradesh": {
+			"iso_code": "IN-MP"
+		},
+		"Maharashtra": {
+			"iso_code": "IN-MH"
+		},
+		"Manipur": {
+			"iso_code": "IN-MN"
+		},
+		"Meghalaya": {
+			"iso_code": "IN-ML"
+		},
+		"Mizoram": {
+			"iso_code": "IN-MZ"
+		},
+		"Nagaland": {
+			"iso_code": "IN-NL"
+		},
+		"Odisha": {
+			"iso_code": "IN-OR"
+		},
+		"Puducherry": {
+			"iso_code": "IN-PY"
+		},
+		"Punjab": {
+			"iso_code": "IN-PB"
+		},
+		"Rajasthan": {
+			"iso_code": "IN-RJ"
+		},
+		"Sikkim": {
+			"iso_code": "IN-SK"
+		},
+		"Tamil Nadu": {
+			"iso_code": "IN-TN"
+		},
+		"Telangana": {
+			"iso_code": "IN-TG"
+		},
+		"Tripura": {
+			"iso_code": "IN-TR"
+		},
+		"Uttar Pradesh": {
+			"iso_code": "IN-UP"
+		},
+		"Uttarakhand": {
+			"iso_code": "IN-UT"
+		},
+		"West Bengal": {
+			"iso_code": "IN-WB"
+		}
+	}
 }

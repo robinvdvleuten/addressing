@@ -1,194 +1,194 @@
 {
-  "country_code": "JP",
-  "locale": "ja",
-  "subdivisions": {
-    "Hokkaido": {
-      "local_code": "北海道",
-      "iso_code": "JP-01"
-    },
-    "Aomori": {
-      "local_code": "青森県",
-      "iso_code": "JP-02"
-    },
-    "Iwate": {
-      "local_code": "岩手県",
-      "iso_code": "JP-03"
-    },
-    "Miyagi": {
-      "local_code": "宮城県",
-      "iso_code": "JP-04"
-    },
-    "Akita": {
-      "local_code": "秋田県",
-      "iso_code": "JP-05"
-    },
-    "Yamagata": {
-      "local_code": "山形県",
-      "iso_code": "JP-06"
-    },
-    "Fukushima": {
-      "local_code": "福島県",
-      "iso_code": "JP-07"
-    },
-    "Ibaraki": {
-      "local_code": "茨城県",
-      "iso_code": "JP-08"
-    },
-    "Tochigi": {
-      "local_code": "栃木県",
-      "iso_code": "JP-09"
-    },
-    "Gunma": {
-      "local_code": "群馬県",
-      "iso_code": "JP-10"
-    },
-    "Saitama": {
-      "local_code": "埼玉県",
-      "iso_code": "JP-11"
-    },
-    "Chiba": {
-      "local_code": "千葉県",
-      "iso_code": "JP-12"
-    },
-    "Tokyo": {
-      "local_code": "東京都",
-      "iso_code": "JP-13"
-    },
-    "Kanagawa": {
-      "local_code": "神奈川県",
-      "iso_code": "JP-14"
-    },
-    "Niigata": {
-      "local_code": "新潟県",
-      "iso_code": "JP-15"
-    },
-    "Toyama": {
-      "local_code": "富山県",
-      "iso_code": "JP-16"
-    },
-    "Ishikawa": {
-      "local_code": "石川県",
-      "iso_code": "JP-17"
-    },
-    "Fukui": {
-      "local_code": "福井県",
-      "iso_code": "JP-18"
-    },
-    "Yamanashi": {
-      "local_code": "山梨県",
-      "iso_code": "JP-19"
-    },
-    "Nagano": {
-      "local_code": "長野県",
-      "iso_code": "JP-20"
-    },
-    "Gifu": {
-      "local_code": "岐阜県",
-      "iso_code": "JP-21"
-    },
-    "Shizuoka": {
-      "local_code": "静岡県",
-      "iso_code": "JP-22"
-    },
-    "Aichi": {
-      "local_code": "愛知県",
-      "iso_code": "JP-23"
-    },
-    "Mie": {
-      "local_code": "三重県",
-      "iso_code": "JP-24"
-    },
-    "Shiga": {
-      "local_code": "滋賀県",
-      "iso_code": "JP-25"
-    },
-    "Kyoto": {
-      "local_code": "京都府",
-      "iso_code": "JP-26"
-    },
-    "Osaka": {
-      "local_code": "大阪府",
-      "iso_code": "JP-27"
-    },
-    "Hyogo": {
-      "local_code": "兵庫県",
-      "iso_code": "JP-28"
-    },
-    "Nara": {
-      "local_code": "奈良県",
-      "iso_code": "JP-29"
-    },
-    "Wakayama": {
-      "local_code": "和歌山県",
-      "iso_code": "JP-30"
-    },
-    "Tottori": {
-      "local_code": "鳥取県",
-      "iso_code": "JP-31"
-    },
-    "Shimane": {
-      "local_code": "島根県",
-      "iso_code": "JP-32"
-    },
-    "Okayama": {
-      "local_code": "岡山県",
-      "iso_code": "JP-33"
-    },
-    "Hiroshima": {
-      "local_code": "広島県",
-      "iso_code": "JP-34"
-    },
-    "Yamaguchi": {
-      "local_code": "山口県",
-      "iso_code": "JP-35"
-    },
-    "Tokushima": {
-      "local_code": "徳島県",
-      "iso_code": "JP-36"
-    },
-    "Kagawa": {
-      "local_code": "香川県",
-      "iso_code": "JP-37"
-    },
-    "Ehime": {
-      "local_code": "愛媛県",
-      "iso_code": "JP-38"
-    },
-    "Kochi": {
-      "local_code": "高知県",
-      "iso_code": "JP-39"
-    },
-    "Fukuoka": {
-      "local_code": "福岡県",
-      "iso_code": "JP-40"
-    },
-    "Saga": {
-      "local_code": "佐賀県",
-      "iso_code": "JP-41"
-    },
-    "Nagasaki": {
-      "local_code": "長崎県",
-      "iso_code": "JP-42"
-    },
-    "Kumamoto": {
-      "local_code": "熊本県",
-      "iso_code": "JP-43"
-    },
-    "Oita": {
-      "local_code": "大分県",
-      "iso_code": "JP-44"
-    },
-    "Miyazaki": {
-      "local_code": "宮崎県",
-      "iso_code": "JP-45"
-    },
-    "Kagoshima": {
-      "local_code": "鹿児島県",
-      "iso_code": "JP-46"
-    },
-    "Okinawa": {
-      "local_code": "沖縄県",
-      "iso_code": "JP-47"
-    }
-  }
+	"country_code": "JP",
+	"locale": "ja",
+	"subdivisions": {
+		"Hokkaido": {
+			"local_code": "北海道",
+			"iso_code": "JP-01"
+		},
+		"Aomori": {
+			"local_code": "青森県",
+			"iso_code": "JP-02"
+		},
+		"Iwate": {
+			"local_code": "岩手県",
+			"iso_code": "JP-03"
+		},
+		"Miyagi": {
+			"local_code": "宮城県",
+			"iso_code": "JP-04"
+		},
+		"Akita": {
+			"local_code": "秋田県",
+			"iso_code": "JP-05"
+		},
+		"Yamagata": {
+			"local_code": "山形県",
+			"iso_code": "JP-06"
+		},
+		"Fukushima": {
+			"local_code": "福島県",
+			"iso_code": "JP-07"
+		},
+		"Ibaraki": {
+			"local_code": "茨城県",
+			"iso_code": "JP-08"
+		},
+		"Tochigi": {
+			"local_code": "栃木県",
+			"iso_code": "JP-09"
+		},
+		"Gunma": {
+			"local_code": "群馬県",
+			"iso_code": "JP-10"
+		},
+		"Saitama": {
+			"local_code": "埼玉県",
+			"iso_code": "JP-11"
+		},
+		"Chiba": {
+			"local_code": "千葉県",
+			"iso_code": "JP-12"
+		},
+		"Tokyo": {
+			"local_code": "東京都",
+			"iso_code": "JP-13"
+		},
+		"Kanagawa": {
+			"local_code": "神奈川県",
+			"iso_code": "JP-14"
+		},
+		"Niigata": {
+			"local_code": "新潟県",
+			"iso_code": "JP-15"
+		},
+		"Toyama": {
+			"local_code": "富山県",
+			"iso_code": "JP-16"
+		},
+		"Ishikawa": {
+			"local_code": "石川県",
+			"iso_code": "JP-17"
+		},
+		"Fukui": {
+			"local_code": "福井県",
+			"iso_code": "JP-18"
+		},
+		"Yamanashi": {
+			"local_code": "山梨県",
+			"iso_code": "JP-19"
+		},
+		"Nagano": {
+			"local_code": "長野県",
+			"iso_code": "JP-20"
+		},
+		"Gifu": {
+			"local_code": "岐阜県",
+			"iso_code": "JP-21"
+		},
+		"Shizuoka": {
+			"local_code": "静岡県",
+			"iso_code": "JP-22"
+		},
+		"Aichi": {
+			"local_code": "愛知県",
+			"iso_code": "JP-23"
+		},
+		"Mie": {
+			"local_code": "三重県",
+			"iso_code": "JP-24"
+		},
+		"Shiga": {
+			"local_code": "滋賀県",
+			"iso_code": "JP-25"
+		},
+		"Kyoto": {
+			"local_code": "京都府",
+			"iso_code": "JP-26"
+		},
+		"Osaka": {
+			"local_code": "大阪府",
+			"iso_code": "JP-27"
+		},
+		"Hyogo": {
+			"local_code": "兵庫県",
+			"iso_code": "JP-28"
+		},
+		"Nara": {
+			"local_code": "奈良県",
+			"iso_code": "JP-29"
+		},
+		"Wakayama": {
+			"local_code": "和歌山県",
+			"iso_code": "JP-30"
+		},
+		"Tottori": {
+			"local_code": "鳥取県",
+			"iso_code": "JP-31"
+		},
+		"Shimane": {
+			"local_code": "島根県",
+			"iso_code": "JP-32"
+		},
+		"Okayama": {
+			"local_code": "岡山県",
+			"iso_code": "JP-33"
+		},
+		"Hiroshima": {
+			"local_code": "広島県",
+			"iso_code": "JP-34"
+		},
+		"Yamaguchi": {
+			"local_code": "山口県",
+			"iso_code": "JP-35"
+		},
+		"Tokushima": {
+			"local_code": "徳島県",
+			"iso_code": "JP-36"
+		},
+		"Kagawa": {
+			"local_code": "香川県",
+			"iso_code": "JP-37"
+		},
+		"Ehime": {
+			"local_code": "愛媛県",
+			"iso_code": "JP-38"
+		},
+		"Kochi": {
+			"local_code": "高知県",
+			"iso_code": "JP-39"
+		},
+		"Fukuoka": {
+			"local_code": "福岡県",
+			"iso_code": "JP-40"
+		},
+		"Saga": {
+			"local_code": "佐賀県",
+			"iso_code": "JP-41"
+		},
+		"Nagasaki": {
+			"local_code": "長崎県",
+			"iso_code": "JP-42"
+		},
+		"Kumamoto": {
+			"local_code": "熊本県",
+			"iso_code": "JP-43"
+		},
+		"Oita": {
+			"local_code": "大分県",
+			"iso_code": "JP-44"
+		},
+		"Miyazaki": {
+			"local_code": "宮崎県",
+			"iso_code": "JP-45"
+		},
+		"Kagoshima": {
+			"local_code": "鹿児島県",
+			"iso_code": "JP-46"
+		},
+		"Okinawa": {
+			"local_code": "沖縄県",
+			"iso_code": "JP-47"
+		}
+	}
 }

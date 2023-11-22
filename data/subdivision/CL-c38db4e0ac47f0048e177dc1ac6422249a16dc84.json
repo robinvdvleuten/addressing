@@ -1,27 +1,27 @@
 {
-  "country_code": "CL",
-  "parents": [
-    "CL",
-    "Atacama"
-  ],
-  "subdivisions": {
-    "Alto del Carmen": {
-    },
-    "Caldera": {
-    },
-    "Chañaral": {
-    },
-    "Copiapó": {
-    },
-    "Diego de Almagro": {
-    },
-    "Freirina": {
-    },
-    "Huasco": {
-    },
-    "Tierra Amarilla": {
-    },
-    "Vallenar": {
-    }
-  }
+	"country_code": "CL",
+	"parents": [
+		"CL",
+		"Atacama"
+	],
+	"subdivisions": {
+		"Alto del Carmen": {
+		},
+		"Caldera": {
+		},
+		"Chañaral": {
+		},
+		"Copiapó": {
+		},
+		"Diego de Almagro": {
+		},
+		"Freirina": {
+		},
+		"Huasco": {
+		},
+		"Tierra Amarilla": {
+		},
+		"Vallenar": {
+		}
+	}
 }

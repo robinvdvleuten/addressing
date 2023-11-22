@@ -1,37 +1,37 @@
 {
-  "country_code": "AU",
-  "subdivisions": {
-    "ACT": {
-      "name": "Australian Capital Territory",
-      "iso_code": "AU-ACT"
-    },
-    "NSW": {
-      "name": "New South Wales",
-      "iso_code": "AU-NSW"
-    },
-    "NT": {
-      "name": "Northern Territory",
-      "iso_code": "AU-NT"
-    },
-    "QLD": {
-      "name": "Queensland",
-      "iso_code": "AU-QLD"
-    },
-    "SA": {
-      "name": "South Australia",
-      "iso_code": "AU-SA"
-    },
-    "TAS": {
-      "name": "Tasmania",
-      "iso_code": "AU-TAS"
-    },
-    "VIC": {
-      "name": "Victoria",
-      "iso_code": "AU-VIC"
-    },
-    "WA": {
-      "name": "Western Australia",
-      "iso_code": "AU-WA"
-    }
-  }
+	"country_code": "AU",
+	"subdivisions": {
+		"ACT": {
+			"name": "Australian Capital Territory",
+			"iso_code": "AU-ACT"
+		},
+		"NSW": {
+			"name": "New South Wales",
+			"iso_code": "AU-NSW"
+		},
+		"NT": {
+			"name": "Northern Territory",
+			"iso_code": "AU-NT"
+		},
+		"QLD": {
+			"name": "Queensland",
+			"iso_code": "AU-QLD"
+		},
+		"SA": {
+			"name": "South Australia",
+			"iso_code": "AU-SA"
+		},
+		"TAS": {
+			"name": "Tasmania",
+			"iso_code": "AU-TAS"
+		},
+		"VIC": {
+			"name": "Victoria",
+			"iso_code": "AU-VIC"
+		},
+		"WA": {
+			"name": "Western Australia",
+			"iso_code": "AU-WA"
+		}
+	}
 }

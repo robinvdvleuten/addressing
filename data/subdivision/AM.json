@@ -1,50 +1,50 @@
 {
-  "country_code": "AM",
-  "locale": "hy",
-  "subdivisions": {
-    "Aragatsotn": {
-      "local_code": "Արագածոտն",
-      "iso_code": "AM-AG"
-    },
-    "Ararat": {
-      "local_code": "Արարատ",
-      "iso_code": "AM-AR"
-    },
-    "Armavir": {
-      "local_code": "Արմավիր",
-      "iso_code": "AM-AV"
-    },
-    "Gegharkunik": {
-      "local_code": "Գեղարքունիք",
-      "iso_code": "AM-GR"
-    },
-    "Yerevan": {
-      "local_code": "Երևան",
-      "iso_code": "AM-ER"
-    },
-    "Lori": {
-      "local_code": "Լոռի",
-      "iso_code": "AM-LO"
-    },
-    "Kotayk": {
-      "local_code": "Կոտայք",
-      "iso_code": "AM-KT"
-    },
-    "Shirak": {
-      "local_code": "Շիրակ",
-      "iso_code": "AM-SH"
-    },
-    "Syunik": {
-      "local_code": "Սյունիք",
-      "iso_code": "AM-SU"
-    },
-    "Vayots Dzor": {
-      "local_code": "Վայոց ձոր",
-      "iso_code": "AM-VD"
-    },
-    "Tavush": {
-      "local_code": "Տավուշ",
-      "iso_code": "AM-TV"
-    }
-  }
+	"country_code": "AM",
+	"locale": "hy",
+	"subdivisions": {
+		"Aragatsotn": {
+			"local_code": "Արագածոտն",
+			"iso_code": "AM-AG"
+		},
+		"Ararat": {
+			"local_code": "Արարատ",
+			"iso_code": "AM-AR"
+		},
+		"Armavir": {
+			"local_code": "Արմավիր",
+			"iso_code": "AM-AV"
+		},
+		"Gegharkunik": {
+			"local_code": "Գեղարքունիք",
+			"iso_code": "AM-GR"
+		},
+		"Yerevan": {
+			"local_code": "Երևան",
+			"iso_code": "AM-ER"
+		},
+		"Lori": {
+			"local_code": "Լոռի",
+			"iso_code": "AM-LO"
+		},
+		"Kotayk": {
+			"local_code": "Կոտայք",
+			"iso_code": "AM-KT"
+		},
+		"Shirak": {
+			"local_code": "Շիրակ",
+			"iso_code": "AM-SH"
+		},
+		"Syunik": {
+			"local_code": "Սյունիք",
+			"iso_code": "AM-SU"
+		},
+		"Vayots Dzor": {
+			"local_code": "Վայոց ձոր",
+			"iso_code": "AM-VD"
+		},
+		"Tavush": {
+			"local_code": "Տավուշ",
+			"iso_code": "AM-TV"
+		}
+	}
 }

@@ -1,77 +1,77 @@
 {
-  "country_code": "AR",
-  "subdivisions": {
-    "Buenos Aires": {
-      "iso_code": "AR-B"
-    },
-    "Catamarca": {
-      "iso_code": "AR-K"
-    },
-    "Chaco": {
-      "iso_code": "AR-H"
-    },
-    "Chubut": {
-      "iso_code": "AR-U"
-    },
-    "Ciudad Autónoma de Buenos Aires": {
-      "iso_code": "AR-C"
-    },
-    "Córdoba": {
-      "iso_code": "AR-X"
-    },
-    "Corrientes": {
-      "iso_code": "AR-W"
-    },
-    "Entre Ríos": {
-      "iso_code": "AR-E"
-    },
-    "Formosa": {
-      "iso_code": "AR-P"
-    },
-    "Jujuy": {
-      "iso_code": "AR-Y"
-    },
-    "La Pampa": {
-      "iso_code": "AR-L"
-    },
-    "La Rioja": {
-      "iso_code": "AR-F"
-    },
-    "Mendoza": {
-      "iso_code": "AR-M"
-    },
-    "Misiones": {
-      "iso_code": "AR-N"
-    },
-    "Neuquén": {
-      "iso_code": "AR-Q"
-    },
-    "Río Negro": {
-      "iso_code": "AR-R"
-    },
-    "Salta": {
-      "iso_code": "AR-A"
-    },
-    "San Juan": {
-      "iso_code": "AR-J"
-    },
-    "San Luis": {
-      "iso_code": "AR-D"
-    },
-    "Santa Cruz": {
-      "iso_code": "AR-Z"
-    },
-    "Santa Fe": {
-      "iso_code": "AR-S"
-    },
-    "Santiago del Estero": {
-      "iso_code": "AR-G"
-    },
-    "Tierra del Fuego": {
-      "iso_code": "AR-V"
-    },
-    "Tucumán": {
-      "iso_code": "AR-T"
-    }
-  }
+	"country_code": "AR",
+	"subdivisions": {
+		"Buenos Aires": {
+			"iso_code": "AR-B"
+		},
+		"Catamarca": {
+			"iso_code": "AR-K"
+		},
+		"Chaco": {
+			"iso_code": "AR-H"
+		},
+		"Chubut": {
+			"iso_code": "AR-U"
+		},
+		"Ciudad Autónoma de Buenos Aires": {
+			"iso_code": "AR-C"
+		},
+		"Córdoba": {
+			"iso_code": "AR-X"
+		},
+		"Corrientes": {
+			"iso_code": "AR-W"
+		},
+		"Entre Ríos": {
+			"iso_code": "AR-E"
+		},
+		"Formosa": {
+			"iso_code": "AR-P"
+		},
+		"Jujuy": {
+			"iso_code": "AR-Y"
+		},
+		"La Pampa": {
+			"iso_code": "AR-L"
+		},
+		"La Rioja": {
+			"iso_code": "AR-F"
+		},
+		"Mendoza": {
+			"iso_code": "AR-M"
+		},
+		"Misiones": {
+			"iso_code": "AR-N"
+		},
+		"Neuquén": {
+			"iso_code": "AR-Q"
+		},
+		"Río Negro": {
+			"iso_code": "AR-R"
+		},
+		"Salta": {
+			"iso_code": "AR-A"
+		},
+		"San Juan": {
+			"iso_code": "AR-J"
+		},
+		"San Luis": {
+			"iso_code": "AR-D"
+		},
+		"Santa Cruz": {
+			"iso_code": "AR-Z"
+		},
+		"Santa Fe": {
+			"iso_code": "AR-S"
+		},
+		"Santiago del Estero": {
+			"iso_code": "AR-G"
+		},
+		"Tierra del Fuego": {
+			"iso_code": "AR-V"
+		},
+		"Tucumán": {
+			"iso_code": "AR-T"
+		}
+	}
 }

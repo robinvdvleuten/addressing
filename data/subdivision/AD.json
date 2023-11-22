@@ -1,27 +1,27 @@
 {
-  "country_code": "AD",
-  "subdivisions": {
-    "Parròquia d'Andorra la Vella": {
-      "name": "Andorra la Vella",
-      "iso_code": "AD-07"
-    },
-    "Canillo": {
-      "iso_code": "AD-02"
-    },
-    "Encamp": {
-      "iso_code": "AD-03"
-    },
-    "Escaldes-Engordany": {
-      "iso_code": "AD-08"
-    },
-    "La Massana": {
-      "iso_code": "AD-04"
-    },
-    "Ordino": {
-      "iso_code": "AD-05"
-    },
-    "Sant Julià de Lòria": {
-      "iso_code": "AD-06"
-    }
-  }
+	"country_code": "AD",
+	"subdivisions": {
+		"Parròquia d'Andorra la Vella": {
+			"name": "Andorra la Vella",
+			"iso_code": "AD-07"
+		},
+		"Canillo": {
+			"iso_code": "AD-02"
+		},
+		"Encamp": {
+			"iso_code": "AD-03"
+		},
+		"Escaldes-Engordany": {
+			"iso_code": "AD-08"
+		},
+		"La Massana": {
+			"iso_code": "AD-04"
+		},
+		"Ordino": {
+			"iso_code": "AD-05"
+		},
+		"Sant Julià de Lòria": {
+			"iso_code": "AD-06"
+		}
+	}
 }

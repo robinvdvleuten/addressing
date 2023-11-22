@@ -1,251 +1,251 @@
 {
-  "country_code": "PH",
-  "subdivisions": {
-    "Abra": {
-      "iso_code": "PH-ABR"
-    },
-    "Agusan del Norte": {
-      "iso_code": "PH-AGN"
-    },
-    "Agusan del Sur": {
-      "iso_code": "PH-AGS"
-    },
-    "Aklan": {
-      "iso_code": "PH-AKL"
-    },
-    "Albay": {
-      "iso_code": "PH-ALB"
-    },
-    "Antique": {
-      "iso_code": "PH-ANT"
-    },
-    "Apayao": {
-      "iso_code": "PH-APA"
-    },
-    "Aurora": {
-      "iso_code": "PH-AUR"
-    },
-    "Basilan": {
-      "iso_code": "PH-BAS"
-    },
-    "Bataan": {
-      "iso_code": "PH-BAN"
-    },
-    "Batanes": {
-      "iso_code": "PH-BTN"
-    },
-    "Batangas": {
-      "iso_code": "PH-BTG"
-    },
-    "Benguet": {
-      "iso_code": "PH-BEN"
-    },
-    "Biliran": {
-      "iso_code": "PH-BIL"
-    },
-    "Bohol": {
-      "iso_code": "PH-BOH"
-    },
-    "Bukidnon": {
-      "iso_code": "PH-BUK"
-    },
-    "Bulacan": {
-      "iso_code": "PH-BUL"
-    },
-    "Cagayan": {
-      "iso_code": "PH-CAG"
-    },
-    "Camarines Norte": {
-      "iso_code": "PH-CAN"
-    },
-    "Camarines Sur": {
-      "iso_code": "PH-CAS"
-    },
-    "Camiguin": {
-      "iso_code": "PH-CAM"
-    },
-    "Capiz": {
-      "iso_code": "PH-CAP"
-    },
-    "Catanduanes": {
-      "iso_code": "PH-CAT"
-    },
-    "Cavite": {
-      "iso_code": "PH-CAV"
-    },
-    "Cebu": {
-      "iso_code": "PH-CEB"
-    },
-    "Davao de Oro": {
-      "iso_code": "PH-COM"
-    },
-    "Cotabato": {
-      "iso_code": "PH-NCO"
-    },
-    "Davao del Norte": {
-      "iso_code": "PH-DAV"
-    },
-    "Davao del Sur": {
-      "iso_code": "PH-DAS"
-    },
-    "Davao Occidental": {
-      "iso_code": "PH-DVO"
-    },
-    "Davao Oriental": {
-      "iso_code": "PH-DAO"
-    },
-    "Dinagat Islands": {
-      "iso_code": "PH-DIN"
-    },
-    "Eastern Samar": {
-      "iso_code": "PH-EAS"
-    },
-    "Guimaras": {
-      "iso_code": "PH-GUI"
-    },
-    "Ifugao": {
-      "iso_code": "PH-IFU"
-    },
-    "Ilocos Norte": {
-      "iso_code": "PH-ILN"
-    },
-    "Ilocos Sur": {
-      "iso_code": "PH-ILS"
-    },
-    "Iloilo": {
-      "iso_code": "PH-ILI"
-    },
-    "Isabela": {
-      "iso_code": "PH-ISA"
-    },
-    "Kalinga": {
-      "iso_code": "PH-KAL"
-    },
-    "La Union": {
-      "iso_code": "PH-LUN"
-    },
-    "Laguna": {
-      "iso_code": "PH-LAG"
-    },
-    "Lanao del Norte": {
-      "iso_code": "PH-LAN"
-    },
-    "Lanao del Sur": {
-      "iso_code": "PH-LAS"
-    },
-    "Leyte": {
-      "iso_code": "PH-LEY"
-    },
-    "Maguindanao": {
-      "iso_code": "PH-MAG"
-    },
-    "Marinduque": {
-      "iso_code": "PH-MAD"
-    },
-    "Masbate": {
-      "iso_code": "PH-MAS"
-    },
-    "Metro Manila": {
-      "iso_code": "PH-00"
-    },
-    "Mindoro Occidental": {
-      "iso_code": "PH-MDC"
-    },
-    "Mindoro Oriental": {
-      "iso_code": "PH-MDR"
-    },
-    "Misamis Occidental": {
-      "iso_code": "PH-MSC"
-    },
-    "Misamis Oriental": {
-      "iso_code": "PH-MSR"
-    },
-    "Mountain Province": {
-      "iso_code": "PH-MOU"
-    },
-    "Negros Occidental": {
-      "iso_code": "PH-NEC"
-    },
-    "Negros Oriental": {
-      "iso_code": "PH-NER"
-    },
-    "Northern Samar": {
-      "iso_code": "PH-NSA"
-    },
-    "Nueva Ecija": {
-      "iso_code": "PH-NUE"
-    },
-    "Nueva Vizcaya": {
-      "iso_code": "PH-NUV"
-    },
-    "Palawan": {
-      "iso_code": "PH-PLW"
-    },
-    "Pampanga": {
-      "iso_code": "PH-PAM"
-    },
-    "Pangasinan": {
-      "iso_code": "PH-PAN"
-    },
-    "Quezon Province": {
-      "iso_code": "PH-QUE"
-    },
-    "Quirino": {
-      "iso_code": "PH-QUI"
-    },
-    "Rizal": {
-      "iso_code": "PH-RIZ"
-    },
-    "Romblon": {
-      "iso_code": "PH-ROM"
-    },
-    "Samar": {
-      "iso_code": "PH-WSA"
-    },
-    "Sarangani": {
-      "iso_code": "PH-SAR"
-    },
-    "Siquijor": {
-      "iso_code": "PH-SIG"
-    },
-    "Sorsogon": {
-      "iso_code": "PH-SOR"
-    },
-    "South Cotabato": {
-      "iso_code": "PH-SCO"
-    },
-    "Southern Leyte": {
-      "iso_code": "PH-SLE"
-    },
-    "Sultan Kudarat": {
-      "iso_code": "PH-SUK"
-    },
-    "Sulu": {
-      "iso_code": "PH-SLU"
-    },
-    "Surigao del Norte": {
-      "iso_code": "PH-SUN"
-    },
-    "Surigao del Sur": {
-      "iso_code": "PH-SUR"
-    },
-    "Tarlac": {
-      "iso_code": "PH-TAR"
-    },
-    "Tawi-Tawi": {
-      "iso_code": "PH-TAW"
-    },
-    "Zambales": {
-      "iso_code": "PH-ZMB"
-    },
-    "Zamboanga del Norte": {
-      "iso_code": "PH-ZAN"
-    },
-    "Zamboanga del Sur": {
-      "iso_code": "PH-ZAS"
-    },
-    "Zamboanga Sibuguey": {
-      "iso_code": "PH-ZSI"
-    }
-  }
+	"country_code": "PH",
+	"subdivisions": {
+		"Abra": {
+			"iso_code": "PH-ABR"
+		},
+		"Agusan del Norte": {
+			"iso_code": "PH-AGN"
+		},
+		"Agusan del Sur": {
+			"iso_code": "PH-AGS"
+		},
+		"Aklan": {
+			"iso_code": "PH-AKL"
+		},
+		"Albay": {
+			"iso_code": "PH-ALB"
+		},
+		"Antique": {
+			"iso_code": "PH-ANT"
+		},
+		"Apayao": {
+			"iso_code": "PH-APA"
+		},
+		"Aurora": {
+			"iso_code": "PH-AUR"
+		},
+		"Basilan": {
+			"iso_code": "PH-BAS"
+		},
+		"Bataan": {
+			"iso_code": "PH-BAN"
+		},
+		"Batanes": {
+			"iso_code": "PH-BTN"
+		},
+		"Batangas": {
+			"iso_code": "PH-BTG"
+		},
+		"Benguet": {
+			"iso_code": "PH-BEN"
+		},
+		"Biliran": {
+			"iso_code": "PH-BIL"
+		},
+		"Bohol": {
+			"iso_code": "PH-BOH"
+		},
+		"Bukidnon": {
+			"iso_code": "PH-BUK"
+		},
+		"Bulacan": {
+			"iso_code": "PH-BUL"
+		},
+		"Cagayan": {
+			"iso_code": "PH-CAG"
+		},
+		"Camarines Norte": {
+			"iso_code": "PH-CAN"
+		},
+		"Camarines Sur": {
+			"iso_code": "PH-CAS"
+		},
+		"Camiguin": {
+			"iso_code": "PH-CAM"
+		},
+		"Capiz": {
+			"iso_code": "PH-CAP"
+		},
+		"Catanduanes": {
+			"iso_code": "PH-CAT"
+		},
+		"Cavite": {
+			"iso_code": "PH-CAV"
+		},
+		"Cebu": {
+			"iso_code": "PH-CEB"
+		},
+		"Davao de Oro": {
+			"iso_code": "PH-COM"
+		},
+		"Cotabato": {
+			"iso_code": "PH-NCO"
+		},
+		"Davao del Norte": {
+			"iso_code": "PH-DAV"
+		},
+		"Davao del Sur": {
+			"iso_code": "PH-DAS"
+		},
+		"Davao Occidental": {
+			"iso_code": "PH-DVO"
+		},
+		"Davao Oriental": {
+			"iso_code": "PH-DAO"
+		},
+		"Dinagat Islands": {
+			"iso_code": "PH-DIN"
+		},
+		"Eastern Samar": {
+			"iso_code": "PH-EAS"
+		},
+		"Guimaras": {
+			"iso_code": "PH-GUI"
+		},
+		"Ifugao": {
+			"iso_code": "PH-IFU"
+		},
+		"Ilocos Norte": {
+			"iso_code": "PH-ILN"
+		},
+		"Ilocos Sur": {
+			"iso_code": "PH-ILS"
+		},
+		"Iloilo": {
+			"iso_code": "PH-ILI"
+		},
+		"Isabela": {
+			"iso_code": "PH-ISA"
+		},
+		"Kalinga": {
+			"iso_code": "PH-KAL"
+		},
+		"La Union": {
+			"iso_code": "PH-LUN"
+		},
+		"Laguna": {
+			"iso_code": "PH-LAG"
+		},
+		"Lanao del Norte": {
+			"iso_code": "PH-LAN"
+		},
+		"Lanao del Sur": {
+			"iso_code": "PH-LAS"
+		},
+		"Leyte": {
+			"iso_code": "PH-LEY"
+		},
+		"Maguindanao": {
+			"iso_code": "PH-MAG"
+		},
+		"Marinduque": {
+			"iso_code": "PH-MAD"
+		},
+		"Masbate": {
+			"iso_code": "PH-MAS"
+		},
+		"Metro Manila": {
+			"iso_code": "PH-00"
+		},
+		"Mindoro Occidental": {
+			"iso_code": "PH-MDC"
+		},
+		"Mindoro Oriental": {
+			"iso_code": "PH-MDR"
+		},
+		"Misamis Occidental": {
+			"iso_code": "PH-MSC"
+		},
+		"Misamis Oriental": {
+			"iso_code": "PH-MSR"
+		},
+		"Mountain Province": {
+			"iso_code": "PH-MOU"
+		},
+		"Negros Occidental": {
+			"iso_code": "PH-NEC"
+		},
+		"Negros Oriental": {
+			"iso_code": "PH-NER"
+		},
+		"Northern Samar": {
+			"iso_code": "PH-NSA"
+		},
+		"Nueva Ecija": {
+			"iso_code": "PH-NUE"
+		},
+		"Nueva Vizcaya": {
+			"iso_code": "PH-NUV"
+		},
+		"Palawan": {
+			"iso_code": "PH-PLW"
+		},
+		"Pampanga": {
+			"iso_code": "PH-PAM"
+		},
+		"Pangasinan": {
+			"iso_code": "PH-PAN"
+		},
+		"Quezon Province": {
+			"iso_code": "PH-QUE"
+		},
+		"Quirino": {
+			"iso_code": "PH-QUI"
+		},
+		"Rizal": {
+			"iso_code": "PH-RIZ"
+		},
+		"Romblon": {
+			"iso_code": "PH-ROM"
+		},
+		"Samar": {
+			"iso_code": "PH-WSA"
+		},
+		"Sarangani": {
+			"iso_code": "PH-SAR"
+		},
+		"Siquijor": {
+			"iso_code": "PH-SIG"
+		},
+		"Sorsogon": {
+			"iso_code": "PH-SOR"
+		},
+		"South Cotabato": {
+			"iso_code": "PH-SCO"
+		},
+		"Southern Leyte": {
+			"iso_code": "PH-SLE"
+		},
+		"Sultan Kudarat": {
+			"iso_code": "PH-SUK"
+		},
+		"Sulu": {
+			"iso_code": "PH-SLU"
+		},
+		"Surigao del Norte": {
+			"iso_code": "PH-SUN"
+		},
+		"Surigao del Sur": {
+			"iso_code": "PH-SUR"
+		},
+		"Tarlac": {
+			"iso_code": "PH-TAR"
+		},
+		"Tawi-Tawi": {
+			"iso_code": "PH-TAW"
+		},
+		"Zambales": {
+			"iso_code": "PH-ZMB"
+		},
+		"Zamboanga del Norte": {
+			"iso_code": "PH-ZAN"
+		},
+		"Zamboanga del Sur": {
+			"iso_code": "PH-ZAS"
+		},
+		"Zamboanga Sibuguey": {
+			"iso_code": "PH-ZSI"
+		}
+	}
 }
