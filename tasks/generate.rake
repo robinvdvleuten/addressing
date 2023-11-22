@@ -33,6 +33,9 @@ namespace :addressing do
     puts "Extracting available locales from CountryRepository.php\n"
     extract_available_locales
 
+    puts "Extracting base definitions from CountryRepository.php\n"
+    extract_base_definitions
+
     puts "Extracting definitions from AddressFormatRepository.php\n"
     extract_address_definitions
 
@@ -63,8 +66,25 @@ def extract_available_locales
   locales_match = country_repo.match(/\$availableLocales = (\[[^\]]+\]);/m)
   raise "Unable to extract available locales from CountryRepository.php" if locales_match.nil?
 
+  locales = locales_match[1].tr("'", '"').gsub(/,\s+\]/, "\n      ]")
+
   country_rb = File.read("lib/addressing/country.rb")
-  country_rb = country_rb.gsub(/@@available_locales = \[[^\]]+\]/m, "@@available_locales = #{locales_match[1].tr("'", '"')}")
+  country_rb = country_rb.gsub(/@@available_locales = \[[^\]]+\]/m, "@@available_locales = #{locales}")
+
+  File.write("lib/addressing/country.rb", country_rb)
+end
+
+def extract_base_definitions
+  country_repo = File.read("tmp/addressing/src/Country/CountryRepository.php")
+
+  # Extract definitions from the getDefinitions() method.
+  definitions_match = country_repo.match(/getBaseDefinitions\(\): array\s*\{.+?\[(.*)\];/m)
+  raise "Unable to extract base definitions from CountryRepository.php" if definitions_match.nil?
+
+  definitions = definitions_match[1].tr("'", '"').gsub(/null/, "nil").gsub(/\n\s+/, "\n          ").gsub(/,\s+$/, "\n        ")
+
+  country_rb = File.read("lib/addressing/country.rb")
+  country_rb = country_rb.gsub(/@@base_definitions \|\|= \{[^\}]+\}/m, "@@base_definitions ||= {#{definitions}}")
 
   File.write("lib/addressing/country.rb", country_rb)
 end
