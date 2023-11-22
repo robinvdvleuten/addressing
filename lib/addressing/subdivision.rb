@@ -200,7 +200,7 @@ module Addressing
 
     def initialize(definition = {})
       # Validate the presence of required properties.
-      [:country_code, :id, :name].each do |required_property|
+      [:country_code, :id, :code, :name].each do |required_property|
         if definition[required_property].nil?
           raise ArgumentError, "Missing required property #{required_property}."
         end
