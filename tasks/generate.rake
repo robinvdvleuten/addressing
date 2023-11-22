@@ -49,7 +49,7 @@ def normalize_subdivision_group_hash
     parents = subdivision["parents"]
 
     filename = parents.shift
-    next unless parents.any?
+    next unless parents.any? && !(parents.length == 1 && parents[0].length <= 3)
 
     filename += "-" * parents.length
     filename += Digest::SHA1.hexdigest(parents.join("-"))
@@ -81,7 +81,7 @@ def extract_base_definitions
   definitions_match = country_repo.match(/getBaseDefinitions\(\): array\s*\{.+?\[(.*)\];/m)
   raise "Unable to extract base definitions from CountryRepository.php" if definitions_match.nil?
 
-  definitions = definitions_match[1].tr("'", '"').gsub(/null/, "nil").gsub(/\n\s+/, "\n          ").gsub(/,\s+$/, "\n        ")
+  definitions = definitions_match[1].tr("'", '"').gsub("null", "nil").gsub(/\n\s+/, "\n          ").gsub(/,\s+$/, "\n        ")
 
   country_rb = File.read("lib/addressing/country.rb")
   country_rb = country_rb.gsub(/@@base_definitions \|\|= \{[^\}]+\}/m, "@@base_definitions ||= {#{definitions}}")

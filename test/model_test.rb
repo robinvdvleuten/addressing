@@ -11,7 +11,7 @@ class ModelTest < Minitest::Test
   def test_andorra_valid
     address = Address.new(
       country_code: "AD",
-      locality: "Parròquia d'Andorra la Vella",
+      locality: "07",
       postal_code: "AD500",
       address_line1: "C. Prat de la Creu, 62-64",
       given_name: "Antoni",
@@ -78,7 +78,7 @@ class ModelTest < Minitest::Test
   def test_china_valid
     address = Address.new(
       country_code: "CN",
-      administrative_area: "Beijing Shi",
+      administrative_area: "BJ",
       locality: "Xicheng Qu",
       postal_code: "123456",
       address_line1: "Yitiao Lu",
@@ -91,7 +91,7 @@ class ModelTest < Minitest::Test
   def test_china_postal_code_bad_format
     address = Address.new(
       country_code: "CN",
-      administrative_area: "Beijing Shi",
+      administrative_area: "BJ",
       locality: "Xicheng Qu",
       postal_code: "INVALID",
       given_name: "John",
@@ -105,7 +105,21 @@ class ModelTest < Minitest::Test
   def test_china_taiwan_valid
     address = Address.new(
       country_code: "CN",
-      administrative_area: "Taiwan",
+      administrative_area: "TW",
+      locality: "Taichung City",
+      dependent_locality: "Xitun District",
+      postal_code: "407",
+      address_line1: "12345 Yitiao Lu",
+      given_name: "John",
+      family_name: "Smith"
+    )
+    assert address.valid?
+  end
+
+  def test_china_taiwan_unknown_district
+    address = Address.new(
+      country_code: "CN",
+      administrative_area: "TW",
       locality: "Taichung City",
       dependent_locality: "INVALID",
       postal_code: "407",
@@ -117,24 +131,10 @@ class ModelTest < Minitest::Test
     assert address.errors.key?(:dependent_locality)
   end
 
-  def test_china_taiwan_unknown_district
-    address = Address.new(
-      country_code: "CN",
-      administrative_area: "Taiwan",
-      locality: "Taichung City",
-      dependent_locality: "Xitun District",
-      postal_code: "407",
-      address_line1: "12345 Yitiao Lu",
-      given_name: "John",
-      family_name: "Smith"
-    )
-    assert address.valid?
-  end
-
   def test_japan_valid
     address = Address.new(
       country_code: "JP",
-      administrative_area: "Kyoto",
+      administrative_area: "26",
       locality: "Shigeru Miyamoto",
       postal_code: "601-8501",
       address_line1: "11-1 Kamitoba-hokotate-cho",
@@ -193,7 +193,7 @@ class ModelTest < Minitest::Test
   def test_irish_address
     address = Address.new(
       country_code: "IE",
-      administrative_area: "Co. Donegal",
+      administrative_area: "DL",
       locality: "Dublin",
       address_line1: "424 118 Avenue NW",
       given_name: "Conan",
@@ -210,7 +210,7 @@ class ModelTest < Minitest::Test
   def test_empty_postal_code_reported_as_good_format
     address = Address.new(
       country_code: "CL",
-      administrative_area: "Antofagasta",
+      administrative_area: "AN",
       locality: "San Pedro de Atacama",
       postal_code: "",
       address_line1: "GUSTAVO LE PAIGE ST #159",
@@ -241,7 +241,7 @@ class ModelTest < Minitest::Test
 
     address = address_klass.new(
       country_code: "CN",
-      administrative_area: "Beijing Shi",
+      administrative_area: "BJ",
       locality: "Xicheng Qu",
       postal_code: "123456",
       address_line1: "Yitiao Lu"
@@ -256,7 +256,7 @@ class ModelTest < Minitest::Test
 
     address = address_klass.new(
       country_code: "CN",
-      administrative_area: "Beijing Shi",
+      administrative_area: "BJ",
       locality: "Xicheng Qu",
       address_line1: "Yitiao Lu",
       postal_code: "INVALID",

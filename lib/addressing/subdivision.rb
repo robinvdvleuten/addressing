@@ -14,9 +14,9 @@ module Addressing
       # memory usage.
       @@parents = {}
 
-      def get(code, parents)
+      def get(id, parents)
         definitions = load_definitions(parents)
-        create_subdivision_from_definitions(code, definitions)
+        create_subdivision_from_definitions(id, definitions)
       end
 
       # Returns all subdivision instances for the provided parents.
@@ -24,8 +24,8 @@ module Addressing
         definitions = load_definitions(parents)
         return {} if definitions.empty?
 
-        definitions["subdivisions"].each_with_object({}) do |(code, definition), subdivisions|
-          subdivisions[code] = create_subdivision_from_definitions(code, definitions)
+        definitions["subdivisions"].each_with_object({}) do |(id, definition), subdivisions|
+          subdivisions[id] = create_subdivision_from_definitions(id, definitions)
         end
       end
 
@@ -36,8 +36,8 @@ module Addressing
 
         use_local_name = Locale.match_candidates(locale, definitions["locale"] || "")
 
-        definitions["subdivisions"].each_with_object({}) do |(code, definition), list|
-          list[code] = use_local_name ? definition["local_name"] : definition["name"]
+        definitions["subdivisions"].each_with_object({}) do |(id, definition), subdivisions|
+          subdivisions[id] = use_local_name ? definition["local_name"] : definition["name"]
         end
       end
 
@@ -46,9 +46,8 @@ module Addressing
       # Checks whether predefined subdivisions exist for the provided parents.
       def has_data(parents)
         country_code = parents[0]
-        address_format = AddressFormat.get(country_code)
 
-        depth = address_format.subdivision_depth
+        depth = AddressFormat.get(country_code).subdivision_depth
         return false if depth == 0
 
         if parents.size > 1
@@ -59,7 +58,7 @@ module Addressing
           parent_id = grandparents.pop
           parent_group = build_group(grandparents.dup)
 
-          if @@definitions[parent_group]["subdivisions"][parent_id]
+          if @@definitions.dig(parent_group, "subdivisions", parent_id)
             definition = @@definitions[parent_group]["subdivisions"][parent_id]
             return !!definition["has_children"]
           else
@@ -99,21 +98,27 @@ module Addressing
       #
       # Adds keys and values that were removed from the JSON files for brevity.
       def process_definitions(definitions)
-        definitions["subdivisions"].each do |code, definition|
+        definitions["subdivisions"].each do |id, definition|
           # Add common keys from the root level.
           definition["country_code"] = definitions["country_code"]
+          definition["id"] = id
+
           if definitions.key?("locale")
             definition["locale"] = definitions["locale"]
           end
 
-          # Ensure the presence of code and name.
-          definition["code"] = code
           if !definition.key?("name")
-            definition["name"] = code
+            definition["name"] = id
           end
 
-          if definition.key?("local_code") && !definition.key?("local_name")
-            definition["local_name"] = definition["local_code"]
+          # The code and local_code values are only specified if they
+          # don't match the name and local_name ones.
+          if !definition.key?("code") && definition.key?("name")
+            definition["code"] = definition["name"]
+          end
+
+          if !definition.key?("local_code") && definition.key?("local_name")
+            definition["local_code"] = definition["local_name"]
           end
         end
 
@@ -124,31 +129,30 @@ module Addressing
       #
       # Used for storing a country's subdivisions of a specific level.
       def build_group(parents)
-        if parents.empty?
-          raise ArgumentError, "The parents argument must not be empty."
-        end
+        raise ArgumentError, "The parents argument must not be empty." if parents.empty?
+
+        return parents[0] if parents.length == 1
+
+        # The second parent is an ISO code, it can be used as-is.
+        return parents.join("-") if parents.length == 2 && parents[1].length <= 3
 
         country_code = parents.shift
-        group = country_code.upcase
+        group = country_code
 
-        if parents.any?
-          # A dash per key allows the depth to be guessed later.
-          group += "-" * parents.length
-          # Hash the remaining keys to ensure that the group is ASCII safe.
-          group += Digest::SHA1.hexdigest(parents.join("-"))
-        end
-
-        group
+        # A dash per key allows the depth to be guessed later.
+        group += "-" * parents.length
+        # Hash the remaining keys to ensure that the group is ASCII safe.
+        group + Digest::SHA1.hexdigest(parents.join("-"))
       end
 
       # Creates a subdivision object from the provided definitions.
-      def create_subdivision_from_definitions(code, definitions)
-        if !definitions.dig("subdivisions", code)
+      def create_subdivision_from_definitions(id, definitions)
+        if !definitions.dig("subdivisions", id)
           # No matching definition found.
           return nil
         end
 
-        definition = definitions["subdivisions"][code]
+        definition = definitions["subdivisions"][id]
         # The 'parents' key is omitted when it contains just the country code.
         definitions["parents"] = [definitions["country_code"]] unless definitions.key?("parents")
         parents = definitions["parents"]
@@ -172,12 +176,13 @@ module Addressing
         # Prepare children.
         if definition["has_children"]
           children_parents = parents.dup
-          children_parents << code
+          children_parents << id
 
           definition["children"] = LazySubdivisions.new(children_parents)
         end
 
         new(
+          id: id,
           parent: definition["parent"],
           country_code: definition["country_code"],
           locale: definition["locale"],
@@ -185,18 +190,17 @@ module Addressing
           local_code: definition["local_code"],
           name: definition["name"],
           local_name: definition["local_name"],
-          iso_code: definition["iso_code"],
           postal_code_pattern: definition["postal_code_pattern"],
           children: definition["children"] || {}
         )
       end
     end
 
-    attr_reader :parent, :country_code, :locale, :code, :local_code, :name, :local_name, :iso_code, :postal_code_pattern, :children
+    attr_reader :id, :parent, :country_code, :locale, :code, :local_code, :name, :local_name, :postal_code_pattern, :children
 
     def initialize(definition = {})
       # Validate the presence of required properties.
-      [:country_code, :code, :name].each do |required_property|
+      [:country_code, :id, :name].each do |required_property|
         if definition[required_property].nil?
           raise ArgumentError, "Missing required property #{required_property}."
         end
@@ -208,11 +212,11 @@ module Addressing
         locale: nil,
         local_code: nil,
         local_name: nil,
-        iso_code: nil,
         postal_code_pattern: nil,
         children: {}
       }.merge(definition)
 
+      @id = definition[:id]
       @parent = definition[:parent]
       @country_code = definition[:country_code]
       @locale = definition[:locale]
@@ -220,7 +224,6 @@ module Addressing
       @local_code = definition[:local_code]
       @name = definition[:name]
       @local_name = definition[:local_name]
-      @iso_code = definition[:iso_code]
       @postal_code_pattern = definition[:postal_code_pattern]
       @children = definition[:children]
     end
@@ -231,6 +234,7 @@ module Addressing
 
     def to_h
       {
+        id: id,
         parent: parent,
         country_code: country_code,
         locale: locale,
@@ -238,7 +242,6 @@ module Addressing
         local_code: local_code,
         name: name,
         local_name: local_name,
-        iso_code: iso_code,
         postal_code_pattern: postal_code_pattern,
         children: children
       }

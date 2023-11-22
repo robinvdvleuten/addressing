@@ -17,14 +17,14 @@ class SubdivisionTest < Minitest::Test
         locale: "pt",
         subdivisions: {
           SC: {
+            code: "SC",
             name: "Santa Catarina",
-            iso_code: "BR-SC",
             postal_code_pattern: "8[89]",
             has_children: true
           },
           SP: {
+            code: "SP",
             name: "São Paulo",
-            iso_code: "BR-SP",
             postal_code_pattern: "[01][1-9]",
             has_children: true
           }
@@ -32,13 +32,24 @@ class SubdivisionTest < Minitest::Test
       }
     end
 
-    mock_definitions("#{subdivision_path}/BR-59aa962f7269a10c4395e01495c04a928240cb5b.json") do
+    mock_definitions("#{subdivision_path}/BR-SC.json") do
       {
         country_code: "BR",
         parents: ["BR", "SC"],
         locale: "pt",
         subdivisions: {
           "Abelardo Luz": {}
+        }
+      }
+    end
+
+    mock_definitions("#{subdivision_path}/BR-SP.json") do
+      {
+        country_code: "BR",
+        parents: ["BR", "SP"],
+        locale: "pt",
+        subdivisions: {
+          Anhumas: {}
         }
       }
     end
@@ -51,17 +62,19 @@ class SubdivisionTest < Minitest::Test
     assert_instance_of Addressing::Subdivision, subdivision
     assert_nil subdivision.parent
     assert_equal "BR", subdivision.country_code
+    assert_equal "SC", subdivision.id
     assert_equal "pt", subdivision.locale
     assert_equal "SC", subdivision.code
     assert_equal "Santa Catarina", subdivision.name
-    assert_equal "BR-SC", subdivision.iso_code
     assert_equal "8[89]", subdivision.postal_code_pattern
 
     children = subdivision.children
     assert_same_elements subdivision_child.to_h, children["Abelardo Luz"].to_h
 
     assert_instance_of Addressing::Subdivision, subdivision_child
+    assert_equal "Abelardo Luz", subdivision_child.id
     assert_equal "Abelardo Luz", subdivision_child.code
+    assert_equal "Abelardo Luz", subdivision_child.name
 
     # subdivision contains the loaded children while parent does not, so they can't be compared directly.
     parent = subdivision_child.parent
@@ -114,24 +127,24 @@ class SubdivisionTest < Minitest::Test
     subdivision = Addressing::Subdivision.new(
       parent: parent,
       country_code: "US",
+      id: "CA",
       locale: "en",
       code: "CA",
       local_code: "CA!",
       name: "California",
       local_name: "California!",
-      iso_code: "US-CA",
       postal_code_pattern: "9[0-5]|96[01]",
       children: children
     )
 
     assert_equal parent, subdivision.parent
     assert_equal "US", subdivision.country_code
+    assert_equal "CA", subdivision.id
     assert_equal "en", subdivision.locale
     assert_equal "CA", subdivision.code
     assert_equal "CA!", subdivision.local_code
     assert_equal "California", subdivision.name
     assert_equal "California!", subdivision.local_name
-    assert_equal "US-CA", subdivision.iso_code
     assert_equal "9[0-5]|96[01]", subdivision.postal_code_pattern
     assert_equal children, subdivision.children
     assert subdivision.children?

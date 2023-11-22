@@ -49,7 +49,7 @@ class PostalLabelFormatterTest < Minitest::Test
   def test_japan_address_shipped_from_france
     address = Addressing::Address.new
       .with_country_code("JP")
-      .with_administrative_area("Hokkaido")
+      .with_administrative_area("01")
       .with_locality("Some City")
       .with_address_line1("Address Line 1")
       .with_address_line2("Address Line 2")

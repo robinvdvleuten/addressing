@@ -22,7 +22,7 @@ class DefaultFormatterTest < Minitest::Test
   def test_andorra_address
     address = Addressing::Address.new
       .with_country_code("AD")
-      .with_locality("Parròquia d'Andorra la Vella")
+      .with_locality("07")
       .with_postal_code("AD500")
       .with_address_line1("C. Prat de la Creu, 62-64")
 
@@ -41,7 +41,7 @@ class DefaultFormatterTest < Minitest::Test
   def test_el_salvadar_address
     address = Addressing::Address.new
       .with_country_code("SV")
-      .with_administrative_area("Ahuachapán")
+      .with_administrative_area("AH")
       .with_locality("Ahuachapán")
       .with_address_line1("4A Avenida Norte")
 
@@ -49,7 +49,7 @@ class DefaultFormatterTest < Minitest::Test
       '<p translate="no">',
       '<span class="address-line1">4A Avenida Norte</span><br>',
       '<span class="locality">Ahuachapán</span><br>',
-      '<span class="administrative-area">Ahuachapán</span><br>',
+      '<span class="administrative-area">Ahuachapan</span><br>',
       '<span class="country">El Salvador</span>',
       "</p>"
     ]
@@ -60,7 +60,7 @@ class DefaultFormatterTest < Minitest::Test
     expected_text_lines = [
       "4A Avenida Norte",
       "Ahuachapán",
-      "Ahuachapán",
+      "Ahuachapan",
       "El Salvador"
     ]
 
@@ -73,7 +73,7 @@ class DefaultFormatterTest < Minitest::Test
       '<p translate="no">',
       '<span class="address-line1">4A Avenida Norte</span><br>',
       '<span class="postal-code">CP 2101</span>-<span class="locality">Ahuachapán</span><br>',
-      '<span class="administrative-area">Ahuachapán</span><br>',
+      '<span class="administrative-area">Ahuachapan</span><br>',
       '<span class="country">El Salvador</span>',
       "</p>"
     ]
@@ -84,7 +84,7 @@ class DefaultFormatterTest < Minitest::Test
     expected_text_lines = [
       "4A Avenida Norte",
       "CP 2101-Ahuachapán",
-      "Ahuachapán",
+      "Ahuachapan",
       "El Salvador"
     ]
 
@@ -97,7 +97,7 @@ class DefaultFormatterTest < Minitest::Test
     # Traditional Chinese. That's not the case here, for readability.
     address = Addressing::Address.new
       .with_country_code("TW")
-      .with_administrative_area("Taipei City")
+      .with_administrative_area("TPE")
       .with_locality("Da'an District")
       .with_address_line1("Sec. 3 Hsin-yi Rd.")
       .with_postal_code("106")
