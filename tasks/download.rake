@@ -1,8 +1,8 @@
 namespace :addressing do
   task :download do
     # Make sure we're starting from a clean slate.
-    raise "The tmp/cldr directory already exists." if Dir.exist?("tmp/cldr")
-    raise "The tmp/addressing directory already exists." if Dir.exist?("tmp/addressing")
+    FileUtils.remove_dir("tmp/cldr", true) if Dir.exist?("tmp/cldr")
+    FileUtils.remove_dir("tmp/addressing", true) if Dir.exist?("tmp/addressing")
 
     # Fetch country data (CLDR).
     puts "Fetching country data."
