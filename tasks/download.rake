@@ -5,6 +5,6 @@ namespace :addressing do
 
     # Fetch commerceguys/addressing repo.
     puts "Fetching commerceguys/addressing repository."
-    system "git clone --depth 1 --branch v1.4.2 https://github.com/commerceguys/addressing.git tmp/addressing"
+    system "git clone --depth 1 --branch v2.1.0 https://github.com/commerceguys/addressing.git tmp/addressing"
   end
 end

@@ -185,4 +185,61 @@ class DefaultFormatterTest < Minitest::Test
     text_address = @formatter.format(address, html: false)
     assert_formatted_address expected_text_lines, text_address
   end
+
+  def test_uruguay_address
+    address = Addressing::Address.new
+      .with_country_code("UY")
+      .with_administrative_area("CA")
+      .with_locality("Pando")
+      .with_postal_code("15600")
+      .with_address_line1("Some Street 12")
+
+    expected_html_lines = [
+      '<p translate="no">',
+      '<span class="address-line1">Some Street 12</span><br>',
+      '<span class="postal-code">15600</span> - <span class="locality">Pando</span>, <span class="administrative-area">Canelones</span><br>',
+      '<span class="country">Uruguay</span>',
+      "</p>"
+    ]
+
+    html_address = @formatter.format(address)
+    assert_formatted_address expected_html_lines, html_address
+
+    expected_text_lines = [
+      "Some Street 12",
+      "15600 - Pando, Canelones",
+      "Uruguay"
+    ]
+
+    text_address = @formatter.format(address, html: false)
+    assert_formatted_address expected_text_lines, text_address
+
+    # A formatted address without an administrative area should not have a
+    # trailing comma after the locality.
+    address = Addressing::Address.new
+      .with_country_code("UY")
+      .with_locality("Canelones")
+      .with_postal_code("90000")
+      .with_address_line1("Some Street 12")
+
+    expected_html_lines = [
+      '<p translate="no">',
+      '<span class="address-line1">Some Street 12</span><br>',
+      '<span class="postal-code">90000</span> - <span class="locality">Canelones</span><br>',
+      '<span class="country">Uruguay</span>',
+      "</p>"
+    ]
+
+    html_address = @formatter.format(address)
+    assert_formatted_address expected_html_lines, html_address
+
+    expected_text_lines = [
+      "Some Street 12",
+      "90000 - Canelones",
+      "Uruguay"
+    ]
+
+    text_address = @formatter.format(address, html: false)
+    assert_formatted_address expected_text_lines, text_address
+  end
 end

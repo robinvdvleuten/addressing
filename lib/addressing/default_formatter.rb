@@ -90,7 +90,7 @@ module Addressing
 
     # Removes empty lines, leading punctuation, excess whitespace.
     def clean_output(output)
-      output.split("\n").map { |line| line.sub(/^[-,]+/, "").strip.gsub(/\s\s+/, " ") }.reject(&:empty?).join("\n")
+      output.split("\n").map { |line| line.gsub(/\A[ \-,]+|[ \-,]+\z/, "").strip.gsub(/\s\s+/, " ") }.reject(&:empty?).join("\n")
     end
 
     # Gets the address values used to build the view.

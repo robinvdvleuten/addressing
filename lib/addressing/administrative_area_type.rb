@@ -11,7 +11,6 @@ module Addressing
     DO_SI = "do_si"
     EMIRATE = "emirate"
     ISLAND = "island"
-    OBLAST = "oblast"
     PARISH = "parish"
     PREFECTURE = "prefecture"
     PROVINCE = "province"

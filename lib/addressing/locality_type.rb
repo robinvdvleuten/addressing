@@ -7,6 +7,7 @@ module Addressing
     DISTRICT = "district"
     POST_TOWN = "post_town"
     SUBURB = "suburb"
+    TOWN_CITY = "town_city"
 
     # Gets the default value.
     def self.default

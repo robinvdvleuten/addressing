@@ -73,22 +73,22 @@ class PostalLabelFormatterTest < Minitest::Test
 
   def test_address_leading_post_prefix
     address = Addressing::Address.new
-      .with_country_code("CH")
-      .with_locality("Herrliberg")
-      .with_postal_code("8047")
+      .with_country_code("HR")
+      .with_locality("Zagreb")
+      .with_postal_code("10105")
 
     # Domestic mail shouldn't have the postal code prefix added.
     expected_lines = [
-      "8047 Herrliberg"
+      "10105 ZAGREB"
     ]
 
-    formatted_address = @formatter.format(address, origin_country: "CH")
+    formatted_address = @formatter.format(address, origin_country: "HR")
     assert_formatted_address expected_lines, formatted_address
 
     # International mail should have the postal code prefix added.
     expected_lines = [
-      "CH-8047 Herrliberg",
-      "SWITZERLAND"
+      "HR-10105 ZAGREB",
+      "CROATIA"
     ]
 
     formatted_address = @formatter.format(address, origin_country: "FR")
