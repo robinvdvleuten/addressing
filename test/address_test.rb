@@ -4,7 +4,7 @@ require_relative "test_helper"
 
 class AddressTest < Minitest::Test
   def test_constructor
-    address = Addressing::Address.new(country_code: "US", administrative_area: "CA", locality: "Mountain View", dependent_locality: "MV", postal_code: "94043", sorting_code: "94044", address_line1: "1600 Amphitheatre Parkway", address_line2: "Google Bldg 41", organization: "Google Inc.", given_name: "John", additional_name: "L.", family_name: "Smith", locale: "en")
+    address = Addressing::Address.new(country_code: "US", administrative_area: "CA", locality: "Mountain View", dependent_locality: "MV", postal_code: "94043", sorting_code: "94044", address_line1: "1600 Amphitheatre Parkway", address_line2: "Google Bldg 41", address_line3: "Office 35", organization: "Google Inc.", given_name: "John", additional_name: "L.", family_name: "Smith", locale: "en")
 
     assert_equal "US", address.country_code
     assert_equal "CA", address.administrative_area
@@ -14,6 +14,7 @@ class AddressTest < Minitest::Test
     assert_equal "94044", address.sorting_code
     assert_equal "1600 Amphitheatre Parkway", address.address_line1
     assert_equal "Google Bldg 41", address.address_line2
+    assert_equal "Office 35", address.address_line3
     assert_equal "Google Inc.", address.organization
     assert_equal "John", address.given_name
     assert_equal "L.", address.additional_name
@@ -60,6 +61,11 @@ class AddressTest < Minitest::Test
   def test_with_address_line2
     address = Addressing::Address.new.with_address_line2("Google Bldg 41")
     assert_equal "Google Bldg 41", address.address_line2
+  end
+
+  def test_with_address_line3
+    address = Addressing::Address.new.with_address_line2("Office 35")
+    assert_equal "Office 35", address.address_line2
   end
 
   def test_with_organization

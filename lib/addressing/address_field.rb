@@ -11,6 +11,7 @@ module Addressing
     SORTING_CODE = "sorting_code"
     ADDRESS_LINE1 = "address_line1"
     ADDRESS_LINE2 = "address_line2"
+    ADDRESS_LINE3 = "address_line3"
     ORGANIZATION = "organization"
     GIVEN_NAME = "given_name"
     ADDITIONAL_NAME = "additional_name"

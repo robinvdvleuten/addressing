@@ -33,6 +33,7 @@ The [Address](lib/addressing/address.rb) class represents a postal adddress, wit
 - Sorting code
 - Address line 1
 - Address line 2
+- Address line 3
 - Organization
 - Given name (First name)
 - Additional name (Middle name / Patronymic)

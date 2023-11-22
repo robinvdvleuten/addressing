@@ -47,7 +47,7 @@ class AddressFormatTest < Minitest::Test
     assert_raises ArgumentError do
       Addressing::AddressFormat.new(
         country_code: "US",
-        format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%dependent_locality",
+        format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%address_line3\n%dependent_locality",
         required_fields: [Addressing::AddressField::ADDRESS_LINE1],
         dependent_locality_type: "WRONG"
       )
@@ -58,7 +58,7 @@ class AddressFormatTest < Minitest::Test
     definition = {
       country_code: "US",
       locale: "en",
-      format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%locality, %administrative_area %postal_code",
+      format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%address_line3\n%locality, %administrative_area %postal_code",
       # The local format is made up, US doesn't have one usually.
       local_format: "%postal_code\n%address_line1\n%organization\n%given_name %family_name",
       required_fields: [
@@ -103,6 +103,7 @@ class AddressFormatTest < Minitest::Test
       Addressing::AddressField::POSTAL_CODE,
       Addressing::AddressField::ADDRESS_LINE1,
       Addressing::AddressField::ADDRESS_LINE2,
+      Addressing::AddressField::ADDRESS_LINE3,
       Addressing::AddressField::ORGANIZATION,
       Addressing::AddressField::GIVEN_NAME,
       Addressing::AddressField::FAMILY_NAME

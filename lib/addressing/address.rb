@@ -2,9 +2,9 @@
 
 module Addressing
   class Address
-    attr_reader :country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale
+    attr_reader :country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :address_line3, :organization, :given_name, :additional_name, :family_name, :locale
 
-    def initialize(country_code: "", administrative_area: "", locality: "", dependent_locality: "", postal_code: "", sorting_code: "", address_line1: "", address_line2: "", organization: "", given_name: "", additional_name: "", family_name: "", locale: "und")
+    def initialize(country_code: "", administrative_area: "", locality: "", dependent_locality: "", postal_code: "", sorting_code: "", address_line1: "", address_line2: "", address_line3: "", organization: "", given_name: "", additional_name: "", family_name: "", locale: "und")
       @country_code = country_code
       @administrative_area = administrative_area
       @locality = locality
@@ -13,6 +13,7 @@ module Addressing
       @sorting_code = sorting_code
       @address_line1 = address_line1
       @address_line2 = address_line2
+      @address_line3 = address_line3
       @organization = organization
       @given_name = given_name
       @additional_name = additional_name
@@ -68,6 +69,12 @@ module Addressing
       address
     end
 
+    def with_address_line3(address_line3)
+      address = clone
+      address.address_line3 = address_line3
+      address
+    end
+
     def with_organization(organization)
       address = clone
       address.organization = organization
@@ -100,6 +107,6 @@ module Addressing
 
     protected
 
-    attr_writer :country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale
+    attr_writer :country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :address_line3, :organization, :given_name, :additional_name, :family_name, :locale
   end
 end

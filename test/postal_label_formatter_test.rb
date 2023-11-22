@@ -53,6 +53,7 @@ class PostalLabelFormatterTest < Minitest::Test
       .with_locality("Some City")
       .with_address_line1("Address Line 1")
       .with_address_line2("Address Line 2")
+      .with_address_line3("Address Line 3")
       .with_postal_code("04")
       .with_locale("ja")
 
@@ -62,7 +63,8 @@ class PostalLabelFormatterTest < Minitest::Test
       "〒04",
       "北海道Some City",
       "Address Line 1",
-      "Address Line 2"
+      "Address Line 2",
+      "Address Line 3"
     ]
 
     formatted_address = @formatter.format(address, locale: "fr", origin_country: "FR")
