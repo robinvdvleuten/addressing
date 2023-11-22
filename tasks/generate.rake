@@ -30,6 +30,9 @@ namespace :addressing do
     # As Ruby has no support for this hashing algorithm, we'll need to convert the hashes to SHA1.
     normalize_subdivision_group_hash
 
+    puts "Extracting available locales from CountryRepository.php\n"
+    extract_available_locales
+
     puts "Extracting definitions from AddressFormatRepository.php\n"
     extract_address_definitions
 
@@ -51,6 +54,19 @@ def normalize_subdivision_group_hash
 
     File.rename(file, "data/subdivision/#{filename}")
   end
+end
+
+def extract_available_locales
+  country_repo = File.read("tmp/addressing/src/Country/CountryRepository.php")
+
+  # Extract locales from the $availableLocales variable.
+  locales_match = country_repo.match(/\$availableLocales = (\[[^\]]+\]);/m)
+  raise "Unable to extract available locales from CountryRepository.php" if locales_match.nil?
+
+  country_rb = File.read("lib/addressing/country.rb")
+  country_rb = country_rb.gsub(/@@available_locales = \[[^\]]+\]/m, "@@available_locales = #{locales_match[1].tr("'", '"')}")
+
+  File.write("lib/addressing/country.rb", country_rb)
 end
 
 def extract_address_definitions
