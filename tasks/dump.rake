@@ -1,5 +1,5 @@
 namespace :addressing do
-  task :dump do
+  task dump: :generate do
     require "json"
 
     root_dir = File.expand_path("../..", __FILE__)

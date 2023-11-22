@@ -1,7 +1,7 @@
 LOCALE_DIR = File.expand_path("../../tmp/cldr/cldr-json/cldr-localenames-modern/main", __FILE__)
 
 namespace :addressing do
-  task :generate do
+  task generate: :download do
     require "digest"
     require "json"
 
