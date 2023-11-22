@@ -7,20 +7,16 @@
 		"Brava": {
 			"iso_code": "CV-BR"
 		},
-		"Fogo": {
-		},
+		"Fogo": {},
 		"Maio": {
 			"iso_code": "CV-MA"
 		},
 		"Sal": {
 			"iso_code": "CV-SL"
 		},
-		"Santiago": {
-		},
-		"Santo Antão": {
-		},
-		"São Nicolau": {
-		},
+		"Santiago": {},
+		"Santo Antão": {},
+		"São Nicolau": {},
 		"São Vicente": {
 			"iso_code": "CV-SV"
 		}

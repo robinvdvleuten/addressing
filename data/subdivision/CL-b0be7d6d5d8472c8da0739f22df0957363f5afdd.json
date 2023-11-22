@@ -5,25 +5,15 @@
 		"Aysén"
 	],
 	"subdivisions": {
-		"Aysén": {
-		},
-		"Chile Chico": {
-		},
-		"Cisnes": {
-		},
-		"Cochrane": {
-		},
-		"Coyhaique": {
-		},
-		"Guaitecas": {
-		},
-		"Lago Verde": {
-		},
-		"O'Higgins": {
-		},
-		"Río Ibáñez": {
-		},
-		"Tortel": {
-		}
+		"Aysén": {},
+		"Chile Chico": {},
+		"Cisnes": {},
+		"Cochrane": {},
+		"Coyhaique": {},
+		"Guaitecas": {},
+		"Lago Verde": {},
+		"O'Higgins": {},
+		"Río Ibáñez": {},
+		"Tortel": {}
 	}
 }

@@ -5,27 +5,16 @@
 		"Magallanes"
 	],
 	"subdivisions": {
-		"Antártica": {
-		},
-		"Cabo de Hornos": {
-		},
-		"Laguna Blanca": {
-		},
-		"Natales": {
-		},
-		"Porvenir": {
-		},
-		"Primavera": {
-		},
-		"Punta Arenas": {
-		},
-		"Río Verde": {
-		},
-		"San Gregorio": {
-		},
-		"Timaukel": {
-		},
-		"Torres del Paine": {
-		}
+		"Antártica": {},
+		"Cabo de Hornos": {},
+		"Laguna Blanca": {},
+		"Natales": {},
+		"Porvenir": {},
+		"Primavera": {},
+		"Punta Arenas": {},
+		"Río Verde": {},
+		"San Gregorio": {},
+		"Timaukel": {},
+		"Torres del Paine": {}
 	}
 }

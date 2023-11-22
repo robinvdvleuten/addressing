@@ -5,29 +5,17 @@
 		"Los Ríos"
 	],
 	"subdivisions": {
-		"Corral": {
-		},
-		"Futrono": {
-		},
-		"La Unión": {
-		},
-		"Lago Ranco": {
-		},
-		"Lanco": {
-		},
-		"Los Lagos": {
-		},
-		"Máfil": {
-		},
-		"Mariquina": {
-		},
-		"Paillaco": {
-		},
-		"Panguipulli": {
-		},
-		"Río Bueno": {
-		},
-		"Valdivia": {
-		}
+		"Corral": {},
+		"Futrono": {},
+		"La Unión": {},
+		"Lago Ranco": {},
+		"Lanco": {},
+		"Los Lagos": {},
+		"Máfil": {},
+		"Mariquina": {},
+		"Paillaco": {},
+		"Panguipulli": {},
+		"Río Bueno": {},
+		"Valdivia": {}
 	}
 }

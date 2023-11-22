@@ -4,7 +4,6 @@ gemspec
 
 gem "activerecord"
 gem "fakefs", require: false
-gem "ffi-icu"
 gem "minitest"
 gem "rake"
 gem "sqlite3"

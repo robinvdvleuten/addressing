@@ -5,13 +5,9 @@
 		"Arica y Parinacota"
 	],
 	"subdivisions": {
-		"Arica": {
-		},
-		"Camarones": {
-		},
-		"General Lagos": {
-		},
-		"Putre": {
-		}
+		"Arica": {},
+		"Camarones": {},
+		"General Lagos": {},
+		"Putre": {}
 	}
 }

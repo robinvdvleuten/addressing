@@ -1,11 +1,8 @@
 {
 	"country_code": "KY",
 	"subdivisions": {
-		"Cayman Brac": {
-		},
-		"Grand Cayman": {
-		},
-		"Little Cayman": {
-		}
+		"Cayman Brac": {},
+		"Grand Cayman": {},
+		"Little Cayman": {}
 	}
 }

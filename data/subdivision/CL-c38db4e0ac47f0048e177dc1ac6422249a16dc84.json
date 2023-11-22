@@ -5,23 +5,14 @@
 		"Atacama"
 	],
 	"subdivisions": {
-		"Alto del Carmen": {
-		},
-		"Caldera": {
-		},
-		"Chañaral": {
-		},
-		"Copiapó": {
-		},
-		"Diego de Almagro": {
-		},
-		"Freirina": {
-		},
-		"Huasco": {
-		},
-		"Tierra Amarilla": {
-		},
-		"Vallenar": {
-		}
+		"Alto del Carmen": {},
+		"Caldera": {},
+		"Chañaral": {},
+		"Copiapó": {},
+		"Diego de Almagro": {},
+		"Freirina": {},
+		"Huasco": {},
+		"Tierra Amarilla": {},
+		"Vallenar": {}
 	}
 }
