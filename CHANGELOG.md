@@ -2,6 +2,17 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## 0.6.0 (22-11-2023)
+
+- Sync data with commerceguys
+- Update to CLDR v44
+- Switch to keying subdivisons by ISO code, where available
+- Add support for a third address line
+- Extract country + subdivision data from commerceguys repository
+- Stop generating formats and subdivisions from Google's dataset
+- Drop support for Ruby 2.7
+- Remove obsolete postal_code_pattern_type from subdivisions
+
 ## 0.5.0 (16-02-2023)
 
 - Update CLDR to v42
