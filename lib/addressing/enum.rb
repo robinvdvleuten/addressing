@@ -31,7 +31,7 @@ module Addressing
 
       # Asserts that all provided values are defined.
       def assert_all_exist(values)
-        values.each { |value| assert_exists(value) }
+        values.each { |value| assert_exists(value.to_s) }
       end
     end
   end

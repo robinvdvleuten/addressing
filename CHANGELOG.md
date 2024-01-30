@@ -4,6 +4,7 @@ All notable changes to `addressing` will be documented in this file.
 
 ## UNRELEASED
 
+- Singapore lacks city/locality field
 - Allow address formats to declare default values
 - Sync data with commerceguys repository (v2.1.1)
 
