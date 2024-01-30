@@ -284,4 +284,21 @@ class ModelTest < Minitest::Test
     assert !address.valid?
     assert address.errors.key?(:administrative_area)
   end
+
+  def test_no_postal_code_validation
+    address_klass = Class.new(Address) do
+      validates_address_format verify_postal_code: false
+    end
+
+    address = address_klass.new(
+      country_code: "CN",
+      administrative_area: "BJ",
+      locality: "Xicheng Qu",
+      address_line1: "Yitiao Lu",
+      postal_code: "INVALID",
+      given_name: "John",
+      family_name: "Smith"
+    )
+    assert address.valid?
+  end
 end
