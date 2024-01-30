@@ -4,6 +4,7 @@ All notable changes to `addressing` will be documented in this file.
 
 ## UNRELEASED
 
+- Add missing Indonesian (ID) provinces: PD, PE, PS, PT
 - Update subdivisions for India (IN)
 - Allow turning off postal code validation
 - Singapore lacks city/locality field
