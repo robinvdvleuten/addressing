@@ -2,9 +2,13 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## UNRELEASED
+
+- Sync data with commerceguys repository (v2.1.1)
+
 ## 0.6.0 (22-11-2023)
 
-- Sync data with commerceguys
+- Sync data with commerceguys repository (v2.1.0)
 - Update to CLDR v44
 - Switch to keying subdivisons by ISO code, where available
 - Add support for a third address line
