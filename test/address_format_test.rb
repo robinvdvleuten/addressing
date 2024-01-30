@@ -37,14 +37,24 @@ class AddressFormatTest < Minitest::Test
     assert_equal Addressing::LocalityType::CITY, address_formats["RS"].locality_type
   end
 
-  def test_missing_property
-    assert_raises ArgumentError do
+  def test_missing_format
+    assert_raises ArgumentError, "Missing required property format." do
       Addressing::AddressFormat.new(country_code: "US")
     end
   end
 
-  def test_invalid_subdivision
-    assert_raises ArgumentError do
+  def test_invalid_default_value
+    assert_raises ArgumentError, '"unknown" is not a valid AddressField value.' do
+      Addressing::AddressFormat.new(
+        country_code: "US",
+        format: "%givenName %familyName\n%organization\n%addressLine1\n%addressLine2\n%addressLine3\n%dependentLocality",
+        default_values: {"unknown" => "CA"}
+      )
+    end
+  end
+
+  def test_invalid_dependent_locality_type
+    assert_raises ArgumentError, '"WRONG" is not a valid DependentLocalityType value.' do
       Addressing::AddressFormat.new(
         country_code: "US",
         format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%address_line3\n%dependent_locality",
@@ -71,6 +81,9 @@ class AddressFormatTest < Minitest::Test
         Addressing::AddressField::ADMINISTRATIVE_AREA,
         Addressing::AddressField::LOCALITY
       ],
+      default_values: {
+        Addressing::AddressField::ADMINISTRATIVE_AREA => "CA"
+      },
       administrative_area_type: Addressing::AdministrativeAreaType::STATE,
       locality_type: Addressing::LocalityType::CITY,
       dependent_locality_type: Addressing::DependentLocalityType::DISTRICT,
@@ -88,6 +101,7 @@ class AddressFormatTest < Minitest::Test
     assert_equal definition[:local_format], address_format.local_format
     assert_equal definition[:required_fields], address_format.required_fields
     assert_equal definition[:uppercase_fields], address_format.uppercase_fields
+    assert_equal definition[:default_values], address_format.default_values
     assert_equal definition[:administrative_area_type], address_format.administrative_area_type
     assert_equal definition[:locality_type], address_format.locality_type
     # The format has no %dependent_locality, the type must be nil.

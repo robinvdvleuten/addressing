@@ -58,7 +58,7 @@ module Addressing
       end
     end
 
-    attr_reader :country_code, :locale, :format, :local_format, :required_fields, :uppercase_fields, :administrative_area_type, :locality_type, :dependent_locality_type, :postal_code_type, :postal_code_pattern, :postal_code_prefix, :subdivision_depth
+    attr_reader :country_code, :locale, :format, :local_format, :required_fields, :uppercase_fields, :default_values, :administrative_area_type, :locality_type, :dependent_locality_type, :postal_code_type, :postal_code_pattern, :postal_code_prefix, :subdivision_depth
 
     def initialize(definition = {})
       # Validate the presence of required properties.
@@ -74,6 +74,7 @@ module Addressing
         local_format: nil,
         required_fields: [],
         uppercase_fields: [],
+        default_values: {},
         postal_code_pattern: nil,
         postal_code_prefix: nil,
         subdivision_depth: 0
@@ -81,6 +82,7 @@ module Addressing
 
       AddressField.assert_all_exist(definition[:required_fields])
       AddressField.assert_all_exist(definition[:uppercase_fields])
+      AddressField.assert_all_exist(definition[:default_values].keys)
 
       @country_code = definition[:country_code]
       @locale = definition[:locale]
@@ -88,6 +90,7 @@ module Addressing
       @local_format = definition[:local_format]
       @required_fields = definition[:required_fields]
       @uppercase_fields = definition[:uppercase_fields]
+      @default_values = definition[:default_values]
       @subdivision_depth = definition[:subdivision_depth]
 
       if used_fields.include?(AddressField::ADMINISTRATIVE_AREA)
