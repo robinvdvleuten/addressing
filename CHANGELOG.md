@@ -2,6 +2,10 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## UNRELEASED
+
+- Sync data with commerceguys repository (v2.2.0)
+
 ## 0.7.0 (2024-01-30)
 
 - Update subdivisions for Philippines (PH)
