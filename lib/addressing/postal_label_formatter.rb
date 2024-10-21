@@ -15,7 +15,7 @@ module Addressing
     def build_view(address, address_format, options)
       raise ArgumentError, "The origin_country option cannot be empty." if options[:origin_country].empty?
 
-      view = super(address, address_format, options)
+      view = super
       view = view.map do |key, element|
         # Uppercase fields where required by the format.
         element[:value] = element[:value].upcase if address_format.uppercase_fields.include?(key)
