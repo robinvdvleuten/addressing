@@ -2,7 +2,7 @@
 
 All notable changes to `addressing` will be documented in this file.
 
-## UNRELEASED
+## 1.0.0 (2024-10-21)
 
 - Sync data with commerceguys repository (v2.2.2)
 - Drop support for Ruby 3.0
