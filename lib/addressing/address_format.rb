@@ -42,7 +42,7 @@ module Addressing
 
       def generic_definition
         {
-          format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n\%address_line3\n%locality",
+          format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%address_line3\n%locality",
           required_fields: [
             "address_line1", "locality"
           ],
