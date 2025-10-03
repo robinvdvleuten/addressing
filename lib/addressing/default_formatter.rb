@@ -142,7 +142,7 @@ module Addressing
         end
       end
 
-      if options.key?(:html) && !options[:html].is_a?(TrueClass) && !options[:html].is_a?(FalseClass)
+      if options.key?(:html) && ![true, false].include?(options[:html])
         raise ArgumentError, "The option `html` must be a boolean."
       end
 
