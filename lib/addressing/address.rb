@@ -68,6 +68,31 @@ module Addressing
       end
     end
 
+    # Compares two addresses for equality based on all field values.
+    #
+    # @param other [Object] The object to compare with
+    # @return [Boolean] true if all fields are equal
+    def ==(other)
+      return false unless other.is_a?(Address)
+
+      FIELDS.all? { |field| send(field) == other.send(field) }
+    end
+
+    # Compares two addresses for equality (alias for ==).
+    #
+    # @param other [Object] The object to compare with
+    # @return [Boolean] true if all fields are equal
+    def eql?(other)
+      self == other
+    end
+
+    # Generates a hash code for the address based on all field values.
+    #
+    # @return [Integer] hash code
+    def hash
+      FIELDS.map { |field| send(field) }.hash
+    end
+
     protected
 
     attr_writer(*FIELDS)
