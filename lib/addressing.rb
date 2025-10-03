@@ -6,6 +6,7 @@ require "digest"
 require "json"
 
 # modules
+require "addressing/exceptions"
 require "addressing/enum"
 require "addressing/address"
 require "addressing/address_field"
@@ -22,14 +23,6 @@ require "addressing/postal_code_type"
 require "addressing/postal_label_formatter"
 require "addressing/subdivision"
 require "addressing/version"
-
-module Addressing
-  class Error < StandardError; end
-
-  class UnknownCountryError < Error; end
-
-  class UnknownLocaleError < Error; end
-end
 
 if defined?(ActiveSupport.on_load)
   ActiveSupport.on_load(:active_record) do

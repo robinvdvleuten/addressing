@@ -26,7 +26,7 @@ module Addressing
       def get(country_code, locale = "en", fallback_locale = "en")
         country_code = country_code.upcase
 
-        raise UnknownCountryError, country_code unless base_definitions.key?(country_code)
+        raise UnknownCountryError.new(country_code) unless base_definitions.key?(country_code)
 
         locale = Locale.resolve(@@available_locales, locale, fallback_locale)
         definitions = load_definitions(locale)
