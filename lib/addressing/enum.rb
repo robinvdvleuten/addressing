@@ -3,15 +3,14 @@
 module Addressing
   class Enum
     class << self
-      @@values = {}
-
       # Gets all available values.
       def all
-        if !@@values.key?(name)
-          @@values[name] = constants.map { |constant| [constant, const_get(constant)] }.to_h
+        @values ||= {}
+        if !@values.key?(name)
+          @values[name] = constants.map { |constant| [constant, const_get(constant)] }.to_h
         end
 
-        @@values[name]
+        @values[name]
       end
 
       # Gets the key of the provided value.

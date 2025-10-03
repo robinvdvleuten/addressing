@@ -3,18 +3,16 @@
 module Addressing
   class AddressFormat
     class << self
-      # The instantiated address formats, keyed by country code.
-      @@address_formats = {}
-
       def get(country_code)
         country_code = country_code.upcase
+        @address_formats ||= {}
 
-        unless @@address_formats.key?(country_code)
+        unless @address_formats.key?(country_code)
           definition = process_definition(definitions[country_code] || {country_code: country_code})
-          @@address_formats[country_code] = new(definition)
+          @address_formats[country_code] = new(definition)
         end
 
-        @@address_formats[country_code]
+        @address_formats[country_code]
       end
 
       def all
@@ -27,7 +25,7 @@ module Addressing
       private
 
       def definitions
-        @@definitions ||= Marshal.load(File.read(File.expand_path("../../../data/address_formats.dump", __FILE__).to_s))
+        @definitions ||= Marshal.load(File.read(File.expand_path("../../../data/address_formats.dump", __FILE__).to_s))
       end
 
       def process_definition(definition)

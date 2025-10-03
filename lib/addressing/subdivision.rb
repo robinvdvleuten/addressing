@@ -3,17 +3,9 @@
 module Addressing
   class Subdivision
     class << self
-      # Subdivision definitions.
-      @@definitions = {}
 
       # Parent subdivisions.
       #
-      # Used as a cache to speed up instantiating subdivisions with the same
-      # parent. Contains only parents instead of all instantiated subdivisions
-      # to minimize duplicating the data in $this->definitions, thus reducing
-      # memory usage.
-      @@parents = {}
-
       def get(id, parents)
         definitions = load_definitions(parents)
         create_subdivision_from_definitions(id, definitions)
@@ -57,9 +49,10 @@ module Addressing
           grandparents = parents.dup
           parent_id = grandparents.pop
           parent_group = build_group(grandparents.dup)
+          @definitions ||= {}
 
-          if @@definitions.dig(parent_group, "subdivisions", parent_id)
-            definition = @@definitions[parent_group]["subdivisions"][parent_id]
+          if @definitions.dig(parent_group, "subdivisions", parent_id)
+            definition = @definitions[parent_group]["subdivisions"][parent_id]
             return !!definition["has_children"]
           else
             # The parent definition wasn't loaded previously, fallback to guessing based on depth.
@@ -73,12 +66,13 @@ module Addressing
 
       # Loads the subdivision definitions for the provided parents.
       def load_definitions(parents)
+        @definitions ||= {}
         group = build_group(parents.dup)
-        if @@definitions.key?(group)
-          return @@definitions[group]
+        if @definitions.key?(group)
+          return @definitions[group]
         end
 
-        @@definitions[group] = {}
+        @definitions[group] = {}
 
         # If there are predefined subdivisions at this level, try to load them.
         if has_data(parents)
@@ -86,12 +80,12 @@ module Addressing
 
           if File.exist?(filename)
             raw_definition = File.read(filename)
-            @@definitions[group] = JSON.parse(raw_definition)
-            @@definitions[group] = process_definitions(@@definitions[group])
+            @definitions[group] = JSON.parse(raw_definition)
+            @definitions[group] = process_definitions(@definitions[group])
           end
         end
 
-        @@definitions[group]
+        @definitions[group]
       end
 
       # Processes the loaded definitions.
@@ -164,13 +158,14 @@ module Addressing
           grandparents = parents.dup
           parent_id = grandparents.pop
           parent_group = build_group(grandparents.dup)
+          @parents ||= {}
 
-          if !@@parents.dig(parent_group, parent_id)
-            @@parents[parent_group] ||= {}
-            @@parents[parent_group][parent_id] = get(parent_id, grandparents)
+          if !@parents.dig(parent_group, parent_id)
+            @parents[parent_group] ||= {}
+            @parents[parent_group][parent_id] = get(parent_id, grandparents)
           end
 
-          definition["parent"] = @@parents[parent_group][parent_id]
+          definition["parent"] = @parents[parent_group][parent_id]
         end
 
         # Prepare children.

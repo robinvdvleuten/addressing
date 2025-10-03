@@ -3,9 +3,7 @@
 module Addressing
   class Country
     class << self
-      @@definitions = {}
-
-      @@available_locales = [
+      AVAILABLE_LOCALES = [
         "af", "am", "ar", "ar-LY", "ar-SA", "as", "az", "be", "bg", "bn",
         "bn-IN", "bs", "ca", "chr", "cs", "cy", "da", "de", "de-AT", "de-CH",
         "dsb", "el", "el-polyton", "en", "en-001", "en-AU", "en-CA", "en-ID",
@@ -28,7 +26,7 @@ module Addressing
 
         raise UnknownCountryError.new(country_code) unless base_definitions.key?(country_code)
 
-        locale = Locale.resolve(@@available_locales, locale, fallback_locale)
+        locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
         definitions = load_definitions(locale)
 
         new(
@@ -42,7 +40,7 @@ module Addressing
       end
 
       def all(locale = "en", fallback_locale = "en")
-        locale = Locale.resolve(@@available_locales, locale, fallback_locale)
+        locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
         definitions = load_definitions(locale)
 
         definitions.map do |country_code, country_name|
@@ -60,7 +58,7 @@ module Addressing
       end
 
       def list(locale = "en", fallback_locale = "en")
-        locale = Locale.resolve(@@available_locales, locale, fallback_locale)
+        locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
         definitions = load_definitions(locale)
 
         definitions.map do |country_code, country_name|
@@ -72,19 +70,20 @@ module Addressing
 
       # Loads the country definitions for the provided locale.
       def load_definitions(locale)
-        unless @@definitions.key?(locale)
+        @definitions ||= {}
+        unless @definitions.key?(locale)
           filename = File.join(File.expand_path("../../../data/country", __FILE__).to_s, "#{locale}.json")
-          @@definitions[locale] = JSON.parse(File.read(filename))
+          @definitions[locale] = JSON.parse(File.read(filename))
         end
 
-        @@definitions[locale]
+        @definitions[locale]
       end
 
       # Gets the base country definitions.
       #
       # Contains data common to all locales: three letter code, numeric code.
       def base_definitions
-        @@base_definitions ||= {
+        @base_definitions ||= {
           "AC" => ["ASC", nil, "SHP"],
           "AD" => ["AND", "020", "EUR"],
           "AE" => ["ARE", "784", "AED"],
