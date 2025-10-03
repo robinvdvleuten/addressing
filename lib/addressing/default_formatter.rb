@@ -18,6 +18,7 @@ module Addressing
       assert_options(default_options)
 
       @default_options = self.class::DEFAULT_OPTIONS.merge(default_options)
+      @country_list_cache = {}
     end
 
     def format(address, options = {})
@@ -54,13 +55,18 @@ module Addressing
 
     # Builds the view for the given address.
     def build_view(address, address_format, options)
-      countries = Country.list(options[:locale])
+      countries = country_list(options[:locale])
       values = values(address, address_format).merge({"country" => countries.key?(address.country_code) ? countries[address.country_code] : address.country_code})
       used_fields = address_format.used_fields + ["country"]
 
       used_fields.map do |field|
         [field, {html: options[:html], html_tag: "span", html_attributes: {class: field.tr("_", "-")}, value: values[field]}]
       end.to_h
+    end
+
+    # Gets the country list for a locale, with caching.
+    def country_list(locale)
+      @country_list_cache[locale] ||= Country.list(locale)
     end
 
     # Renders the given view.
