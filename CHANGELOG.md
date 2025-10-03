@@ -2,6 +2,23 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## 1.1.0 (2025-10-03)
+
+- Add formatter-level caching for Country.list
+- Refactor FieldOverrides initialization to be more idiomatic
+- Add equality methods to Address class
+- Refactor complex values method in DefaultFormatter
+- Extract magic strings to constants
+- Simplify boolean validation in formatter options
+- use .new() for UnknownLocaleError
+- Added RDoc documentation
+- Replaced class variables with class instance variables
+- Add custom exception classes for better error handling
+- Refactor Address class
+- Fix test bug in address_test.rb
+- Remove duplicate code in Model validation
+- add missing % to generic address format
+
 ## 1.0.0 (2024-10-21)
 
 - Sync data with commerceguys repository (v2.2.2)
