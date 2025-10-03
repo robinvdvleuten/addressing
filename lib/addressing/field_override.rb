@@ -16,7 +16,7 @@ module Addressing
 
       # Group fields by their override type
       grouped = definition.group_by { |_field, override| override }
-                          .transform_values { |pairs| pairs.map(&:first) }
+        .transform_values { |pairs| pairs.map(&:first) }
 
       @hidden_fields = grouped[FieldOverride::HIDDEN] || []
       @optional_fields = grouped[FieldOverride::OPTIONAL] || []

@@ -125,7 +125,7 @@ module Addressing
         # This level is empty, so there can be no sublevels.
         break if values[field].nil?
 
-        parents << (index > 0 ? original_values[subdivision_fields[index - 1]] : address.country_code)
+        parents << ((index > 0) ? original_values[subdivision_fields[index - 1]] : address.country_code)
 
         subdivision = Subdivision.get(values[field], parents)
         break if subdivision.nil?
