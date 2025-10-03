@@ -2,6 +2,10 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## UNRELEASED
+
+- Sync data with commerceguys repository (v2.2.3)
+
 ## 1.1.0 (2025-10-03)
 
 - Add formatter-level caching for Country.list
