@@ -100,22 +100,29 @@ module Addressing
 
     # Gets the address values used to build the view.
     def values(address, address_format)
-      values = AddressField.all.map { |_, field| [field, address.send(field)] }.to_h
+      values = extract_address_values(address)
+      resolve_subdivision_values(values, address, address_format)
+      values
+    end
+
+    # Extracts all address field values.
+    def extract_address_values(address)
+      AddressField.all.map { |_, field| [field, address.send(field)] }.to_h
+    end
+
+    # Resolves subdivision values to their display codes.
+    def resolve_subdivision_values(values, address, address_format)
       subdivision_fields = address_format.used_subdivision_fields
 
       # Replace the subdivision values with the names of any predefined ones.
       subdivision_fields.each_with_index.inject([{}, []]) do |(original_values, parents), (field, index)|
-        if values[field].nil?
-          # This level is empty, so there can be no sublevels.
-          break
-        end
+        # This level is empty, so there can be no sublevels.
+        break if values[field].nil?
 
-        parents << ((index > 0) ? original_values[subdivision_fields[index - 1]] : address.country_code)
+        parents << (index > 0 ? original_values[subdivision_fields[index - 1]] : address.country_code)
 
         subdivision = Subdivision.get(values[field], parents)
-        if subdivision.nil?
-          break
-        end
+        break if subdivision.nil?
 
         # Remember the original value so that it can be used for parents.
         original_values[field] = values[field]
@@ -124,15 +131,11 @@ module Addressing
         use_local_name = Locale.match_candidates(address.locale, subdivision.locale)
         values[field] = use_local_name ? subdivision.local_code : subdivision.code
 
-        if !subdivision.children?
-          # The current subdivision has no children, stop.
-          break
-        end
+        # The current subdivision has no children, stop.
+        break unless subdivision.children?
 
         [original_values, parents]
       end
-
-      values
     end
 
     private
