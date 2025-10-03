@@ -370,7 +370,7 @@ module Addressing
           "YT" => ["MYT", "175", "EUR"],
           "ZA" => ["ZAF", "710", "ZAR"],
           "ZM" => ["ZMB", "894", "ZMW"],
-          "ZW" => ["ZWE", "716", "USD"]
+          "ZW" => ["ZWE", "716", "ZWG"]
         }
       end
     end
