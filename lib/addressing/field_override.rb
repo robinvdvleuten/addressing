@@ -14,20 +14,13 @@ module Addressing
       AddressField.assert_all_exist(definition.keys)
       FieldOverride.assert_all_exist(definition.values)
 
-      @hidden_fields = []
-      @optional_fields = []
-      @required_fields = []
+      # Group fields by their override type
+      grouped = definition.group_by { |_field, override| override }
+                          .transform_values { |pairs| pairs.map(&:first) }
 
-      definition.each do |field, override|
-        case override
-        when FieldOverride::HIDDEN
-          @hidden_fields << field
-        when FieldOverride::OPTIONAL
-          @optional_fields << field
-        when FieldOverride::REQUIRED
-          @required_fields << field
-        end
-      end
+      @hidden_fields = grouped[FieldOverride::HIDDEN] || []
+      @optional_fields = grouped[FieldOverride::OPTIONAL] || []
+      @required_fields = grouped[FieldOverride::REQUIRED] || []
     end
   end
 end
