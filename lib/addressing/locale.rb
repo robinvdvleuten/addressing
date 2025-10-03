@@ -251,7 +251,7 @@ module Addressing
       end
 
       # No locale could be resolved, stop here.
-      raise UnknownLocaleError, locale if resolved_locale.nil?
+      raise UnknownLocaleError.new(locale) if resolved_locale.nil?
 
       resolved_locale
     end
