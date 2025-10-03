@@ -64,8 +64,8 @@ class AddressTest < Minitest::Test
   end
 
   def test_with_address_line3
-    address = Addressing::Address.new.with_address_line2("Office 35")
-    assert_equal "Office 35", address.address_line2
+    address = Addressing::Address.new.with_address_line3("Office 35")
+    assert_equal "Office 35", address.address_line3
   end
 
   def test_with_organization
