@@ -84,7 +84,7 @@ def extract_base_definitions
   definitions = definitions_match[1].tr("'", '"').gsub("null", "nil").gsub(/\n\s+/, "\n          ").gsub(/,\s+$/, "\n        ")
 
   country_rb = File.read("lib/addressing/country.rb")
-  country_rb = country_rb.gsub(/@@base_definitions \|\|= \{[^\}]+\}/m, "@@base_definitions ||= {#{definitions}}")
+  country_rb = country_rb.gsub(/@@base_definitions \|\|= \{[^}]+\}/m, "@@base_definitions ||= {#{definitions}}")
 
   File.write("lib/addressing/country.rb", country_rb)
 end
