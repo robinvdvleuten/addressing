@@ -61,9 +61,9 @@ module Addressing
 
     # Define with_* methods for all fields
     FIELDS.each do |field|
-      define_method("with_#{field}") do |value|
+      define_method(:"with_#{field}") do |value|
         address = clone
-        address.send("#{field}=", value)
+        address.send(:"#{field}=", value)
         address
       end
     end

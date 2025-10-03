@@ -17,7 +17,6 @@ module Addressing
   #   municipalities = Addressing::Subdivision.all(['BR', 'CE'])
   class Subdivision
     class << self
-
       # Gets a Subdivision instance by ID and parent hierarchy.
       #
       # @param id [String] Subdivision ID
