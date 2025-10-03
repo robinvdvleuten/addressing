@@ -20,12 +20,6 @@ module Addressing
           return unless address.country_code.present?
 
           address_format = AddressFormat.get(address.country_code)
-          address_format.used_fields
-
-          return unless address.country_code.present?
-
-          address_format = AddressFormat.get(address.country_code)
-          address_format.used_fields
 
           # Validate the presence of required fields.
           AddressFormatHelper.required_fields(address_format, field_overrides).each do |required_field|
