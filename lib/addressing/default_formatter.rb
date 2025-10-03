@@ -2,8 +2,13 @@
 
 module Addressing
   class DefaultFormatter
+    DEFAULT_LOCALE = "en"
+    FORMAT_PLACEHOLDER_PATTERN = /%[a-z1-9_]+/
+    LEADING_TRAILING_PUNCTUATION_PATTERN = /\A[ \-,]+|[ \-,]+\z/
+    MULTIPLE_SPACES_PATTERN = /\s\s+/
+
     DEFAULT_OPTIONS = {
-      locale: "en",
+      locale: DEFAULT_LOCALE,
       html: true,
       html_tag: "p",
       html_attributes: {translate: "no"}
@@ -33,7 +38,7 @@ module Addressing
       view = render_view(view)
 
       replacements = view.map { |key, element| ["%#{key}", element] }.to_h
-      output = format_string.gsub(/%[a-z1-9_]+/) { |m| replacements[m] }
+      output = format_string.gsub(FORMAT_PLACEHOLDER_PATTERN) { |m| replacements[m] }
       output = clean_output(output)
 
       if options[:html]
@@ -90,7 +95,7 @@ module Addressing
 
     # Removes empty lines, leading punctuation, excess whitespace.
     def clean_output(output)
-      output.split("\n").map { |line| line.gsub(/\A[ \-,]+|[ \-,]+\z/, "").strip.gsub(/\s\s+/, " ") }.reject(&:empty?).join("\n")
+      output.split("\n").map { |line| line.gsub(LEADING_TRAILING_PUNCTUATION_PATTERN, "").strip.gsub(MULTIPLE_SPACES_PATTERN, " ") }.reject(&:empty?).join("\n")
     end
 
     # Gets the address values used to build the view.

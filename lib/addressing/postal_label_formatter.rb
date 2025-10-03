@@ -3,7 +3,7 @@
 module Addressing
   class PostalLabelFormatter < DefaultFormatter
     DEFAULT_OPTIONS = {
-      locale: "en",
+      locale: DEFAULT_LOCALE,
       html: false,
       html_tag: "p",
       html_attributes: {translate: "no"},
