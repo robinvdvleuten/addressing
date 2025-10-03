@@ -1,8 +1,21 @@
 # frozen_string_literal: true
 
 module Addressing
+  # Provides address format information for countries.
+  #
+  # Address formats define which fields are used, their order, requirements,
+  # and formatting rules for postal addresses in different countries.
+  #
+  # @example Get address format for Brazil
+  #   format = Addressing::AddressFormat.get('BR')
+  #   format.used_fields      # => ["given_name", "family_name", ...]
+  #   format.required_fields  # => ["address_line1", "locality", ...]
   class AddressFormat
     class << self
+      # Gets the address format for the provided country code.
+      #
+      # @param country_code [String] ISO 3166-1 alpha-2 country code
+      # @return [AddressFormat] Address format instance
       def get(country_code)
         country_code = country_code.upcase
         @address_formats ||= {}

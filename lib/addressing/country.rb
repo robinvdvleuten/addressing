@@ -1,6 +1,20 @@
 # frozen_string_literal: true
 
 module Addressing
+  # Provides country information including names, codes, currency, and timezones.
+  #
+  # Country names are available in over 250 locales powered by CLDR data.
+  #
+  # @example Get a country by code
+  #   brazil = Addressing::Country.get('BR')
+  #   brazil.name          # => "Brazil"
+  #   brazil.currency_code # => "BRL"
+  #
+  # @example Get all countries
+  #   countries = Addressing::Country.all('fr-FR')
+  #
+  # @example Get a simple list of countries
+  #   list = Addressing::Country.list('en')
   class Country
     class << self
       AVAILABLE_LOCALES = [
@@ -21,6 +35,13 @@ module Addressing
         "uz", "vi", "yue", "yue-Hans", "zh", "zh-Hant", "zh-Hant-HK", "zu"
       ]
 
+      # Gets a Country instance for the provided country code.
+      #
+      # @param country_code [String] ISO 3166-1 alpha-2 country code
+      # @param locale [String] Locale for the country name (default: "en")
+      # @param fallback_locale [String] Fallback locale if requested locale is unavailable
+      # @return [Country] Country instance
+      # @raise [UnknownCountryError] if the country code is not recognized
       def get(country_code, locale = "en", fallback_locale = "en")
         country_code = country_code.upcase
 
@@ -39,6 +60,11 @@ module Addressing
         )
       end
 
+      # Gets all Country instances.
+      #
+      # @param locale [String] Locale for country names (default: "en")
+      # @param fallback_locale [String] Fallback locale if requested locale is unavailable
+      # @return [Hash<String, Country>] Hash of country code => Country instance
       def all(locale = "en", fallback_locale = "en")
         locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
         definitions = load_definitions(locale)
@@ -57,6 +83,11 @@ module Addressing
         end.to_h
       end
 
+      # Gets a list of country codes and names.
+      #
+      # @param locale [String] Locale for country names (default: "en")
+      # @param fallback_locale [String] Fallback locale if requested locale is unavailable
+      # @return [Hash<String, String>] Hash of country code => country name
       def list(locale = "en", fallback_locale = "en")
         locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
         definitions = load_definitions(locale)

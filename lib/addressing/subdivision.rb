@@ -1,17 +1,37 @@
 # frozen_string_literal: true
 
 module Addressing
+  # Represents administrative subdivisions within countries.
+  #
+  # Subdivisions can be hierarchical with up to three levels:
+  # Administrative Area -> Locality -> Dependent Locality
+  #
+  # @example Get subdivisions for Brazil
+  #   states = Addressing::Subdivision.all(['BR'])
+  #   states.each do |code, state|
+  #     puts "#{code}: #{state.name}"
+  #     municipalities = state.children
+  #   end
+  #
+  # @example Get subdivisions for a Brazilian state
+  #   municipalities = Addressing::Subdivision.all(['BR', 'CE'])
   class Subdivision
     class << self
 
-      # Parent subdivisions.
+      # Gets a Subdivision instance by ID and parent hierarchy.
       #
+      # @param id [String] Subdivision ID
+      # @param parents [Array<String>] Parent hierarchy (e.g., ['BR'] or ['BR', 'CE'])
+      # @return [Subdivision, nil] Subdivision instance or nil if not found
       def get(id, parents)
         definitions = load_definitions(parents)
         create_subdivision_from_definitions(id, definitions)
       end
 
       # Returns all subdivision instances for the provided parents.
+      #
+      # @param parents [Array<String>] Parent hierarchy (e.g., ['BR'] or ['BR', 'CE'])
+      # @return [Hash<String, Subdivision>] Hash of subdivision ID => Subdivision instance
       def all(parents)
         definitions = load_definitions(parents)
         return {} if definitions.empty?
