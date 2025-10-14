@@ -94,4 +94,32 @@ class PostalLabelFormatterTest < Minitest::Test
     formatted_address = @formatter.format(address, origin_country: "FR")
     assert_formatted_address expected_lines, formatted_address
   end
+
+  def test_united_states_address_with_upcase_disabled
+    address = Addressing::Address.new
+      .with_country_code("US")
+      .with_administrative_area("CA")
+      .with_locality("Mt View")
+      .with_postal_code("94043")
+      .with_address_line1("1098 Alta Ave")
+
+    # Test a US address formatted for sending from the US.
+    expected_lines = [
+      "1098 Alta Ave",
+      "Mt View, CA 94043"
+    ]
+
+    formatted_address = @formatter.format(address, origin_country: "US", upcase: false)
+    assert_formatted_address expected_lines, formatted_address
+
+    # Test a US address formatted for sending from France.
+    expected_lines = [
+      "1098 Alta Ave",
+      "Mt View, CA 94043",
+      "États-Unis - United States"
+    ]
+
+    formatted_address = @formatter.format(address, locale: "FR", origin_country: "FR", upcase: false)
+    assert_formatted_address expected_lines, formatted_address
+  end
 end

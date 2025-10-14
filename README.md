@@ -173,6 +173,8 @@ p formatter.format(address, origin_country: "FR")
 # ÉTATS-UNIS - UNITED STATES
 ```
 
+Upcasing can be disabled with `formatter.format(address, upcase: false)`
+
 ### Validating addresses
 
 For Active Record models, use:
