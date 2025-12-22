@@ -7,7 +7,8 @@ module Addressing
       html: false,
       html_tag: "p",
       html_attributes: {translate: "no"},
-      origin_country: ""
+      origin_country: "",
+      upcase: true
     }
 
     protected
@@ -16,11 +17,13 @@ module Addressing
       raise ArgumentError, "The origin_country option cannot be empty." if options[:origin_country].empty?
 
       view = super
-      view = view.map do |key, element|
-        # Uppercase fields where required by the format.
-        element[:value] = element[:value].upcase if address_format.uppercase_fields.include?(key)
-        [key, element]
-      end.to_h
+      if options[:upcase]
+        view = view.map do |key, element|
+          # Uppercase fields where required by the format.
+          element[:value] = element[:value].upcase if address_format.uppercase_fields.include?(key)
+          [key, element]
+        end.to_h
+      end
 
       # Handle international mailing.
       if address.country_code != options[:origin_country]
@@ -44,7 +47,7 @@ module Addressing
           country += " - #{english_country}"
         end
 
-        view["country"][:value] = country.upcase
+        view["country"][:value] = options[:upcase] ? country.upcase : country
       else
         # The country is not written in case of domestic mailing.
         view["country"][:value] = ""
