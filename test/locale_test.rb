@@ -69,6 +69,7 @@ class LocaleTest < Minitest::Test
 
     # sr-Latn falls back to "und" instead of "sr".
     assert_nil Addressing::Locale.parent("sr-Latn")
+    assert_nil Addressing::Locale.parent("hi-Latn")
     assert_nil Addressing::Locale.parent("sr")
   end
 

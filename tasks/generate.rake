@@ -4,6 +4,7 @@ namespace :addressing do
   task generate: :download do
     require "digest"
     require "json"
+    require "open3"
 
     # Require ActiveRecord to have access to the underscore method.
     require "active_record"
@@ -36,6 +37,9 @@ namespace :addressing do
     puts "Extracting base definitions from CountryRepository.php\n"
     extract_base_definitions
 
+    puts "Extracting locale definitions from Locale.php\n"
+    extract_locale_definitions
+
     puts "Extracting definitions from AddressFormatRepository.php\n"
     extract_address_definitions
 
@@ -60,49 +64,78 @@ def normalize_subdivision_group_hash
 end
 
 def extract_available_locales
-  country_repo = File.read("tmp/addressing/src/Country/CountryRepository.php")
+  locales = extract_php_json("country_locales", <<~PHP)
+    require 'tmp/addressing/src/Country/Country.php';
+    require 'tmp/addressing/src/Country/CountryRepositoryInterface.php';
+    require 'tmp/addressing/src/Country/CountryRepository.php';
 
-  # Extract locales from the $availableLocales variable.
-  locales_match = country_repo.match(/\$availableLocales = (\[[^\]]+\]);/m)
-  raise "Unable to extract available locales from CountryRepository.php" if locales_match.nil?
+    $repository = new CommerceGuys\\Addressing\\Country\\CountryRepository();
+    $reflection = new ReflectionClass($repository);
+    $availableLocales = $reflection->getProperty('availableLocales')->getValue($repository);
 
-  locales = locales_match[1].tr("'", '"').gsub(/,\s+\]/, "\n      ]")
+    echo json_encode($availableLocales, JSON_THROW_ON_ERROR);
+  PHP
+
+  raise "Unable to extract available locales from CountryRepository.php" unless locales.is_a?(Array) && locales.any?
 
   country_rb = File.read("lib/addressing/country.rb")
-  country_rb = country_rb.gsub(/AVAILABLE_LOCALES = \[[^\]]+\]/m, "AVAILABLE_LOCALES = #{locales}")
+  country_rb = replace_or_raise(
+    country_rb,
+    /AVAILABLE_LOCALES = \[[^\]]+\]/m,
+    "AVAILABLE_LOCALES = #{format_ruby_array_like_php(
+      locales,
+      "tmp/addressing/src/Country/CountryRepository.php",
+      "$availableLocales",
+      indent: 8
+    )}",
+    "AVAILABLE_LOCALES"
+  )
 
   File.write("lib/addressing/country.rb", country_rb)
 end
 
 def extract_base_definitions
-  country_repo = File.read("tmp/addressing/src/Country/CountryRepository.php")
+  definitions = extract_php_json("country_base_definitions", <<~PHP)
+    require 'tmp/addressing/src/Country/Country.php';
+    require 'tmp/addressing/src/Country/CountryRepositoryInterface.php';
+    require 'tmp/addressing/src/Country/CountryRepository.php';
 
-  # Extract definitions from the getDefinitions() method.
-  definitions_match = country_repo.match(/getBaseDefinitions\(\): array\s*\{.+?\[(.*)\];/m)
-  raise "Unable to extract base definitions from CountryRepository.php" if definitions_match.nil?
+    $repository = new CommerceGuys\\Addressing\\Country\\CountryRepository();
+    $reflection = new ReflectionClass($repository);
+    $method = $reflection->getMethod('getBaseDefinitions');
+    $baseDefinitions = $method->invoke($repository);
 
-  definitions = definitions_match[1].tr("'", '"').gsub("null", "nil").gsub(/\n\s+/, "\n          ").gsub(/,\s+$/, "\n        ")
+    echo json_encode($baseDefinitions, JSON_THROW_ON_ERROR);
+  PHP
+
+  raise "Unable to extract base definitions from CountryRepository.php" unless definitions.is_a?(Hash) && definitions.any?
 
   country_rb = File.read("lib/addressing/country.rb")
-  country_rb = country_rb.gsub(/@base_definitions \|\|= \{[^}]+\}/m, "@base_definitions ||= {#{definitions}}")
+  country_rb = replace_or_raise(
+    country_rb,
+    /^        @base_definitions \|\|= \{\n.*?^        \}/m,
+    "        @base_definitions ||= #{format_ruby_hash(definitions, indent: 10)}",
+    "@base_definitions"
+  )
 
   File.write("lib/addressing/country.rb", country_rb)
 end
 
 def extract_address_definitions
-  address_format_repo = File.read("tmp/addressing/src/AddressFormat/AddressFormatRepository.php")
+  definitions = extract_php_json("address_definitions", <<~PHP)
+    require 'tmp/addressing/src/AddressFormat/AddressFormat.php';
+    require 'tmp/addressing/src/AddressFormat/AddressFormatRepositoryInterface.php';
+    require 'tmp/addressing/src/AddressFormat/AddressFormatRepository.php';
 
-  # Extract definitions from the getDefinitions() method.
-  definitions_match = address_format_repo.match(/getDefinitions\(\): array\s*\{.+?(\[.*\]);/m)
-  raise "Unable to extract definitions from AddressFormatRepository.php" if definitions_match.nil?
+    $repository = new CommerceGuys\\Addressing\\AddressFormat\\AddressFormatRepository();
+    $reflection = new ReflectionClass($repository);
+    $method = $reflection->getMethod('getDefinitions');
+    $definitions = $method->invoke($repository);
 
-  # Moving the extracted definitions to PHP file."
-  File.write("tmp/definitions.php", "<?php\n$definitions = #{definitions_match[1]};\necho json_encode($definitions);")
+    echo json_encode($definitions, JSON_THROW_ON_ERROR);
+  PHP
 
-  # Retrieve definitions from PHP file as JSON.
-  system "php tmp/definitions.php > tmp/definitions.json"
-
-  definitions = JSON.parse(File.read("tmp/definitions.json"))
+  raise "Unable to extract definitions from AddressFormatRepository.php" unless definitions.is_a?(Hash) && definitions.any?
 
   lines = definitions.map do |country_code, definition|
     normalize_definition(definition)
@@ -112,9 +145,137 @@ def extract_address_definitions
   File.write("data/address_formats.json", lines.join("\n"))
 end
 
+def extract_locale_definitions
+  definitions = extract_php_json("locale_definitions", <<~PHP)
+    require 'tmp/addressing/src/Locale.php';
+
+    $reflection = new ReflectionClass('CommerceGuys\\\\Addressing\\\\Locale');
+    $aliases = $reflection->getProperty('aliases')->getValue();
+    $parents = $reflection->getProperty('parents')->getValue();
+
+    echo json_encode([
+        'aliases' => $aliases,
+        'parents' => $parents,
+    ], JSON_THROW_ON_ERROR);
+  PHP
+
+  aliases = definitions["aliases"]
+  parents = definitions["parents"]
+
+  unless aliases.is_a?(Hash) && aliases.any? && parents.is_a?(Hash) && parents.any?
+    raise "Unable to extract locale definitions from Locale.php"
+  end
+
+  locale_rb = File.read("lib/addressing/locale.rb")
+  locale_rb = replace_or_raise(
+    locale_rb,
+    /ALIASES = \{.*?\n    \}\.freeze/m,
+    "ALIASES = #{format_ruby_hash(aliases, indent: 6)}.freeze",
+    "ALIASES"
+  )
+  locale_rb = replace_or_raise(
+    locale_rb,
+    /PARENTS = \{.*?\n    \}\.freeze/m,
+    "PARENTS = #{format_ruby_hash(parents, indent: 6)}.freeze",
+    "PARENTS"
+  )
+
+  File.write("lib/addressing/locale.rb", locale_rb)
+end
+
 def normalize_definition(definition)
   definition["format"] = definition["format"].gsub(/%[[:alnum:]]+/) { |m| m.underscore } if definition.key?("format")
   definition["local_format"] = definition["local_format"].gsub(/%[[:alnum:]]+/) { |m| m.underscore } if definition.key?("local_format")
   definition["required_fields"] = definition["required_fields"].map(&:underscore) if definition.key?("required_fields")
   definition["uppercase_fields"] = definition["uppercase_fields"].map(&:underscore) if definition.key?("uppercase_fields")
+end
+
+def extract_php_json(name, php_code)
+  FileUtils.mkdir_p("tmp")
+
+  script_path = "tmp/#{name}.php"
+  File.write(script_path, "<?php\nerror_reporting(E_ALL & ~E_DEPRECATED);\n#{php_code}")
+
+  stdout, stderr, status = Open3.capture3("php", script_path)
+  unless status.success?
+    raise "Unable to execute #{script_path}: #{stderr.strip}"
+  end
+
+  JSON.parse(stdout)
+rescue JSON::ParserError => e
+  raise "Unable to parse JSON from #{script_path}: #{e.message}"
+end
+
+def replace_or_raise(source, pattern, replacement, name)
+  raise "Unable to replace #{name}" unless source.match?(pattern)
+
+  source.sub(pattern, replacement)
+end
+
+def format_ruby_array(values, indent:, max_length: 100)
+  lines = []
+  current_line = []
+
+  values.each do |value|
+    literal = ruby_literal(value)
+    next_line = [*current_line, literal]
+
+    if current_line.any? && "#{" " * indent}#{next_line.join(", ")}".length > max_length
+      lines << "#{" " * indent}#{current_line.join(", ")}"
+      current_line = [literal]
+    else
+      current_line = next_line
+    end
+  end
+
+  lines << "#{" " * indent}#{current_line.join(", ")}" if current_line.any?
+
+  "[\n#{lines.join(",\n")}\n#{" " * (indent - 2)}]"
+end
+
+def format_ruby_array_like_php(values, php_file, php_variable, indent:)
+  group_sizes = php_array_group_sizes(php_file, php_variable)
+  return format_ruby_array(values, indent: indent) unless group_sizes.sum == values.length
+
+  lines = []
+  offset = 0
+
+  group_sizes.each do |group_size|
+    group = values[offset, group_size]
+    lines << "#{" " * indent}#{group.map { |value| ruby_literal(value) }.join(", ")}"
+    offset += group_size
+  end
+
+  "[\n#{lines.join(",\n")}\n#{" " * (indent - 2)}]"
+end
+
+def php_array_group_sizes(php_file, php_variable)
+  source = File.read(php_file)
+  match = source.match(/#{Regexp.escape(php_variable)} = \[\n(?<body>.*?)^\s+\];/m)
+  raise "Unable to extract #{php_variable} grouping from #{php_file}" if match.nil?
+
+  match[:body].lines.map do |line|
+    line.scan(/'[^']*'/).count
+  end.reject(&:zero?)
+end
+
+def format_ruby_hash(values, indent:)
+  lines = values.map do |key, value|
+    "#{" " * indent}#{ruby_literal(key)} => #{ruby_literal(value)}"
+  end
+
+  "{\n#{lines.join(",\n")}\n#{" " * (indent - 2)}}"
+end
+
+def ruby_literal(value)
+  case value
+  when String
+    value.inspect
+  when NilClass
+    "nil"
+  when Array
+    "[#{value.map { |item| ruby_literal(item) }.join(", ")}]"
+  else
+    raise "Unsupported generated value: #{value.inspect}"
+  end
 end
