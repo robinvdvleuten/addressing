@@ -2,6 +2,24 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## [2.0.0](https://github.com/robinvdvleuten/addressing/compare/v1.1.0...v2.0.0) (2026-05-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for ruby 3.2 and test on 4.0
+* drop support for ruby 3.1 and test on 3.4
+
+### Features
+
+* sync data with commerceguys repository (v2.2.3) ([b0f27f1](https://github.com/robinvdvleuten/addressing/commit/b0f27f177fdfb2b8920fd76989d32e42be3f8efe))
+
+
+### Miscellaneous Chores
+
+* drop support for ruby 3.1 and test on 3.4 ([6f54870](https://github.com/robinvdvleuten/addressing/commit/6f54870c554f0e295bffc386005c86dda4c5a8a0))
+* drop support for ruby 3.2 and test on 4.0 ([c840b10](https://github.com/robinvdvleuten/addressing/commit/c840b10b84c5c95df977f3ba3d8a84ae201f34ef))
+
 ## 1.1.0 (2025-10-03)
 
 - Add formatter-level caching for Country.list
