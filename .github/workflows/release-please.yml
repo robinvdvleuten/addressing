@@ -20,3 +20,19 @@ jobs:
         with:
           config-file: .github/release-please-config.json
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+  publish:
+    needs: [release-please]
+    runs-on: ubuntu-latest
+    if: ${{ needs.release-please.outputs.release_created }}
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@afeafc3d1ab54a631816aba4c914a0081c12ff2f # v1
+        with:
+          bundler-cache: true
+      - uses: rubygems/release-gem@f0d7faff26625599a847d40d9fa28ace24c2aacc # v1
