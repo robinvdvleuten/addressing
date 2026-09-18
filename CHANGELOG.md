@@ -2,6 +2,14 @@
 
 All notable changes to `addressing` will be documented in this file.
 
+## [2.1.0](https://github.com/robinvdvleuten/addressing/compare/v2.0.1...v2.1.0) (2026-09-18)
+
+
+### Features
+
+* sync data with commerceguys repository (v2.3.0) ([0ccf627](https://github.com/robinvdvleuten/addressing/commit/0ccf627b2abed8498d0b81bf57075346aa75c401))
+* sync data with commerceguys repository (v2.3.1) ([acf6e04](https://github.com/robinvdvleuten/addressing/commit/acf6e042a3eb08f932f17db339689ab76baffacd))
+
 ## [2.0.1](https://github.com/robinvdvleuten/addressing/compare/v1.1.0...v2.0.1) (2026-05-27)
 
 
