@@ -43,6 +43,8 @@ namespace :addressing do
     puts "Extracting definitions from AddressFormatRepository.php\n"
     extract_address_definitions
 
+    Rake::Task["addressing:dump"].invoke
+
     puts "Done."
   end
 end

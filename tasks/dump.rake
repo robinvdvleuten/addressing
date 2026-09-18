@@ -1,5 +1,6 @@
 namespace :addressing do
-  task dump: :generate do
+  desc "Build data/address_formats.dump from data/address_formats.json"
+  task :dump do
     require "json"
 
     root_dir = File.expand_path("../..", __FILE__)

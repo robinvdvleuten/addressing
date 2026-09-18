@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
     "changelog_uri" => "https://github.com/robinvdvleuten/addressing/blob/main/CHANGELOG.md"
   }
 
-  spec.files = Dir["{data,lib}/**/*"] + %w[README.md LICENSE CHANGELOG.md]
+  spec.files = Dir["{data,lib}/**/*"] | %w[data/address_formats.dump README.md LICENSE CHANGELOG.md]
   spec.require_path = "lib"
 
   spec.required_ruby_version = ">= 3.3"
