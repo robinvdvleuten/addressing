@@ -92,6 +92,36 @@ class DefaultFormatterTest < Minitest::Test
     assert_formatted_address expected_text_lines, text_address
   end
 
+  def test_colombia_incomplete_address
+    # Colombia separates the locality, department, and postal code with
+    # commas. Leaving out the department should not produce two of them.
+    address = Addressing::Address.new
+      .with_country_code("CO")
+      .with_locality("Bogota")
+      .with_postal_code("110111")
+      .with_address_line1("Calle 1")
+
+    expected_html_lines = [
+      '<p translate="no">',
+      '<span class="address-line1">Calle 1</span><br>',
+      '<span class="locality">Bogota</span>, <span class="postal-code">110111</span><br>',
+      '<span class="country">Colombia</span>',
+      "</p>"
+    ]
+
+    html_address = @formatter.format(address)
+    assert_formatted_address expected_html_lines, html_address
+
+    expected_text_lines = [
+      "Calle 1",
+      "Bogota, 110111",
+      "Colombia"
+    ]
+
+    text_address = @formatter.format(address, html: false)
+    assert_formatted_address expected_text_lines, text_address
+  end
+
   def test_taiwan_address
     # Real addresses in the major-to-minor order would be completely in
     # Traditional Chinese. That's not the case here, for readability.

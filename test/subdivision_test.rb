@@ -4,6 +4,11 @@ require_relative "test_helper"
 
 class SubdivisionTest < Minitest::Test
   def setup
+    # Definitions are cached per process, drop anything loaded by other tests
+    # so that the mocked files below are what gets read.
+    Addressing::Subdivision.instance_variable_set(:@definitions, nil)
+    Addressing::Subdivision.instance_variable_set(:@parents, nil)
+
     FakeFS.activate!
 
     FakeFS::FileSystem.clone(File.expand_path("../../data/address_formats.dump", __FILE__))
@@ -53,6 +58,12 @@ class SubdivisionTest < Minitest::Test
         }
       }
     end
+
+    # Malformed definitions, expected to be ignored.
+    mock_definitions("#{subdivision_path}/US.json") do
+      {country_code: "US"}
+    end
+    File.write("#{subdivision_path}/CA.json", "{invalid json")
   end
 
   def test_get
@@ -86,6 +97,18 @@ class SubdivisionTest < Minitest::Test
     assert_nil Addressing::Subdivision.get("FAKE", ["BR"])
   end
 
+  def test_malformed_definitions
+    # Valid JSON without a "subdivisions" key.
+    assert_nil Addressing::Subdivision.get("AL", ["US"])
+    assert_empty Addressing::Subdivision.all(["US"])
+    assert_empty Addressing::Subdivision.list(["US"])
+
+    # Invalid JSON.
+    assert_nil Addressing::Subdivision.get("AB", ["CA"])
+    assert_empty Addressing::Subdivision.all(["CA"])
+    assert_empty Addressing::Subdivision.list(["CA"])
+  end
+
   def test_all
     subdivisions = Addressing::Subdivision.all(["RS"])
     assert_empty subdivisions
@@ -112,6 +135,10 @@ class SubdivisionTest < Minitest::Test
 
     list = Addressing::Subdivision.list(["BR", "SC"])
     assert_equal({"Abelardo Luz" => "Abelardo Luz"}, list)
+
+    # The local names default to the latin ones.
+    list = Addressing::Subdivision.list(["BR"], "pt")
+    assert_equal({"SC" => "Santa Catarina", "SP" => "São Paulo"}, list)
   end
 
   def test_missing_property
@@ -152,6 +179,8 @@ class SubdivisionTest < Minitest::Test
 
   def teardown
     FakeFS.deactivate!
+    Addressing::Subdivision.instance_variable_set(:@definitions, nil)
+    Addressing::Subdivision.instance_variable_set(:@parents, nil)
   end
 
   private

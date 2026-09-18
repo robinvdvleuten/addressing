@@ -4,6 +4,7 @@ module Addressing
   class DefaultFormatter
     DEFAULT_LOCALE = "en"
     FORMAT_PLACEHOLDER_PATTERN = /%[a-z1-9_]+/
+    FORMAT_SPLIT_PATTERN = /(#{FORMAT_PLACEHOLDER_PATTERN})/
     LEADING_TRAILING_PUNCTUATION_PATTERN = /\A[ \-,]+|[ \-,]+\z/
     MULTIPLE_SPACES_PATTERN = /\s\s+/
 
@@ -39,7 +40,7 @@ module Addressing
       view = render_view(view)
 
       replacements = view.map { |key, element| ["%#{key}", element] }.to_h
-      output = format_string.gsub(FORMAT_PLACEHOLDER_PATTERN) { |m| replacements[m] }
+      output = insert_values(format_string, replacements)
       output = clean_output(output)
 
       if options[:html]
@@ -99,6 +100,39 @@ module Addressing
       end.join(" ")
     end
 
+    # Inserts the rendered address fields into the format string.
+    #
+    # Empty fields need special handling. When one falls between two values,
+    # keep the separator before it and discard the one after it.
+    def insert_values(format_string, replacements)
+      format_string.split("\n", -1).map do |line|
+        rendered = +""
+        separator = ""
+        skipped = false
+
+        line.split(FORMAT_SPLIT_PATTERN, -1).each do |part|
+          unless replacements.key?(part)
+            # A separator before an empty field usually belongs to
+            # the value that came before it, so keep that one.
+            separator = part unless skipped
+            next
+          end
+
+          if replacements[part].empty?
+            skipped = true
+            next
+          end
+
+          rendered << separator if !rendered.empty? || !skipped
+          rendered << replacements[part]
+          separator = ""
+          skipped = false
+        end
+
+        rendered
+      end.join("\n")
+    end
+
     # Removes empty lines, leading punctuation, excess whitespace.
     def clean_output(output)
       output.split("\n").map { |line| line.gsub(LEADING_TRAILING_PUNCTUATION_PATTERN, "").strip.gsub(MULTIPLE_SPACES_PATTERN, " ") }.reject(&:empty?).join("\n")
@@ -116,22 +150,18 @@ module Addressing
       AddressField.all.map { |_, field| [field, address.send(field)] }.to_h
     end
 
-    # Resolves subdivision values to their display codes.
+    # Replaces the subdivision values with the codes of any predefined ones.
     def resolve_subdivision_values(values, address, address_format)
-      subdivision_fields = address_format.used_subdivision_fields
+      parents = [address.country_code]
 
-      # Replace the subdivision values with the names of any predefined ones.
-      subdivision_fields.each_with_index.inject([{}, []]) do |(original_values, parents), (field, index)|
+      address_format.subdivision_fields.each do |field|
         # This level is empty, so there can be no sublevels.
-        break if values[field].nil?
-
-        parents << ((index > 0) ? original_values[subdivision_fields[index - 1]] : address.country_code)
+        break if values[field].nil? || values[field].empty?
 
         subdivision = Subdivision.get(values[field], parents)
         break if subdivision.nil?
 
-        # Remember the original value so that it can be used for parents.
-        original_values[field] = values[field]
+        parents << values[field]
 
         # Replace the value with the expected code.
         use_local_name = Locale.match_candidates(address.locale, subdivision.locale)
@@ -139,8 +169,6 @@ module Addressing
 
         # The current subdivision has no children, stop.
         break unless subdivision.children?
-
-        [original_values, parents]
       end
     end
 

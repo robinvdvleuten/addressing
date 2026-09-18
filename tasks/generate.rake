@@ -190,6 +190,7 @@ def normalize_definition(definition)
   definition["local_format"] = definition["local_format"].gsub(/%[[:alnum:]]+/) { |m| m.underscore } if definition.key?("local_format")
   definition["required_fields"] = definition["required_fields"].map(&:underscore) if definition.key?("required_fields")
   definition["uppercase_fields"] = definition["uppercase_fields"].map(&:underscore) if definition.key?("uppercase_fields")
+  definition["subdivision_fields"] = definition.delete("subdivision_data_fields").map(&:underscore) if definition.key?("subdivision_data_fields")
 end
 
 def extract_php_json(name, php_code)

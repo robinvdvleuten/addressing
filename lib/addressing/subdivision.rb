@@ -58,8 +58,8 @@ module Addressing
       def has_data(parents)
         country_code = parents[0]
 
-        depth = AddressFormat.get(country_code).subdivision_depth
-        return false if depth == 0
+        subdivision_fields = AddressFormat.get(country_code).subdivision_fields
+        return false if subdivision_fields.empty?
 
         if parents.size > 1
           # After the first level it is possible for predefined subdivisions
@@ -74,8 +74,9 @@ module Addressing
             definition = @definitions[parent_group]["subdivisions"][parent_id]
             return !!definition["has_children"]
           else
-            # The parent definition wasn't loaded previously, fallback to guessing based on depth.
-            return parents.size <= depth
+            # The parent definition wasn't loaded previously, fallback to
+            # guessing based on the count of subdivision data fields.
+            return parents.size <= subdivision_fields.size
           end
         end
 
@@ -98,19 +99,30 @@ module Addressing
           filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{group}.json")
 
           if File.exist?(filename)
-            raw_definition = File.read(filename)
-            @definitions[group] = JSON.parse(raw_definition)
-            @definitions[group] = process_definitions(@definitions[group])
+            @definitions[group] = process_definitions(parse_definitions(File.read(filename)))
           end
         end
 
         @definitions[group]
       end
 
+      # Parses a raw definition file.
+      #
+      # Malformed JSON is treated as if the file didn't exist.
+      def parse_definitions(raw_definition)
+        definitions = JSON.parse(raw_definition)
+        definitions.is_a?(Hash) ? definitions : {}
+      rescue JSON::ParserError
+        {}
+      end
+
       # Processes the loaded definitions.
       #
       # Adds keys and values that were removed from the JSON files for brevity.
       def process_definitions(definitions)
+        # Malformed definitions are treated as if they didn't exist.
+        return {} unless definitions["subdivisions"].is_a?(Hash)
+
         definitions["subdivisions"].each do |id, definition|
           # Add common keys from the root level.
           definition["country_code"] = definitions["country_code"]
@@ -122,6 +134,12 @@ module Addressing
 
           if !definition.key?("name")
             definition["name"] = id
+          end
+
+          # The local_name value is only specified if it doesn't match
+          # the name one.
+          if definitions.key?("locale") && !definition.key?("local_name")
+            definition["local_name"] = definition["name"]
           end
 
           # The code and local_code values are only specified if they

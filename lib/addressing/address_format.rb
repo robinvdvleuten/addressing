@@ -8,9 +8,17 @@ module Addressing
   #
   # @example Get address format for Brazil
   #   format = Addressing::AddressFormat.get('BR')
-  #   format.used_fields      # => ["given_name", "family_name", ...]
-  #   format.required_fields  # => ["address_line1", "locality", ...]
+  #   format.used_fields        # => ["given_name", "family_name", ...]
+  #   format.required_fields    # => ["address_line1", "locality", ...]
+  #   format.subdivision_fields # => ["administrative_area", "locality"]
   class AddressFormat
+    # The subdivision fields, ordered from the top level down.
+    SUBDIVISION_FIELDS = [
+      AddressField::ADMINISTRATIVE_AREA,
+      AddressField::LOCALITY,
+      AddressField::DEPENDENT_LOCALITY
+    ].freeze
+
     class << self
       # Gets the address format for the provided country code.
       #
@@ -63,13 +71,28 @@ module Addressing
           administrative_area_type: "province",
           locality_type: "city",
           dependent_locality_type: "suburb",
-          postal_code_type: "postal",
-          subdivision_depth: 0
+          postal_code_type: "postal"
         }
       end
     end
 
-    attr_reader :country_code, :locale, :format, :local_format, :required_fields, :uppercase_fields, :default_values, :administrative_area_type, :locality_type, :dependent_locality_type, :postal_code_type, :postal_code_pattern, :postal_code_prefix, :subdivision_depth
+    attr_reader :country_code, :locale, :format, :local_format, :required_fields, :uppercase_fields, :default_values, :administrative_area_type, :locality_type, :dependent_locality_type, :postal_code_type, :postal_code_pattern, :postal_code_prefix
+
+    # The subdivision fields for which there is predefined subdivision data.
+    #
+    # This is more precise than #used_subdivision_fields, which returns all
+    # subdivision fields used by the format regardless of whether data exists.
+    #
+    # @return [Array<String>] e.g. ["administrative_area", "locality"]
+    attr_reader :subdivision_fields
+
+    # The number of subdivision fields with predefined data used by the format.
+    #
+    # @deprecated Use #subdivision_fields instead.
+    # @return [Integer]
+    def subdivision_depth
+      (subdivision_fields & used_subdivision_fields).size
+    end
 
     def initialize(definition = {})
       # Validate the presence of required properties.
@@ -87,13 +110,16 @@ module Addressing
         uppercase_fields: [],
         default_values: {},
         postal_code_pattern: nil,
-        postal_code_prefix: nil,
-        subdivision_depth: 0
+        postal_code_prefix: nil
       }.merge(definition)
+
+      # Backwards compatibility: derive the subdivision fields from a depth.
+      definition[:subdivision_fields] ||= SUBDIVISION_FIELDS.first(definition[:subdivision_depth] || 0)
 
       AddressField.assert_all_exist(definition[:required_fields])
       AddressField.assert_all_exist(definition[:uppercase_fields])
       AddressField.assert_all_exist(definition[:default_values].keys)
+      AddressField.assert_all_exist(definition[:subdivision_fields])
 
       @country_code = definition[:country_code]
       @locale = definition[:locale]
@@ -102,7 +128,7 @@ module Addressing
       @required_fields = definition[:required_fields]
       @uppercase_fields = definition[:uppercase_fields]
       @default_values = definition[:default_values]
-      @subdivision_depth = definition[:subdivision_depth]
+      @subdivision_fields = definition[:subdivision_fields]
 
       if used_fields.include?(AddressField::ADMINISTRATIVE_AREA)
         if definition[:administrative_area_type]
@@ -144,15 +170,11 @@ module Addressing
     end
 
     # Gets the list of used subdivision fields.
+    #
+    # Note that a country might use a subdivision field without having
+    # predefined subdivisions for it, see #subdivision_fields.
     def used_subdivision_fields
-      fields = [
-        AddressField::ADMINISTRATIVE_AREA,
-        AddressField::LOCALITY,
-        AddressField::DEPENDENT_LOCALITY
-      ]
-
-      # Remove fields not used by the format.
-      fields & used_fields
+      SUBDIVISION_FIELDS & used_fields
     end
   end
 

@@ -4,7 +4,7 @@ A Ruby addressing library, powered by CLDR and Google's address data.
 
 - Countries, with translations for over 250 locales. Powered by [CLDR](http://cldr.unicode.org) v46.
 - Address formats for over 200 countries.
-- Subdivisions (administrative areas, localities, dependent localities) for 60 countries.
+- Subdivisions (administrative areas, localities, dependent localities) for 62 countries.
 - Both latin and local subdivision names, when relevant (e.g: Okinawa / 沖縄県).
 - Formatting, both in HTML and plain text.
 
@@ -71,6 +71,7 @@ The [AddressFormat](lib/addressing/address_format.rb) class provides the followi
 - Which fields need to be uppercased for the actual mailing (to facilitate automated sorting of mail)
 - The labels for the administrative area (state, province, parish, etc.), locality (city/post town/district, etc.), dependent locality (neighborhood, suburb, district, etc) and the postal code (postal code or ZIP code)
 - The regular expression pattern for validating postal codes
+- Which subdivision fields have predefined subdivision data
 
 ```rb
 # Get the address format for Brazil.

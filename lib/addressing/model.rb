@@ -46,25 +46,24 @@ module Addressing
         end
 
         define_method :verify_subdivisions do |address, address_format, field_overrides|
-          # No predefined subdivisions exist, nothing to validate against.
-          return [] if address_format.subdivision_depth < 1
+          parents = [address_format.country_code]
+          subdivisions = []
 
-          subdivisions, _parents = address_format.used_subdivision_fields.each_with_index.inject([[], []]) do |(subdivisions, parents), (field, index)|
+          address_format.subdivision_fields.each do |field|
+            value = address.send(field)
             # The field is empty or validation is disabled.
-            break [subdivisions, parents] if address.send(field).blank? || field_overrides.hidden_fields.include?(field)
+            break if value.blank? || field_overrides.hidden_fields.include?(field)
 
-            parents << ((index > 0) ? address.send(address_format.used_subdivision_fields[index - 1]) : address_format.country_code)
-            subdivision = Subdivision.get(address.send(field), parents)
+            subdivision = Subdivision.get(value, parents)
             if subdivision.nil?
               errors.add(field, "should be valid")
-              break [subdivisions, parents]
+              break
             end
 
+            parents << value
             subdivisions << subdivision
             # No predefined subdivisions below this level, stop here.
-            break [subdivisions, parents] if subdivision.children.empty?
-
-            [subdivisions, parents]
+            break unless subdivision.children?
           end
 
           subdivisions

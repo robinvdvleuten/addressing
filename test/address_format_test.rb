@@ -91,7 +91,7 @@ class AddressFormatTest < Minitest::Test
       postal_code_pattern: "(\d{5})(?:[ -](\d{4}))?",
       # US doesn't use postal code prefixes, fake one for test purposes.
       postal_code_prefix: "US",
-      subdivision_depth: 1
+      subdivision_fields: [Addressing::AddressField::ADMINISTRATIVE_AREA]
     }
     address_format = Addressing::AddressFormat.new(**definition)
 
@@ -109,7 +109,8 @@ class AddressFormatTest < Minitest::Test
     assert_equal definition[:postal_code_type], address_format.postal_code_type
     assert_equal definition[:postal_code_pattern], address_format.postal_code_pattern
     assert_equal definition[:postal_code_prefix], address_format.postal_code_prefix
-    assert_equal definition[:subdivision_depth], address_format.subdivision_depth
+    assert_equal definition[:subdivision_fields], address_format.subdivision_fields
+    assert_equal 1, address_format.subdivision_depth
 
     expected_used_fields = [
       Addressing::AddressField::ADMINISTRATIVE_AREA,
@@ -129,5 +130,43 @@ class AddressFormatTest < Minitest::Test
       Addressing::AddressField::LOCALITY
     ]
     assert_same_elements expected_used_subdivision_fields, address_format.used_subdivision_fields
+  end
+
+  def test_subdivision_fields
+    address_format = Addressing::AddressFormat.new(
+      country_code: "AD",
+      format: "%given_name %family_name\n%organization\n%address_line1\n%postal_code %locality",
+      subdivision_fields: [Addressing::AddressField::LOCALITY]
+    )
+    assert_equal [Addressing::AddressField::LOCALITY], address_format.subdivision_fields
+    assert_equal 1, address_format.subdivision_depth
+
+    # The depth only counts subdivision fields present in the format.
+    address_format = Addressing::AddressFormat.new(
+      country_code: "AD",
+      format: "%given_name %family_name\n%organization\n%address_line1\n%postal_code %locality",
+      subdivision_fields: [Addressing::AddressField::ADMINISTRATIVE_AREA, Addressing::AddressField::LOCALITY]
+    )
+    assert_equal 1, address_format.subdivision_depth
+
+    # Backwards compatibility: subdivision_depth is converted to subdivision_fields.
+    address_format = Addressing::AddressFormat.new(
+      country_code: "US",
+      format: "%given_name %family_name\n%locality, %administrative_area %postal_code",
+      subdivision_depth: 2
+    )
+    assert_equal [Addressing::AddressField::ADMINISTRATIVE_AREA, Addressing::AddressField::LOCALITY], address_format.subdivision_fields
+    assert_equal 2, address_format.subdivision_depth
+
+    # Defaults to no predefined subdivision data.
+    address_format = Addressing::AddressFormat.new(country_code: "US", format: "%locality")
+    assert_empty address_format.subdivision_fields
+    assert_equal 0, address_format.subdivision_depth
+  end
+
+  def test_invalid_subdivision_fields
+    assert_raises(ArgumentError) do
+      Addressing::AddressFormat.new(country_code: "US", format: "%locality", subdivision_fields: ["INVALID"])
+    end
   end
 end
