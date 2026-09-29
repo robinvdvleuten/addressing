@@ -46,27 +46,14 @@ module Addressing
         end
 
         define_method :verify_subdivisions do |address, address_format, field_overrides|
-          parents = [address_format.country_code]
-          subdivisions = []
+          subdivision_fields = address_format.subdivision_fields
+          # A hidden level is not validated, and neither are the levels below it.
+          subdivision_values = subdivision_fields.map { |field| address.send(field) unless field_overrides.hidden_fields.include?(field) }
 
-          address_format.subdivision_fields.each do |field|
-            value = address.send(field)
-            # The field is empty or validation is disabled.
-            break if value.blank? || field_overrides.hidden_fields.include?(field)
+          chain = Subdivision.chain(address_format.country_code, subdivision_values)
+          errors.add(subdivision_fields[chain.unmatched_level], "should be valid") if chain.unmatched_level
 
-            subdivision = Subdivision.get(value, parents)
-            if subdivision.nil?
-              errors.add(field, "should be valid")
-              break
-            end
-
-            parents << value
-            subdivisions << subdivision
-            # No predefined subdivisions below this level, stop here.
-            break unless subdivision.children?
-          end
-
-          subdivisions
+          chain.subdivisions
         end
 
         define_method :verify_postal_code do |postal_code, subdivisions, address_format|

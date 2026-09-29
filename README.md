@@ -159,7 +159,17 @@ p Addressing::Subdivision.all(["BR", "CE"]).size  # 184
 Addressing::Subdivision.list(["BR"])
 ```
 
-Data is loaded lazily: asking for Brazil's states reads Brazil's file only, and `children` on a subdivision loads that branch on first access.
+Data is loaded lazily: asking for Brazil's states reads Brazil's file only, and `children` on a subdivision loads that branch on first access. `children` behaves like the hash that `all` returns.
+
+To match the values of an address against the predefined subdivisions, ask for its subdivision chain. Pass the values in level order: administrative area, locality, dependent locality. The walk stops at an empty value, at a subdivision without children, or at a value that matches no predefined subdivision. `unmatched_level` gives the position of that last value.
+
+```rb
+chain = Addressing::Subdivision.chain("BR", ["CE", "Fortaleza"])
+p chain.subdivisions.map(&:name)  # ["Ceará", "Fortaleza"]
+p chain.unmatched_level           # nil
+
+p Addressing::Subdivision.chain("BR", ["CE", "Nowhere"]).unmatched_level  # 1
+```
 
 ## Formatting addresses
 

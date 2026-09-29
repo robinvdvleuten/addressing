@@ -152,23 +152,15 @@ module Addressing
 
     # Replaces the subdivision values with the codes of any predefined ones.
     def resolve_subdivision_values(values, address, address_format)
-      parents = [address.country_code]
+      fields = address_format.subdivision_fields
+      chain = Subdivision.chain(address.country_code, values.values_at(*fields))
 
-      address_format.subdivision_fields.each do |field|
-        # This level is empty, so there can be no sublevels.
-        break if values[field].nil? || values[field].empty?
-
-        subdivision = Subdivision.get(values[field], parents)
+      fields.zip(chain.subdivisions) do |field, subdivision|
         break if subdivision.nil?
-
-        parents << values[field]
 
         # Replace the value with the expected code.
         use_local_name = Locale.match_candidates(address.locale, subdivision.locale)
         values[field] = use_local_name ? subdivision.local_code : subdivision.code
-
-        # The current subdivision has no children, stop.
-        break unless subdivision.children?
       end
     end
 

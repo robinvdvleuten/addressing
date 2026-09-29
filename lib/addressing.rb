@@ -3,6 +3,7 @@
 # stdlib
 require "cgi"
 require "digest"
+require "forwardable"
 require "json"
 
 # modules

@@ -16,7 +16,57 @@ module Addressing
   # @example Get subdivisions for a Brazilian state
   #   municipalities = Addressing::Subdivision.all(['BR', 'CE'])
   class Subdivision
+    # The subdivision chain of an address.
+    #
+    # subdivisions holds the matched predefined subdivisions, ordered from the
+    # administrative area downward. unmatched_level is the position, in the
+    # values given to Subdivision.chain, of the value that matched no
+    # predefined subdivision, or nil when there was none.
+    Chain = Data.define(:subdivisions, :unmatched_level)
+
+    # Matches a value that holds nothing but whitespace, Unicode included.
+    EMPTY_VALUE_PATTERN = /\A[[:space:]]*\z/
+    private_constant :EMPTY_VALUE_PATTERN
+
     class << self
+      # Resolves the subdivision chain for the values of the subdivision levels.
+      #
+      # The walk goes down the levels and stops at the first empty value, at
+      # the first value that matches no predefined subdivision, or at a
+      # subdivision without children.
+      #
+      # @param country_code [String] Country code
+      # @param values [Array<String, nil>] Values in level order (administrative area, locality, dependent locality)
+      # @return [Chain]
+      #
+      # @example
+      #   chain = Addressing::Subdivision.chain("BR", ["CE", "Fortaleza"])
+      #   chain.subdivisions.map(&:code) # => ["CE", "Fortaleza"]
+      #   chain.unmatched_level          # => nil
+      def chain(country_code, values)
+        parents = [country_code.upcase]
+        subdivisions = []
+
+        # Nothing to match against.
+        return Chain.new(subdivisions: subdivisions, unmatched_level: nil) if load_definitions(parents).empty?
+
+        values.each_with_index do |value, level|
+          # This level is empty, so there can be no sublevels.
+          break if EMPTY_VALUE_PATTERN.match?(value.to_s)
+
+          subdivision = get(value, parents)
+          return Chain.new(subdivisions: subdivisions, unmatched_level: level) if subdivision.nil?
+
+          subdivisions << subdivision
+          # No predefined subdivisions below this level, stop here.
+          break unless subdivision.children?
+
+          parents += [value]
+        end
+
+        Chain.new(subdivisions: subdivisions, unmatched_level: nil)
+      end
+
       # Gets a Subdivision instance by ID and parent hierarchy.
       #
       # @param id [String] Subdivision ID

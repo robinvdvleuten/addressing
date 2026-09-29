@@ -1,33 +1,23 @@
 # frozen_string_literal: true
 
 module Addressing
+  # The children of a subdivision, loaded on first access.
+  #
+  # Behaves like the hash that Subdivision.all returns for the same parents.
   class LazySubdivisions
+    extend Forwardable
+    include Enumerable
+
+    def_delegators :subdivisions, :each, :size, :keys, :values, :key?, :include?, :member?, :[], :fetch, :any?, :empty?, :select, :filter, :reject
+
     def initialize(parents)
       @parents = parents
-      @subdivisions = {}
-      @initialized = false
-    end
-
-    def [](key)
-      do_initialize unless @initialized
-      @subdivisions[key]
-    end
-
-    def any?
-      do_initialize unless @initialized
-      @subdivisions.any?
-    end
-
-    def empty?
-      do_initialize unless @initialized
-      @subdivisions.empty?
     end
 
     private
 
-    def do_initialize
-      @initialized = true
-      @subdivisions = Subdivision.all(@parents)
+    def subdivisions
+      @subdivisions ||= Subdivision.all(@parents)
     end
   end
 end
