@@ -268,6 +268,24 @@ Each field can be overridden as `HIDDEN`, `OPTIONAL`, or `REQUIRED`. Skip postal
 validates_address_format if: -> { shipping_address_changed? }
 ```
 
+### Validating without Active Record
+
+[AddressValidator](lib/addressing/address_validator.rb) applies the same rules to a plain `Addressing::Address`, and takes the same `field_overrides:` and `verify_postal_code:` options. It returns a list of field violations; an empty list means the address is valid.
+
+```rb
+address = Addressing::Address.new(country_code: "US", administrative_area: "XX", locality: "Mountain View",
+                                  postal_code: "9404", address_line1: "1098 Alta Ave",
+                                  given_name: "John", family_name: "Smith")
+
+Addressing::AddressValidator.validate(address)
+# => [#<data Addressing::FieldViolation field=:administrative_area, kind=:invalid>,
+#     #<data Addressing::FieldViolation field=:postal_code, kind=:invalid>]
+```
+
+Each [FieldViolation](lib/addressing/field_violation.rb) holds the `field` as a symbol and the `kind` of rule it breaks: `:blank` for a required field that is missing, `:present` for a field the country does not use or that is hidden, and `:invalid` for a subdivision or postal code that does not match. The kinds are the error types that `validates_address_format` adds to `errors.details`.
+
+An address without a country code gives no field violations.
+
 ## Contributing
 
 Everyone is encouraged to help improve this project:

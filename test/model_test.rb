@@ -3,6 +3,15 @@
 require_relative "test_helper"
 
 class ModelTest < Minitest::Test
+  def test_host_model_only_gains_the_validation
+    address = Address.new
+
+    refute_respond_to address, :verify_address_format
+    refute_respond_to address, :verify_subdivisions
+    refute_respond_to address, :verify_postal_code
+    refute Addressing.const_defined?(:AddressFormatHelper)
+  end
+
   def test_blank
     address = Address.new
     assert address.valid?
@@ -59,6 +68,11 @@ class ModelTest < Minitest::Test
     assert address.errors.key?(:address_line1)
     assert address.errors.key?(:locality)
     assert address.errors.key?(:postal_code)
+
+    assert_equal ["should not be blank"], address.errors[:locality]
+    assert_equal [{error: :blank}], address.errors.details[:locality]
+    assert_equal ["should be valid"], address.errors[:postal_code]
+    assert_equal [{error: :invalid}], address.errors.details[:postal_code]
   end
 
   def test_united_states_subdivision_postal_code_pattern
@@ -157,6 +171,8 @@ class ModelTest < Minitest::Test
     )
     assert !address.valid?
     assert address.errors.key?(:sorting_code)
+    assert_equal ["should be blank"], address.errors[:sorting_code]
+    assert_equal [{error: :present}], address.errors.details[:sorting_code]
   end
 
   def test_canada_unused_fields

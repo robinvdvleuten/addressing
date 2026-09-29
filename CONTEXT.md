@@ -17,3 +17,9 @@ _Avoid_: Known subdivision, valid subdivision
 **Subdivision chain**:
 The predefined subdivisions that match one address, ordered from the administrative area downward. Each entry is the parent of the next.
 _Avoid_: Hierarchy, parents, path
+
+### Validation
+
+**Field violation**:
+One field of an address that breaks a rule of the address format for its country, together with the kind of rule it breaks. Validating an address gives a list of field violations; an empty list means the address is valid.
+_Avoid_: Error, validation error
