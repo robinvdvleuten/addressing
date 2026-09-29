@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "yaml"
 require "addressing"
 
 module Addressing
@@ -17,7 +18,22 @@ module Addressing
       end
     end
 
+    # The outcome of a verification against the known discrepancies.
+    Result = Struct.new(:unexpected, :known, :resolved) do
+      def ok?
+        unexpected.empty? && resolved.empty?
+      end
+    end
+
     DEFAULT_DATA_DIR = File.expand_path("../data", __dir__)
+    KNOWN_DISCREPANCIES = File.expand_path("known_discrepancies.yml", __dir__)
+
+    # Reads the discrepancies that are reported upstream and wait for a fix.
+    #
+    # @return [Array<String>]
+    def self.known_discrepancies(filename = KNOWN_DISCREPANCIES)
+      (YAML.safe_load_file(filename) || []).map { |entry| entry.fetch("discrepancy") }
+    end
 
     # @param data_dir [String] Directory that holds the country and subdivision data
     # @param address_formats [Hash<String, AddressFormat>] Address formats by country code
@@ -39,6 +55,20 @@ module Addressing
       verify_subdivisions
 
       @discrepancies
+    end
+
+    # Splits the discrepancies by what has to happen with them.
+    #
+    # A discrepancy that is not known is unexpected. A known discrepancy that
+    # no longer occurs is resolved, its entry has to be removed so that the
+    # list does not hide the same discrepancy when it comes back.
+    #
+    # @param known [Array<String>] Discrepancies that wait for an upstream fix
+    # @return [Result]
+    def verify(known: [])
+      found = discrepancies.map(&:to_s)
+
+      Result.new(found - known, found & known, known - found)
     end
 
     private

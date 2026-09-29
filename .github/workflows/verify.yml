@@ -1,0 +1,32 @@
+name: Verify
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - data/**
+      - tasks/**
+      - .github/workflows/verify-data.yml
+  pull_request:
+    paths:
+      - data/**
+      - tasks/**
+      - .github/workflows/verify-data.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@e8944e80fb94b20106697132f8c20c665fab29e9 # v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+      - run: bundle exec rake addressing:verify

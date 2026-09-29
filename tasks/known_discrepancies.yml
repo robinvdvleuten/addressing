@@ -1,0 +1,8 @@
+# Discrepancies in the data files that are reported upstream and wait for a
+# fix there. The data files are never edited by hand.
+#
+# `rake addressing:verify` fails on a discrepancy that is not in this list,
+# and on an entry that no longer occurs. Remove an entry when its fix arrives
+# with a data sync.
+- discrepancy: "subdivision/CL-NB.json: holds the children of NB, which has no has_children flag"
+  upstream: "Fix prepared for commerceguys/addressing, pull request not opened yet"

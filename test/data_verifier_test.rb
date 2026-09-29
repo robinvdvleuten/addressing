@@ -38,6 +38,63 @@ class DataVerifierTest < Minitest::Test
     assert_kind_of Array, Addressing::DataVerifier.new.discrepancies
   end
 
+  def test_real_known_discrepancies_are_readable
+    known = Addressing::DataVerifier.known_discrepancies
+
+    assert_kind_of Array, known
+    assert known.all?(String)
+  end
+
+  def test_verify_without_discrepancies
+    result = verifier.verify
+
+    assert result.ok?
+    assert_empty result.unexpected
+    assert_empty result.known
+    assert_empty result.resolved
+  end
+
+  def test_verify_splits_unexpected_known_and_resolved
+    FileUtils.rm(File.join(@data_dir, "subdivision/BR-CE.json"))
+    write("country/en.json", {"BR" => "Brazil"})
+
+    missing_children = "subdivision/BR.json (CE): has the has_children flag, but no data file holds its children"
+    missing_name = "country/en.json: has no name for country CL"
+    fixed = "subdivision/BR-SP.json: holds the children of SP, which has no has_children flag"
+
+    result = verifier.verify(known: [missing_children, fixed])
+
+    refute result.ok?
+    assert_equal [missing_name], result.unexpected
+    assert_equal [missing_children], result.known
+    assert_equal [fixed], result.resolved
+  end
+
+  def test_verify_with_known_discrepancies_only
+    FileUtils.rm(File.join(@data_dir, "subdivision/BR-CE.json"))
+
+    result = verifier.verify(known: ["subdivision/BR.json (CE): has the has_children flag, but no data file holds its children"])
+
+    assert result.ok?
+  end
+
+  def test_verify_fails_on_resolved_discrepancy
+    result = verifier.verify(known: ["subdivision/BR-SP.json: holds the children of SP, which has no has_children flag"])
+
+    refute result.ok?
+    assert_empty result.unexpected
+  end
+
+  def test_known_discrepancies_from_file
+    filename = File.join(@data_dir, "known.yml")
+
+    File.write(filename, "- discrepancy: \"country/en.json: has no name for country CL\"\n  upstream: \"https://example.com/1\"\n")
+    assert_equal ["country/en.json: has no name for country CL"], Addressing::DataVerifier.known_discrepancies(filename)
+
+    File.write(filename, "# Nothing is known.\n")
+    assert_empty Addressing::DataVerifier.known_discrepancies(filename)
+  end
+
   def test_child_file_without_flagged_parent
     write("subdivision/BR-SP.json", {
       country_code: "BR",
@@ -124,7 +181,11 @@ class DataVerifierTest < Minitest::Test
 
   private
 
-  def discrepancies(subdivision_fields: ["administrative_area", "locality"], formats: {}, locales: ["en"])
+  def discrepancies(**options)
+    verifier(**options).discrepancies.map(&:to_s)
+  end
+
+  def verifier(subdivision_fields: ["administrative_area", "locality"], formats: {}, locales: ["en"])
     formats = {"BR" => subdivision_fields}.merge(formats)
     address_formats = formats.to_h do |country_code, fields|
       [country_code, Addressing::AddressFormat.new(country_code: country_code, format: "%locality", subdivision_fields: fields)]
@@ -135,7 +196,7 @@ class DataVerifierTest < Minitest::Test
       address_formats: address_formats,
       country_codes: ["BR", "CL"],
       locales: locales
-    ).discrepancies.map(&:to_s)
+    )
   end
 
   def write(path, content)
