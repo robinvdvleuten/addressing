@@ -44,6 +44,9 @@ namespace :addressing do
     extract_address_definitions
 
     puts "Done."
+
+    # Upstream maintains its data by hand, report what does not add up.
+    Rake::Task["addressing:verify"].invoke
   end
 end
 

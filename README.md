@@ -278,6 +278,8 @@ bundle exec rake test
 
 Refreshing the country and address data from upstream (`rake addressing:generate`) additionally requires PHP, since it reads the definitions out of the commerceguys library.
 
+Upstream maintains the subdivisions and address formats by hand, so the data files can disagree with each other. `rake addressing:verify` reports such discrepancies, and runs at the end of every refresh. Report a discrepancy upstream instead of editing the data files here.
+
 Feel free to open an issue to get feedback on your idea before spending too much time on it.
 
 ## Changelog
