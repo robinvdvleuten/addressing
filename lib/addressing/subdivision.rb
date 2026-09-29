@@ -54,56 +54,21 @@ module Addressing
 
       protected
 
-      # Checks whether predefined subdivisions exist for the provided parents.
-      def has_data(parents)
-        country_code = parents[0]
-
-        subdivision_fields = AddressFormat.get(country_code).subdivision_fields
-        return false if subdivision_fields.empty?
-
-        if parents.size > 1
-          # After the first level it is possible for predefined subdivisions
-          # to exist at a given level, but not for that specific parent.
-          # That's why the parent definition has the most precise answer.
-          grandparents = parents.dup
-          parent_id = grandparents.pop
-          parent_group = build_group(grandparents.dup)
-          @definitions ||= {}
-
-          if @definitions.dig(parent_group, "subdivisions", parent_id)
-            definition = @definitions[parent_group]["subdivisions"][parent_id]
-            return !!definition["has_children"]
-          else
-            # The parent definition wasn't loaded previously, fallback to
-            # guessing based on the count of subdivision data fields.
-            return parents.size <= subdivision_fields.size
-          end
-        end
-
-        # The first level has always data.
-        true
-      end
-
       # Loads the subdivision definitions for the provided parents.
       def load_definitions(parents)
         @definitions ||= {}
-        group = build_group(parents.dup)
+        group = build_group(parents)
         if @definitions.key?(group)
           return @definitions[group]
         end
 
-        @definitions[group] = {}
+        filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{group}.json")
 
-        # If there are predefined subdivisions at this level, try to load them.
-        if has_data(parents)
-          filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{group}.json")
-
-          if File.exist?(filename)
-            @definitions[group] = process_definitions(parse_definitions(File.read(filename)))
-          end
+        @definitions[group] = if File.exist?(filename)
+          process_definitions(parse_definitions(File.read(filename)))
+        else
+          {}
         end
-
-        @definitions[group]
       end
 
       # Parses a raw definition file.
@@ -162,60 +127,47 @@ module Addressing
       def build_group(parents)
         raise ArgumentError, "The parents argument must not be empty." if parents.empty?
 
-        return parents[0] if parents.length == 1
+        # Country codes are matched case-insensitively, subdivision IDs are not.
+        country_code = parents[0].upcase
+        subdivision_ids = parents.drop(1)
+
+        return country_code if subdivision_ids.empty?
 
         # The second parent is an ISO code, it can be used as-is.
-        return parents.join("-") if parents.length == 2 && parents[1].length <= 3
-
-        country_code = parents.shift
-        group = country_code
+        return "#{country_code}-#{subdivision_ids[0]}" if subdivision_ids.length == 1 && subdivision_ids[0].length <= 3
 
         # A dash per key allows the depth to be guessed later.
-        group += "-" * parents.length
         # Hash the remaining keys to ensure that the group is ASCII safe.
-        group + Digest::SHA1.hexdigest(parents.join("-"))
+        country_code + "-" * subdivision_ids.length + Digest::SHA1.hexdigest(subdivision_ids.join("-"))
       end
 
       # Creates a subdivision object from the provided definitions.
       def create_subdivision_from_definitions(id, definitions)
-        if !definitions.dig("subdivisions", id)
-          # No matching definition found.
-          return nil
-        end
+        definition = definitions.dig("subdivisions", id)
+        # No matching definition found.
+        return nil unless definition
 
-        definition = definitions["subdivisions"][id]
         # The 'parents' key is omitted when it contains just the country code.
-        definitions["parents"] = [definitions["country_code"]] unless definitions.key?("parents")
-        parents = definitions["parents"]
-
-        definition["parent"] = nil
+        parents = definitions["parents"] || [definitions["country_code"]]
 
         # Load the parent, if known.
+        parent = nil
         if parents.size > 1
-          grandparents = parents.dup
-          parent_id = grandparents.pop
-          parent_group = build_group(grandparents.dup)
+          grandparents = parents[0...-1]
+          parent_id = parents[-1]
+          parent_group = build_group(grandparents)
           @parents ||= {}
-
-          if !@parents.dig(parent_group, parent_id)
-            @parents[parent_group] ||= {}
-            @parents[parent_group][parent_id] = get(parent_id, grandparents)
-          end
-
-          definition["parent"] = @parents[parent_group][parent_id]
+          @parents[parent_group] ||= {}
+          @parents[parent_group][parent_id] ||= get(parent_id, grandparents)
+          parent = @parents[parent_group][parent_id]
         end
 
         # Prepare children.
-        if definition["has_children"]
-          children_parents = parents.dup
-          children_parents << id
-
-          definition["children"] = LazySubdivisions.new(children_parents)
-        end
+        children = definition["has_children"] ? LazySubdivisions.new(parents + [id]) : {}
 
         new(
           id: id,
-          parent: definition["parent"],
+          parent: parent,
           country_code: definition["country_code"],
           locale: definition["locale"],
           code: definition["code"],
@@ -223,7 +175,7 @@ module Addressing
           name: definition["name"],
           local_name: definition["local_name"],
           postal_code_pattern: definition["postal_code_pattern"],
-          children: definition["children"] || {}
+          children: children
         )
       end
     end

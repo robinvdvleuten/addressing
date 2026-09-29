@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
+require "minitest/mock"
 
 class SubdivisionTest < Minitest::Test
   def setup
@@ -10,8 +11,6 @@ class SubdivisionTest < Minitest::Test
     Addressing::Subdivision.instance_variable_set(:@parents, nil)
 
     FakeFS.activate!
-
-    FakeFS::FileSystem.clone(File.expand_path("../data/address_formats.json", __dir__))
 
     subdivision_path = File.expand_path("../data/subdivision", __dir__)
     FakeFS::FileSystem.clone(subdivision_path)
@@ -141,6 +140,95 @@ class SubdivisionTest < Minitest::Test
     assert_equal({"SC" => "Santa Catarina", "SP" => "São Paulo"}, list)
   end
 
+  def test_all_without_parent_flag_as_first_call
+    mock_chile_definitions
+
+    assert_equal 2, Addressing::Subdivision.all(["CL", "NB"]).size
+  end
+
+  def test_all_without_parent_flag_after_loading_parent
+    mock_chile_definitions
+
+    Addressing::Subdivision.all(["CL"])
+
+    assert_equal 2, Addressing::Subdivision.all(["CL", "NB"]).size
+  end
+
+  def test_children_without_parent_flag
+    mock_chile_definitions
+
+    refute Addressing::Subdivision.get("NB", ["CL"]).children?
+  end
+
+  def test_lowercase_country_code
+    with_case_sensitive_file_system do
+      subdivision = Addressing::Subdivision.get("SC", ["br"])
+
+      refute_nil subdivision
+      assert_equal Addressing::Subdivision.get("SC", ["BR"]).to_h.except(:children), subdivision.to_h.except(:children)
+      refute_nil subdivision.children["Abelardo Luz"]
+      assert_equal({"SC" => "Santa Catarina", "SP" => "São Paulo"}, Addressing::Subdivision.list(["br"]))
+      assert_equal ["Abelardo Luz"], Addressing::Subdivision.all(["br", "SC"]).keys
+    end
+  end
+
+  def test_lowercase_subdivision_id
+    assert_nil Addressing::Subdivision.get("sc", ["BR"])
+    assert_empty Addressing::Subdivision.all(["BR", "sc"])
+  end
+
+  def test_get_keeps_cached_definitions_unchanged
+    subdivision_path = File.expand_path("../data/subdivision", __dir__)
+    mock_definitions("#{subdivision_path}/BR-SC.json") do
+      {
+        country_code: "BR",
+        parents: ["BR", "SC"],
+        locale: "pt",
+        subdivisions: {
+          "Abelardo Luz": {has_children: true}
+        }
+      }
+    end
+    mock_definitions("#{subdivision_path}/BR--ca6775b8b8c6e4eda90645d99469ed2fff7f38b0.json") do
+      {
+        country_code: "BR",
+        parents: ["BR", "SC", "Abelardo Luz"],
+        locale: "pt",
+        subdivisions: {
+          Centro: {}
+        }
+      }
+    end
+
+    subdivision = Addressing::Subdivision.get("Abelardo Luz", ["BR", "SC"])
+    refute_nil subdivision.parent
+    assert subdivision.children?
+
+    definitions = Addressing::Subdivision.instance_variable_get(:@definitions)
+    refute definitions["BR"].key?("parents")
+    assert_equal ["BR", "SC"], definitions["BR-SC"]["parents"]
+    definitions.each_value do |group|
+      group["subdivisions"].each_value do |definition|
+        refute definition.key?("parent")
+        refute definition.key?("children")
+        refute definition.key?("parents")
+      end
+    end
+  end
+
+  def test_parents_argument_unchanged
+    parents = ["br", "SC"]
+    Addressing::Subdivision.get("Abelardo Luz", parents)
+    Addressing::Subdivision.all(parents)
+    Addressing::Subdivision.list(parents)
+    assert_equal ["br", "SC"], parents
+
+    frozen_parents = ["BR", "SC"].freeze
+    refute_nil Addressing::Subdivision.get("Abelardo Luz", frozen_parents)
+    refute_empty Addressing::Subdivision.all(frozen_parents)
+    refute_empty Addressing::Subdivision.list(frozen_parents)
+  end
+
   def test_missing_property
     assert_raises(ArgumentError) do
       Addressing::Subdivision.new(country_code: "US")
@@ -184,6 +272,39 @@ class SubdivisionTest < Minitest::Test
   end
 
   private
+
+  # The file system that runs the tests can ignore case, so only a file whose
+  # name matches in case is taken to exist.
+  def with_case_sensitive_file_system(&)
+    exact_case_exist = ->(path) { File.directory?(File.dirname(path)) && Dir.children(File.dirname(path)).include?(File.basename(path)) }
+    File.stub(:exist?, exact_case_exist, &)
+  end
+
+  # The parent definition lacks the has_children flag, while the file with its
+  # children exists.
+  def mock_chile_definitions
+    subdivision_path = File.expand_path("../data/subdivision", __dir__)
+
+    mock_definitions("#{subdivision_path}/CL.json") do
+      {
+        country_code: "CL",
+        subdivisions: {
+          NB: {name: "Ñuble"}
+        }
+      }
+    end
+
+    mock_definitions("#{subdivision_path}/CL-NB.json") do
+      {
+        country_code: "CL",
+        parents: ["CL", "NB"],
+        subdivisions: {
+          Coihueco: {},
+          Yungay: {}
+        }
+      }
+    end
+  end
 
   def mock_definitions(filename, &block)
     FileUtils.mkdir_p(File.dirname(filename))
