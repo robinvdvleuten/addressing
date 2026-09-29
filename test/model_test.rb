@@ -249,6 +249,28 @@ class ModelTest < Minitest::Test
     assert address.valid?
   end
 
+  def test_required_address_line3_field
+    address_klass = Class.new(Address) do
+      validates_address_format field_overrides: Addressing::FieldOverrides.new({"address_line3" => Addressing::FieldOverride::REQUIRED})
+    end
+
+    address = address_klass.new(
+      country_code: "CN",
+      administrative_area: "BJ",
+      locality: "Xicheng Qu",
+      postal_code: "123456",
+      address_line1: "Yitiao Lu",
+      address_line3: "Building 5",
+      given_name: "John",
+      family_name: "Smith"
+    )
+    assert address.valid?
+
+    address.address_line3 = ""
+    assert !address.valid?
+    assert address.errors.key?(:address_line3)
+  end
+
   def test_hidden_postal_code_field
     address_klass = Class.new(Address) do
       validates_address_format field_overrides: Addressing::FieldOverrides.new({"postal_code" => Addressing::FieldOverride::HIDDEN})

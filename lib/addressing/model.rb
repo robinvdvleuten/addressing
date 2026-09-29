@@ -3,7 +3,7 @@
 module Addressing
   module Model
     def validates_address_format(
-      fields: [:country_code, :administrative_area, :locality, :dependent_locality, :postal_code, :sorting_code, :address_line1, :address_line2, :organization, :given_name, :additional_name, :family_name, :locale], field_overrides: nil, verify_postal_code: true, **options
+      fields: Address::FIELDS, field_overrides: nil, verify_postal_code: true, **options
     )
       fields = Array(fields)
       field_overrides ||= FieldOverrides.new({})

@@ -25,6 +25,7 @@ ActiveRecord::Migration.create_table :addresses do |t|
   t.string :sorting_code
   t.string :address_line1
   t.string :address_line2
+  t.string :address_line3
   t.string :organization
   t.string :given_name
   t.string :additional_name
