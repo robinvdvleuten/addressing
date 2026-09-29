@@ -5,6 +5,7 @@ gemspec
 gem "activerecord"
 gem "fakefs", require: false
 gem "minitest"
+gem "minitest-mock"
 gem "rake"
 gem "sqlite3"
 gem "standard"
