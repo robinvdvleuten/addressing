@@ -11,9 +11,9 @@ class SubdivisionTest < Minitest::Test
 
     FakeFS.activate!
 
-    FakeFS::FileSystem.clone(File.expand_path("../../data/address_formats.dump", __FILE__))
+    FakeFS::FileSystem.clone(File.expand_path("../data/address_formats.json", __dir__))
 
-    subdivision_path = File.expand_path("../../data/subdivision", __FILE__)
+    subdivision_path = File.expand_path("../data/subdivision", __dir__)
     FakeFS::FileSystem.clone(subdivision_path)
 
     mock_definitions("#{subdivision_path}/BR.json") do

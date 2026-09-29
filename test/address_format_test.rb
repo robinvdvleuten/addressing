@@ -37,6 +37,28 @@ class AddressFormatTest < Minitest::Test
     assert_equal Addressing::LocalityType::CITY, address_formats["RS"].locality_type
   end
 
+  def test_required_fields_are_stable_across_calls
+    3.times { Addressing::AddressFormat.all }
+
+    expected = ["address_line1", "administrative_area", "locality", "postal_code", "given_name", "family_name"]
+    assert_equal expected, Addressing::AddressFormat.get("BR").required_fields
+  end
+
+  def test_get_and_all_return_the_same_instance
+    assert_same Addressing::AddressFormat.get("BR"), Addressing::AddressFormat.all["BR"]
+  end
+
+  def test_field_lists_are_frozen_but_the_address_format_is_not
+    ["BR", "ZZ"].each do |country_code|
+      address_format = Addressing::AddressFormat.get(country_code)
+
+      assert_raises(FrozenError) { address_format.required_fields << "x" }
+      assert_raises(FrozenError) { address_format.uppercase_fields << "x" }
+      assert_raises(FrozenError) { address_format.subdivision_fields << "x" }
+      assert_includes address_format.used_fields, Addressing::AddressField::LOCALITY
+    end
+  end
+
   def test_missing_format
     assert_raises ArgumentError, "Missing required property format." do
       Addressing::AddressFormat.new(country_code: "US")

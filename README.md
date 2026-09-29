@@ -276,8 +276,6 @@ bundle install
 bundle exec rake test
 ```
 
-`rake test` regenerates `data/address_formats.dump` from `data/address_formats.json` first — the dump is a build artifact and is not committed.
-
 Refreshing the country and address data from upstream (`rake addressing:generate`) additionally requires PHP, since it reads the definitions out of the commerceguys library.
 
 Feel free to open an issue to get feedback on your idea before spending too much time on it.

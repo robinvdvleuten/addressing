@@ -19,6 +19,24 @@ module Addressing
       AddressField::DEPENDENT_LOCALITY
     ].freeze
 
+    # The defaults for every address format, including the fallback for
+    # countries without a definition.
+    GENERIC_DEFINITION = {
+      format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%address_line3\n%locality",
+      required_fields: [
+        "address_line1", "locality"
+      ].freeze,
+      uppercase_fields: [
+        "locality"
+      ].freeze,
+      subdivision_fields: [].freeze,
+      administrative_area_type: "province",
+      locality_type: "city",
+      dependent_locality_type: "suburb",
+      postal_code_type: "postal"
+    }.freeze
+    private_constant :GENERIC_DEFINITION
+
     class << self
       # Gets the address format for the provided country code.
       #
@@ -27,52 +45,40 @@ module Addressing
       def get(country_code)
         country_code = country_code.upcase
         @address_formats ||= {}
-
-        unless @address_formats.key?(country_code)
-          definition = process_definition(definitions[country_code] || {country_code: country_code})
-          @address_formats[country_code] = new(definition)
-        end
-
-        @address_formats[country_code]
+        @address_formats[country_code] ||= new(process_definition(definitions[country_code] || {country_code: country_code}))
       end
 
       def all
-        definitions.map do |country_code, definition|
-          definition = process_definition(definition)
-          [country_code, new(definition)]
-        end.to_h
+        definitions.keys.to_h { |country_code| [country_code, get(country_code)] }
       end
 
       private
 
       def definitions
-        @definitions ||= Marshal.load(File.read(File.expand_path("../../../data/address_formats.dump", __FILE__).to_s))
+        @definitions ||= begin
+          filename = File.expand_path("../../../data/address_formats.json", __FILE__)
+
+          File.read(filename, encoding: "UTF-8").each_line.to_h do |line|
+            definition = JSON.parse(line, symbolize_names: true)
+            [definition[:country_code], definition]
+          end
+        end
       end
 
       def process_definition(definition)
         # Merge-in defaults.
-        definition = generic_definition.merge(definition)
+        definition = GENERIC_DEFINITION.merge(definition)
 
         # Always require the given name and family name.
-        definition[:required_fields] << AddressField::GIVEN_NAME
-        definition[:required_fields] << AddressField::FAMILY_NAME
-        definition
-      end
+        definition[:required_fields] = definition[:required_fields] | [AddressField::GIVEN_NAME, AddressField::FAMILY_NAME]
 
-      def generic_definition
-        {
-          format: "%given_name %family_name\n%organization\n%address_line1\n%address_line2\n%address_line3\n%locality",
-          required_fields: [
-            "address_line1", "locality"
-          ],
-          uppercase_fields: [
-            "locality"
-          ],
-          administrative_area_type: "province",
-          locality_type: "city",
-          dependent_locality_type: "suburb",
-          postal_code_type: "postal"
-        }
+        # The address formats are shared, so callers must not be able to
+        # change their field lists.
+        [:required_fields, :uppercase_fields, :subdivision_fields].each do |key|
+          definition[key] = definition[key].dup.freeze
+        end
+
+        definition
       end
     end
 
