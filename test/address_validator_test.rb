@@ -88,8 +88,11 @@ class AddressValidatorTest < Minitest::Test
   end
 
   def test_missing_country_code
-    assert_equal [], validate(us_address.with_country_code(""))
-    assert_equal [], validate(us_address.with_country_code(nil).with_sorting_code("CEDEX 1"))
+    ["", nil, " \t"].each do |country_code|
+      assert_equal [violation(:country_code, :blank)], validate(us_address.with_country_code(country_code))
+    end
+
+    assert_equal [violation(:country_code, :blank)], validate(Addressing::Address.new(sorting_code: "CEDEX 1"))
   end
 
   def test_blank_values
@@ -102,7 +105,7 @@ class AddressValidatorTest < Minitest::Test
     blank_value = Object.new
     def blank_value.blank? = true
 
-    assert_equal [], validate(us_address.with_country_code(blank_value))
+    assert_equal [violation(:country_code, :blank)], validate(us_address.with_country_code(blank_value))
   end
 
   def test_validate_is_the_only_public_method

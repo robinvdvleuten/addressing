@@ -365,6 +365,15 @@ class ModelTest < Minitest::Test
     assert address.valid?
   end
 
+  def test_missing_country_code
+    address = Address.new(address_line1: "1098 Alta Ave")
+
+    assert !address.valid?
+    assert_equal ["should not be blank"], address.errors[:country_code]
+    assert_equal [{error: :blank}], address.errors.details[:country_code]
+    assert_equal [:country_code], address.errors.attribute_names
+  end
+
   def test_plain_active_model_host
     address = PlainAddress.new(country_code: "US", address_line1: "1098 Alta Ave")
 

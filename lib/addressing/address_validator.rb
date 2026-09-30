@@ -24,15 +24,16 @@ module Addressing
       #    comes from the last subdivision in the subdivision chain that has
       #    one, and otherwise from the address format.
       #
-      # An address without a country code gives no field violations. Issue #58
-      # tracks whether that should change.
+      # An address without a country code gives a single :blank violation on
+      # the country code. Without a country there is no address format to
+      # check the other fields against.
       #
       # @param address [Address] The address to validate
       # @param field_overrides [FieldOverrides] Overrides of the fields of the address format
       # @param verify_postal_code [Boolean] Whether to check the postal code against its pattern
       # @return [Array<FieldViolation>] The field violations, empty when the address is valid
       def validate(address, field_overrides: FieldOverrides.new({}), verify_postal_code: true)
-        return [] if blank?(address.country_code)
+        return [violation(:country_code, :blank)] if blank?(address.country_code)
 
         address_format = AddressFormat.get(address.country_code)
         violations = []

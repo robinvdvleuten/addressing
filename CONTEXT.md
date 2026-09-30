@@ -21,5 +21,5 @@ _Avoid_: Hierarchy, parents, path
 ### Validation
 
 **Field violation**:
-One field of an address that breaks a rule of the address format for its country, together with the kind of rule it breaks. Validating an address gives a list of field violations; an empty list means the address is valid.
+One field of an address that breaks a rule of the address format for its country, together with the kind of rule it breaks. A blank country code is also a field violation, because without a country there is no address format. Validating an address gives a list of field violations; an empty list means the address is valid.
 _Avoid_: Error, validation error

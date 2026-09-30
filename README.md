@@ -247,7 +247,7 @@ class User < ApplicationRecord
 end
 ```
 
-> **Note:** `fields:` controls which attributes are *read from your model*, not which ones the country requires. The US format requires a given name and family name, so a model without those columns will fail validation with "should not be blank". Use `field_overrides:` to tell the validator that your application does not collect them.
+> **Note:** `fields:` controls which attributes are *read from your model*, not which ones the country requires. The US format requires a given name and family name, so a model without those columns will fail validation with "should not be blank". Use `field_overrides:` to tell the validator that your application does not collect them. Always include `:country_code`: without it the address has no country, and validation reports `country_code` as blank.
 
 ```rb
 class User < ApplicationRecord
@@ -297,7 +297,7 @@ Addressing::AddressValidator.validate(address)
 
 Each [FieldViolation](lib/addressing/field_violation.rb) holds the `field` as a symbol and the `kind` of rule it breaks: `:blank` for a required field that is missing, `:present` for a field the country does not use or that is hidden, and `:invalid` for a subdivision or postal code that does not match. The kinds are the error types that `validates_address_format` adds to `errors.details`.
 
-An address without a country code gives no field violations.
+An address without a country code gives a single `:blank` violation on `country_code`, because there is no address format to check the other fields against. If your model already validates the presence of `country_code`, you can drop that validation.
 
 ## Contributing
 
