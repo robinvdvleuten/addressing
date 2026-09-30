@@ -7,6 +7,7 @@ module Addressing
     FORMAT_SPLIT_PATTERN = /(#{FORMAT_PLACEHOLDER_PATTERN})/
     LEADING_TRAILING_PUNCTUATION_PATTERN = /\A[ \-,]+|[ \-,]+\z/
     MULTIPLE_SPACES_PATTERN = /\s\s+/
+    HTML_TAG_PATTERN = /\A[a-z][a-z0-9-]*\z/i
 
     DEFAULT_OPTIONS = {
       locale: DEFAULT_LOCALE,
@@ -182,6 +183,15 @@ module Addressing
 
       if options.key?(:html_attributes) && !options[:html_attributes].is_a?(Hash)
         raise ArgumentError, "The option `html_attributes` must be a hash."
+      end
+
+      # The tag is written into the markup as is, so only allow a tag name.
+      if options.key?(:html_tag) && !HTML_TAG_PATTERN.match?(options[:html_tag].to_s)
+        raise ArgumentError, "The option `html_tag` must be an HTML tag name."
+      end
+
+      if options.key?(:locale) && !options[:locale].is_a?(String)
+        raise ArgumentError, "The option `locale` must be a string."
       end
     end
   end
