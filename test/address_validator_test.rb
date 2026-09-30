@@ -28,9 +28,8 @@ class AddressValidatorTest < Minitest::Test
   end
 
   def test_unused_fields
-    address = us_address.with_sorting_code("CEDEX 1").with_dependent_locality("Downtown")
-
-    assert_equal [violation(:dependent_locality, :present), violation(:sorting_code, :present)], validate(address)
+    assert_equal [violation(:sorting_code, :present)], validate(us_address.with_sorting_code("CEDEX 1"))
+    assert_equal [violation(:dependent_locality, :present)], validate(us_address.with_dependent_locality("Downtown"))
   end
 
   def test_subdivision_without_match
