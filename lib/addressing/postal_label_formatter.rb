@@ -16,7 +16,7 @@ module Addressing
       end
 
       # Handle international mailing.
-      if address.country_code != options[:origin_country]
+      if address.country_code != options[:origin_country].upcase
         # Prefix the postal code.
         field = AddressField::POSTAL_CODE
 

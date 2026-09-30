@@ -272,4 +272,22 @@ class DefaultFormatterTest < Minitest::Test
     text_address = @formatter.format(address, html: false)
     assert_formatted_address expected_text_lines, text_address
   end
+
+  def test_lowercase_country_code
+    address = Addressing::Address.new
+      .with_country_code("us")
+      .with_administrative_area("CA")
+      .with_locality("Mountain View")
+      .with_postal_code("94043")
+      .with_address_line1("1098 Alta Ave")
+
+    expected_text_lines = [
+      "1098 Alta Ave",
+      "Mountain View, CA 94043",
+      "United States"
+    ]
+
+    text_address = @formatter.format(address, html: false)
+    assert_formatted_address expected_text_lines, text_address
+  end
 end

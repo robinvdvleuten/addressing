@@ -28,7 +28,7 @@ module Addressing
 
     # Creates a new Address instance.
     #
-    # @param country_code [String] ISO 3166-1 alpha-2 country code
+    # @param country_code [String] ISO 3166-1 alpha-2 country code, stored in uppercase
     # @param administrative_area [String] Top-level administrative subdivision (state, province, etc.)
     # @param locality [String] City or locality
     # @param dependent_locality [String] Dependent locality (neighborhood, suburb, district, etc.)
@@ -43,7 +43,7 @@ module Addressing
     # @param family_name [String] Family name (last name)
     # @param locale [String] Locale code for the address
     def initialize(country_code: "", administrative_area: "", locality: "", dependent_locality: "", postal_code: "", sorting_code: "", address_line1: "", address_line2: "", address_line3: "", organization: "", given_name: "", additional_name: "", family_name: "", locale: "und")
-      @country_code = country_code
+      self.country_code = country_code
       @administrative_area = administrative_area
       @locality = locality
       @dependent_locality = dependent_locality
@@ -95,6 +95,10 @@ module Addressing
 
     protected
 
-    attr_writer(*FIELDS)
+    attr_writer(*(FIELDS - [:country_code]))
+
+    def country_code=(value)
+      @country_code = value.is_a?(String) ? value.upcase : value
+    end
   end
 end

@@ -105,4 +105,23 @@ class PostalLabelFormatterTest < Minitest::Test
     formatted_address = @formatter.format(address, origin_country: "FR")
     assert_formatted_address expected_lines, formatted_address
   end
+
+  def test_country_codes_match_regardless_of_case
+    address = Addressing::Address.new
+      .with_locality("Zagreb")
+      .with_postal_code("10105")
+
+    # Domestic mail has neither the country line nor the postal code prefix.
+    expected_lines = [
+      "10105 ZAGREB"
+    ]
+
+    [["HR", "hr"], ["hr", "HR"]].each do |country_code, origin_country|
+      formatted_address = @formatter.format(address.with_country_code(country_code), origin_country: origin_country)
+      assert_formatted_address expected_lines, formatted_address
+
+      formatter = Addressing::PostalLabelFormatter.new(origin_country: origin_country)
+      assert_formatted_address expected_lines, formatter.format(address.with_country_code(country_code))
+    end
+  end
 end

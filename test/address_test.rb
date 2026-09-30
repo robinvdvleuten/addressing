@@ -92,4 +92,11 @@ class AddressTest < Minitest::Test
     address = Addressing::Address.new.with_locale("en")
     assert_equal "en", address.locale
   end
+
+  def test_country_code_is_upcased
+    assert_equal "US", Addressing::Address.new(country_code: "us").country_code
+    assert_equal "US", Addressing::Address.new.with_country_code("us").country_code
+    assert_equal Addressing::Address.new(country_code: "US"), Addressing::Address.new(country_code: "us")
+    assert_equal "", Addressing::Address.new(country_code: "").country_code
+  end
 end
