@@ -8,8 +8,19 @@ class PostalLabelFormatterTest < Minitest::Test
   end
 
   def test_missing_origin_country_code
-    assert_raises ArgumentError do
-      @formatter.format(Addressing::Address.new)
+    address = Addressing::Address.new(country_code: "US")
+    message = "The origin_country option cannot be empty."
+
+    error = assert_raises(ArgumentError) { @formatter.format(address) }
+    assert_equal message, error.message
+
+    [nil, ""].each do |origin_country|
+      error = assert_raises(ArgumentError) { @formatter.format(address, origin_country: origin_country) }
+      assert_equal message, error.message
+
+      formatter = Addressing::PostalLabelFormatter.new(origin_country: origin_country)
+      error = assert_raises(ArgumentError) { formatter.format(address) }
+      assert_equal message, error.message
     end
   end
 

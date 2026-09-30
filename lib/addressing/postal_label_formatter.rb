@@ -13,7 +13,7 @@ module Addressing
     protected
 
     def build_view(address, address_format, options)
-      raise ArgumentError, "The origin_country option cannot be empty." if options[:origin_country].empty?
+      raise ArgumentError, "The origin_country option cannot be empty." if options[:origin_country].nil? || options[:origin_country].empty?
 
       view = super
       view = view.map do |key, element|
