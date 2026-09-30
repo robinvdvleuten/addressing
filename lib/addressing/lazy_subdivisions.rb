@@ -8,10 +8,21 @@ module Addressing
     extend Forwardable
     include Enumerable
 
-    def_delegators :subdivisions, :each, :size, :keys, :values, :key?, :include?, :member?, :[], :fetch, :any?, :empty?, :select, :filter, :reject
+    def_delegators :subdivisions, :each, :size, :keys, :values, :key?, :include?, :member?, :[], :fetch, :select, :filter, :reject
 
     def initialize(parents)
       @parents = parents
+    end
+
+    # Checks for children without building them.
+    def empty?
+      @subdivisions ? @subdivisions.empty? : Subdivision.list(@parents).empty?
+    end
+
+    def any?(*args, &block)
+      return subdivisions.any?(*args, &block) if block || args.any?
+
+      !empty?
     end
 
     private
