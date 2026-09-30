@@ -81,9 +81,7 @@ module Addressing
         definitions = load_definitions(parents)
         return {} if definitions.empty?
 
-        definitions["subdivisions"].each_with_object({}) do |(id, definition), subdivisions|
-          subdivisions[id] = create_subdivision_from_definitions(id, definitions)
-        end
+        definitions["subdivisions"].keys.to_h { |id| [id, create_subdivision_from_definitions(id, definitions)] }
       end
 
       # Returns a list of subdivisions for the provided parents.
@@ -93,27 +91,19 @@ module Addressing
 
         use_local_name = Locale.match_candidates(locale, definitions["locale"] || "")
 
-        definitions["subdivisions"].each_with_object({}) do |(id, definition), subdivisions|
-          subdivisions[id] = use_local_name ? definition["local_name"] : definition["name"]
-        end
+        definitions["subdivisions"].transform_values { |definition| use_local_name ? definition["local_name"] : definition["name"] }
       end
 
       protected
 
       # Loads the subdivision definitions for the provided parents.
       def load_definitions(parents)
-        @definitions ||= {}
         group = build_group(parents)
-        if @definitions.key?(group)
-          return @definitions[group]
-        end
 
-        filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{group}.json")
+        (@definitions ||= {})[group] ||= begin
+          filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{group}.json")
 
-        @definitions[group] = if File.exist?(filename)
-          process_definitions(parse_definitions(File.read(filename, encoding: "UTF-8")))
-        else
-          {}
+          File.exist?(filename) ? process_definitions(parse_definitions(File.read(filename, encoding: "UTF-8"))) : {}
         end
       end
 
@@ -155,7 +145,7 @@ module Addressing
 
           # The code and local_code values are only specified if they
           # don't match the name and local_name ones.
-          if !definition.key?("code") && definition.key?("name")
+          if !definition.key?("code")
             definition["code"] = definition["name"]
           end
 
@@ -197,15 +187,9 @@ module Addressing
         parents = definitions["parents"] || [definitions["country_code"]]
 
         # Load the parent, if known.
-        parent = nil
         if parents.size > 1
-          grandparents = parents[0...-1]
-          parent_id = parents[-1]
-          parent_group = build_group(grandparents)
           @parents ||= {}
-          @parents[parent_group] ||= {}
-          @parents[parent_group][parent_id] ||= get(parent_id, grandparents)
-          parent = @parents[parent_group][parent_id]
+          parent = @parents[parents] ||= get(parents[-1], parents[0...-1])
         end
 
         # Prepare children.

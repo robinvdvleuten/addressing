@@ -50,16 +50,8 @@ module Addressing
         raise UnknownCountryError.new(country_code) unless base_definitions.key?(country_code)
 
         locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
-        definitions = load_definitions(locale)
 
-        new(
-          country_code: country_code,
-          name: definitions[country_code],
-          three_letter_code: base_definitions[country_code][0],
-          numeric_code: base_definitions[country_code][1],
-          currency_code: base_definitions[country_code][2],
-          locale: locale
-        )
+        build(country_code, load_definitions(locale)[country_code], locale)
       end
 
       # Gets all Country instances.
@@ -69,20 +61,10 @@ module Addressing
       # @return [Hash<String, Country>] Hash of country code => Country instance
       def all(locale = "en", fallback_locale = "en")
         locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
-        definitions = load_definitions(locale)
 
-        definitions.map do |country_code, country_name|
-          country = new(
-            country_code: country_code,
-            name: country_name,
-            three_letter_code: base_definitions[country_code][0],
-            numeric_code: base_definitions[country_code][1],
-            currency_code: base_definitions[country_code][2],
-            locale: locale
-          )
-
-          [country_code, country]
-        end.to_h
+        load_definitions(locale).to_h do |country_code, country_name|
+          [country_code, build(country_code, country_name, locale)]
+        end
       end
 
       # Gets a list of country codes and names.
@@ -92,22 +74,31 @@ module Addressing
       # @return [Hash<String, String>] Hash of country code => country name
       def list(locale = "en", fallback_locale = "en")
         locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
-        definitions = load_definitions(locale)
 
-        definitions.dup
+        load_definitions(locale).dup
       end
 
       protected
 
+      def build(country_code, name, locale)
+        three_letter_code, numeric_code, currency_code = base_definitions[country_code]
+
+        new(
+          country_code: country_code,
+          name: name,
+          three_letter_code: three_letter_code,
+          numeric_code: numeric_code,
+          currency_code: currency_code,
+          locale: locale
+        )
+      end
+
       # Loads the country definitions for the provided locale.
       def load_definitions(locale)
-        @definitions ||= {}
-        unless @definitions.key?(locale)
+        (@definitions ||= {})[locale] ||= begin
           filename = File.join(File.expand_path("../../../data/country", __FILE__).to_s, "#{locale}.json")
-          @definitions[locale] = JSON.parse(File.read(filename, encoding: "UTF-8"))
+          JSON.parse(File.read(filename, encoding: "UTF-8"))
         end
-
-        @definitions[locale]
       end
 
       # Gets the base country definitions.

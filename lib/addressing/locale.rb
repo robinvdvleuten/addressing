@@ -254,14 +254,7 @@ module Addressing
     # If no candidate is found in the list, an error is raised.
     def self.resolve(available_locales, locale, fallback_locale = nil)
       locale = canonicalize(locale)
-      resolved_locale = nil
-
-      candidates(locale, fallback_locale).each do |candidate|
-        if available_locales.include?(candidate)
-          resolved_locale = candidate
-          break
-        end
-      end
+      resolved_locale = candidates(locale, fallback_locale).find { |candidate| available_locales.include?(candidate) }
 
       # No locale could be resolved, stop here.
       raise UnknownLocaleError.new(locale) if resolved_locale.nil?
@@ -304,25 +297,18 @@ module Addressing
     # 1) sr-Latn
     # 2) sr
     def self.candidates(locale, fallback_locale = nil)
-      locale = replace_alias(locale)
-      candidates = [locale]
-
-      while (parent = parent(locale))
-        candidates << parent
-        locale = parent
-      end
-
-      if fallback_locale
-        candidates << fallback_locale
-
-        while (parent = parent(fallback_locale))
-          candidates << parent
-          fallback_locale = parent
-        end
-      end
-
+      candidates = lineage(replace_alias(locale))
+      candidates += lineage(fallback_locale) if fallback_locale
       candidates.uniq
     end
+
+    # Gets the given locale followed by its parents.
+    def self.lineage(locale)
+      lineage = [locale]
+      lineage << locale while (locale = parent(locale))
+      lineage
+    end
+    private_class_method :lineage
 
     # Gets the parent for the given locale.
     def self.parent(locale)
@@ -349,9 +335,7 @@ module Addressing
     #
     # For example, "zh-CN" is replaced with "zh-Hans-CN".
     def self.replace_alias(locale)
-      return locale if locale.to_s.empty? || !ALIASES.key?(locale)
-
-      ALIASES[locale]
+      ALIASES.fetch(locale, locale)
     end
   end
 end

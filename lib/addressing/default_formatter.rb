@@ -39,7 +39,7 @@ module Addressing
       view = build_view(address, address_format, options)
       view = render_view(view)
 
-      replacements = view.map { |key, element| ["%#{key}", element] }.to_h
+      replacements = view.transform_keys { |key| "%#{key}" }
       output = insert_values(format_string, replacements)
       output = clean_output(output)
 
@@ -57,7 +57,7 @@ module Addressing
     # Builds the view for the given address.
     def build_view(address, address_format, options)
       countries = country_list(options[:locale])
-      values = values(address, address_format).merge({"country" => countries.key?(address.country_code) ? countries[address.country_code] : address.country_code})
+      values = values(address, address_format).merge("country" => countries.fetch(address.country_code, address.country_code))
       used_fields = address_format.used_fields + ["country"]
 
       used_fields.map do |field|
@@ -72,16 +72,16 @@ module Addressing
 
     # Renders the given view.
     def render_view(view)
-      view.map do |key, element|
-        next [key, ""] if element[:value].empty?
+      view.transform_values do |element|
+        next "" if element[:value].empty?
 
         if element[:html]
           element[:value] = CGI.escapeHTML(element[:value])
-          next [key, render_html_element(element)]
+          next render_html_element(element)
         end
 
-        [key, element[:value].gsub(/<\/?[^>]*>/, "")]
-      end.to_h
+        element[:value].gsub(/<\/?[^>]*>/, "")
+      end
     end
 
     def render_html_element(element)
@@ -147,7 +147,7 @@ module Addressing
 
     # Extracts all address field values.
     def extract_address_values(address)
-      AddressField.all.map { |_, field| [field, address.send(field)] }.to_h
+      AddressField.all.values.to_h { |field| [field, address.send(field)] }
     end
 
     # Replaces the subdivision values with the codes of any predefined ones.

@@ -2,13 +2,7 @@
 
 module Addressing
   class PostalLabelFormatter < DefaultFormatter
-    DEFAULT_OPTIONS = {
-      locale: DEFAULT_LOCALE,
-      html: false,
-      html_tag: "p",
-      html_attributes: {translate: "no"},
-      origin_country: ""
-    }
+    DEFAULT_OPTIONS = DefaultFormatter::DEFAULT_OPTIONS.merge(html: false, origin_country: "")
 
     protected
 
@@ -16,11 +10,10 @@ module Addressing
       raise ArgumentError, "The origin_country option cannot be empty." if options[:origin_country].nil? || options[:origin_country].empty?
 
       view = super
-      view = view.map do |key, element|
+      view.each do |key, element|
         # Uppercase fields where required by the format.
         element[:value] = element[:value].upcase if address_format.uppercase_fields.include?(key)
-        [key, element]
-      end.to_h
+      end
 
       # Handle international mailing.
       if address.country_code != options[:origin_country]

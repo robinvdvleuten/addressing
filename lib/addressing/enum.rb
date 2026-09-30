@@ -5,12 +5,8 @@ module Addressing
     class << self
       # Gets all available values.
       def all
-        @values ||= {}
-        if !@values.key?(name)
-          @values[name] = constants.map { |constant| [constant, const_get(constant)] }.to_h
-        end
-
-        @values[name]
+        # Each subclass has its own @all.
+        @all ||= constants.to_h { |constant| [constant, const_get(constant)] }
       end
 
       # Gets the key of the provided value.

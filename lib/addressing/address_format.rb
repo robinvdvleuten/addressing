@@ -140,33 +140,20 @@ module Addressing
       @default_values = definition[:default_values]
       @subdivision_fields = definition[:subdivision_fields]
 
-      if used_fields.include?(AddressField::ADMINISTRATIVE_AREA)
-        if definition[:administrative_area_type]
-          AdministrativeAreaType.assert_exists(definition[:administrative_area_type])
-          @administrative_area_type = definition[:administrative_area_type]
-        end
-      end
+      # A type is only set when the format uses its field.
+      {
+        administrative_area_type: [AddressField::ADMINISTRATIVE_AREA, AdministrativeAreaType],
+        locality_type: [AddressField::LOCALITY, LocalityType],
+        dependent_locality_type: [AddressField::DEPENDENT_LOCALITY, DependentLocalityType],
+        postal_code_type: [AddressField::POSTAL_CODE, PostalCodeType]
+      }.each do |key, (field, type)|
+        next unless definition[key] && used_fields.include?(field)
 
-      if used_fields.include?(AddressField::LOCALITY)
-        if definition[:locality_type]
-          LocalityType.assert_exists(definition[:locality_type])
-          @locality_type = definition[:locality_type]
-        end
-      end
-
-      if used_fields.include?(AddressField::DEPENDENT_LOCALITY)
-        if definition[:dependent_locality_type]
-          DependentLocalityType.assert_exists(definition[:dependent_locality_type])
-          @dependent_locality_type = definition[:dependent_locality_type]
-        end
+        type.assert_exists(definition[key])
+        instance_variable_set(:"@#{key}", definition[key])
       end
 
       if used_fields.include?(AddressField::POSTAL_CODE)
-        if definition[:postal_code_type]
-          PostalCodeType.assert_exists(definition[:postal_code_type])
-          @postal_code_type = definition[:postal_code_type]
-        end
-
         @postal_code_pattern = definition[:postal_code_pattern]
         @postal_code_prefix = definition[:postal_code_prefix]
       end
@@ -174,9 +161,7 @@ module Addressing
 
     # Gets the list of used fields.
     def used_fields
-      @used_fields ||= AddressField.all.filter_map do |key, value|
-        value if @format.include?("%" + value)
-      end
+      @used_fields ||= AddressField.all.values.select { |field| @format.include?("%#{field}") }
     end
 
     # Gets the list of used subdivision fields.
