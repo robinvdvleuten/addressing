@@ -115,7 +115,7 @@ module Addressing
         filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{group}.json")
 
         @definitions[group] = if File.exist?(filename)
-          process_definitions(parse_definitions(File.read(filename)))
+          process_definitions(parse_definitions(File.read(filename, encoding: "UTF-8")))
         else
           {}
         end

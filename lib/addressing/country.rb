@@ -106,7 +106,7 @@ module Addressing
         @definitions ||= {}
         unless @definitions.key?(locale)
           filename = File.join(File.expand_path("../../../data/country", __FILE__).to_s, "#{locale}.json")
-          @definitions[locale] = JSON.parse(File.read(filename))
+          @definitions[locale] = JSON.parse(File.read(filename, encoding: "UTF-8"))
         end
 
         @definitions[locale]

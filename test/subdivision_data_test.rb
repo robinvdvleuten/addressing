@@ -15,7 +15,7 @@ class SubdivisionDataTest < Minitest::Test
 
   def test_all_returns_every_subdivision_in_the_data_files
     data_files = Dir[File.expand_path("../data/subdivision/*.json", __dir__)].map do |filename|
-      definitions = JSON.parse(File.read(filename))
+      definitions = JSON.parse(File.read(filename, encoding: "UTF-8"))
       {
         name: File.basename(filename),
         parents: definitions["parents"] || [definitions["country_code"]],

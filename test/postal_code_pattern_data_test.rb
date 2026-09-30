@@ -7,7 +7,7 @@ class PostalCodePatternDataTest < Minitest::Test
     patterns = Addressing::AddressFormat.all.to_h { |country_code, address_format| [country_code, address_format.postal_code_pattern] }
 
     Dir[File.expand_path("../data/subdivision/*.json", __dir__)].each do |filename|
-      JSON.parse(File.read(filename))["subdivisions"].each do |id, definition|
+      JSON.parse(File.read(filename, encoding: "UTF-8"))["subdivisions"].each do |id, definition|
         patterns["#{File.basename(filename, ".json")} #{id}"] = definition["postal_code_pattern"]
       end
     end
