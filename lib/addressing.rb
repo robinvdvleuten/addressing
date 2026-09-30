@@ -9,6 +9,7 @@ require "json"
 # modules
 require "addressing/exceptions"
 require "addressing/enum"
+require "addressing/blank"
 require "addressing/address"
 require "addressing/address_field"
 require "addressing/address_format"

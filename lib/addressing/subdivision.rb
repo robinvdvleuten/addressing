@@ -24,10 +24,6 @@ module Addressing
     # predefined subdivision, or nil when there was none.
     Chain = Data.define(:subdivisions, :unmatched_level)
 
-    # Matches a value that holds nothing but whitespace, Unicode included.
-    EMPTY_VALUE_PATTERN = /\A[[:space:]]*\z/
-    private_constant :EMPTY_VALUE_PATTERN
-
     class << self
       # Resolves the subdivision chain for the values of the subdivision levels.
       #
@@ -52,7 +48,7 @@ module Addressing
 
         values.each_with_index do |value, level|
           # This level is empty, so there can be no sublevels.
-          break if EMPTY_VALUE_PATTERN.match?(value.to_s)
+          break if Blank.blank?(value)
 
           subdivision = get(value, parents)
           return Chain.new(subdivisions: subdivisions, unmatched_level: level) if subdivision.nil?

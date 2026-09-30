@@ -8,10 +8,6 @@ module Addressing
   #   Addressing::AddressValidator.validate(address)
   #   # => [#<data Addressing::FieldViolation field=:address_line1, kind=:blank>, ...]
   class AddressValidator
-    # Matches a value that holds nothing but whitespace, Unicode included.
-    BLANK_PATTERN = /\A[[:space:]]*\z/
-    private_constant :BLANK_PATTERN
-
     private_class_method :new
 
     class << self
@@ -93,23 +89,8 @@ module Addressing
         (required_fields + field_overrides.required_fields).uniq
       end
 
-      # Whether the value is blank. Follows ActiveSupport's blank?, and uses it
-      # when it is loaded.
       def blank?(value)
-        return value.blank? if value.respond_to?(:blank?)
-
-        case value
-        when String then blank_string?(value)
-        when nil, false then true
-        else value.respond_to?(:empty?) && value.empty?
-        end
-      end
-
-      def blank_string?(value)
-        BLANK_PATTERN.match?(value)
-      rescue Encoding::CompatibilityError
-        # The value has an encoding that is not compatible with ASCII.
-        Regexp.new(BLANK_PATTERN.source.encode(value.encoding), BLANK_PATTERN.options | Regexp::FIXEDENCODING).match?(value)
+        Blank.blank?(value)
       end
     end
   end
