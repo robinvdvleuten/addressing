@@ -37,3 +37,13 @@ end
 class Address < ActiveRecord::Base
   validates_address_format
 end
+
+# A host without change tracking.
+class PlainAddress
+  include ActiveModel::Model
+  extend Addressing::Model
+
+  attr_accessor(*Addressing::Address::FIELDS)
+
+  validates_address_format
+end

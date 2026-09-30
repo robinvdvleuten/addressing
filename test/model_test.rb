@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
+require "open3"
 
 class ModelTest < Minitest::Test
   def test_host_model_only_gains_the_validation
@@ -338,5 +339,54 @@ class ModelTest < Minitest::Test
       family_name: "Smith"
     )
     assert address.valid?
+  end
+
+  def test_skips_validation_when_no_address_field_changed
+    address = Address.new(country_code: "US")
+    address.save!(validate: false)
+
+    assert address.reload.valid?
+
+    address.address_line1 = "1098 Alta Ave"
+    assert !address.valid?
+    assert address.errors.key?(:locality)
+  end
+
+  def test_condition_replaces_change_detection
+    address = Address.new(country_code: "US")
+    address.save!(validate: false)
+
+    validated_klass = Class.new(Address) { validates_address_format if: -> { true } }
+    assert !validated_klass.find(address.id).valid?
+
+    skipped_klass = Class.new(Address) { validates_address_format unless: -> { true } }
+    address = skipped_klass.find(address.id)
+    address.address_line1 = "1098 Alta Ave"
+    assert address.valid?
+  end
+
+  def test_plain_active_model_host
+    address = PlainAddress.new(country_code: "US", address_line1: "1098 Alta Ave")
+
+    assert !address.valid?
+    assert_equal [{error: :blank}], address.errors.details[:locality]
+  end
+
+  def test_plain_active_model_host_with_condition
+    skipped_klass = Class.new(PlainAddress) { validates_address_format unless: -> { true } }
+    assert skipped_klass.new(country_code: "US").valid?
+
+    validated_klass = Class.new(PlainAddress) { validates_address_format if: -> { true } }
+    assert !validated_klass.new(country_code: "US").valid?
+  end
+
+  def test_loads_without_active_model
+    script = "require 'addressing'; puts Addressing.const_defined?(:Model), Object.const_defined?(:ActiveModel)"
+    output, status = Open3.capture2e(RbConfig.ruby, "-I", File.expand_path("../lib", __dir__), "-e", script)
+    assert status.success?, output
+
+    model_defined, active_model_defined = output.lines(chomp: true)
+    assert_equal "true", model_defined
+    assert_equal "false", active_model_defined
   end
 end

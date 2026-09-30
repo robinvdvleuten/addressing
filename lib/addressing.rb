@@ -23,6 +23,7 @@ require "addressing/field_violation"
 require "addressing/lazy_subdivisions"
 require "addressing/locale"
 require "addressing/locality_type"
+require "addressing/model"
 require "addressing/postal_code_type"
 require "addressing/postal_label_formatter"
 require "addressing/subdivision"
@@ -30,7 +31,6 @@ require "addressing/version"
 
 if defined?(ActiveSupport.on_load)
   ActiveSupport.on_load(:active_record) do
-    require "addressing/model"
     extend Addressing::Model
   end
 end

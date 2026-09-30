@@ -8,7 +8,7 @@ Most country-data gems give you a list of countries and their subdivisions. This
 - **256 countries, translated into 148 locales.** Names, three-letter and numeric codes, currency, and timezones. Powered by [CLDR](http://cldr.unicode.org) v48.
 - **Subdivisions for 63 countries.** Up to three levels (administrative area → locality → dependent locality), in both latin and local scripts (Okinawa / 沖縄県).
 - **Zero runtime dependencies.** Pure Ruby 3.3+. Address formats load from a 52 KB marshalled index; the 3.6 MB of country and subdivision data is read lazily, per country, only when you ask for it.
-- **Rails-ready.** A `validates_address_format` validator for Active Record, which runs only when an address field actually changed.
+- **Rails-ready.** A `validates_address_format` validator for Active Record and ActiveModel. On Active Record, it runs only when an address field actually changed.
 - **Immutable.** `Address` objects never mutate; `with_*` methods return copies.
 
 ```rb
@@ -61,7 +61,7 @@ Then install it:
 bundle install
 ```
 
-Requires Ruby 3.3 or newer. There are no other runtime dependencies — Active Record is only needed for the validator, and `tzinfo` only for `Country#timezones`.
+Requires Ruby 3.3 or newer. There are no other runtime dependencies — Active Record or ActiveModel is only needed for the validator, and `tzinfo` only for `Country#timezones`.
 
 ## Addresses
 
@@ -224,9 +224,22 @@ class User < ApplicationRecord
 end
 ```
 
+For any other ActiveModel class, extend `Addressing::Model`:
+
+```rb
+class ShippingAddress
+  include ActiveModel::Model
+  extend Addressing::Model
+
+  attr_accessor :country_code, :administrative_area, :locality, :postal_code, :address_line1
+
+  validates_address_format
+end
+```
+
 This checks that every field the country requires is present, that no unused field is filled in, that the subdivisions exist, and that the postal code matches the country's pattern.
 
-By default it validates all address fields, and only runs when at least one of them has changed. Pass `fields:` to narrow it down:
+By default it validates all address fields. On a model that tracks changes, such as an Active Record model, it only runs when at least one of them has changed; on a model without change tracking, it runs on every validation. Pass `fields:` to narrow it down:
 
 ```rb
 class User < ApplicationRecord
@@ -262,13 +275,13 @@ user.errors.full_messages
 # => ["Administrative area should be valid", "Postal code should be valid"]
 ```
 
-Each field can be overridden as `HIDDEN`, `OPTIONAL`, or `REQUIRED`. Skip postal code checking with `verify_postal_code: false`, and replace the default change-detection with any Active Record validation option:
+Each field can be overridden as `HIDDEN`, `OPTIONAL`, or `REQUIRED`. Skip postal code checking with `verify_postal_code: false`, and replace the default change-detection with any validation option, such as `if:` or `unless:`:
 
 ```rb
 validates_address_format if: -> { shipping_address_changed? }
 ```
 
-### Validating without Active Record
+### Validating without a model
 
 [AddressValidator](lib/addressing/address_validator.rb) applies the same rules to a plain `Addressing::Address`, and takes the same `field_overrides:` and `verify_postal_code:` options. It returns a list of field violations; an empty list means the address is valid.
 

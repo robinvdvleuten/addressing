@@ -16,7 +16,8 @@ module Addressing
       fields = Array(fields)
       field_overrides ||= FieldOverrides.new({})
 
-      options[:if] ||= -> { fields.any? { |f| changes.key?(f.to_s) } } unless options[:unless]
+      # Without change tracking, as on a plain ActiveModel class, validate every time.
+      options[:if] ||= -> { !respond_to?(:changes) || fields.any? { |f| changes.key?(f.to_s) } } unless options[:unless]
 
       validate :validate_address_format, **options
 
