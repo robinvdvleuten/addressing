@@ -7,7 +7,7 @@ Most country-data gems give you a list of countries and their subdivisions. This
 - **Address formats for 205 countries.** Field order, required fields, uppercasing rules, postal code patterns, and the right label for each field.
 - **256 countries, translated into 148 locales.** Names, three-letter and numeric codes, currency, and timezones. Powered by [CLDR](http://cldr.unicode.org) v48.
 - **Subdivisions for 63 countries.** Up to three levels (administrative area → locality → dependent locality), in both latin and local scripts (Okinawa / 沖縄県).
-- **Zero runtime dependencies.** Pure Ruby 3.3+. Address formats load from a 52 KB marshalled index; the 3.6 MB of country and subdivision data is read lazily, per country, only when you ask for it.
+- **Zero runtime dependencies.** Pure Ruby 3.3+. Address formats load from a single 56 KB JSON file; the 1.5 MB of country and subdivision data is read lazily, country names per locale and subdivisions per country, only when you ask for it.
 - **Rails-ready.** A `validates_address_format` validator for Active Record and ActiveModel. On Active Record, it runs only when an address field actually changed.
 - **Immutable.** `Address` objects never mutate; `with_*` methods return copies.
 
