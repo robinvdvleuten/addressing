@@ -6,9 +6,6 @@ module Minitest::Assertions
   end
 
   def assert_same_elements(expected, current, msg = nil)
-    assert expected_h = expected.each_with_object({}) { |e, h| h[e] ||= expected.count { |i| i == e } }
-    assert current_h = current.each_with_object({}) { |e, h| h[e] ||= current.count { |i| i == e } }
-
-    assert_equal(expected_h, current_h, msg)
+    assert_equal expected.tally, current.tally, msg
   end
 end

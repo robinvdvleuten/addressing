@@ -7,12 +7,12 @@ class DataEncodingTest < Minitest::Test
   def setup
     @default_external = Encoding.default_external
     set_default_external(Encoding::US_ASCII)
-    reset_definitions
+    reset_definition_caches
   end
 
   def teardown
     set_default_external(@default_external)
-    reset_definitions
+    reset_definition_caches
   end
 
   def test_country_names_are_utf8
@@ -35,11 +35,5 @@ class DataEncodingTest < Minitest::Test
     Encoding.default_external = encoding
   ensure
     $VERBOSE = verbose
-  end
-
-  def reset_definitions
-    Addressing::Country.instance_variable_set(:@definitions, nil)
-    Addressing::Subdivision.instance_variable_set(:@definitions, nil)
-    Addressing::Subdivision.instance_variable_set(:@parents, nil)
   end
 end

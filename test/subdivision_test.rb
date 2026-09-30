@@ -7,8 +7,7 @@ class SubdivisionTest < Minitest::Test
   def setup
     # Definitions are cached per process, drop anything loaded by other tests
     # so that the mocked files below are what gets read.
-    Addressing::Subdivision.instance_variable_set(:@definitions, nil)
-    Addressing::Subdivision.instance_variable_set(:@parents, nil)
+    reset_definition_caches
 
     FakeFS.activate!
 
@@ -393,8 +392,7 @@ class SubdivisionTest < Minitest::Test
 
   def teardown
     FakeFS.deactivate!
-    Addressing::Subdivision.instance_variable_set(:@definitions, nil)
-    Addressing::Subdivision.instance_variable_set(:@parents, nil)
+    reset_definition_caches
   end
 
   private

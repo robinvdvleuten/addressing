@@ -4,13 +4,11 @@ require_relative "test_helper"
 
 class SubdivisionDataTest < Minitest::Test
   def setup
-    Addressing::Subdivision.instance_variable_set(:@definitions, nil)
-    Addressing::Subdivision.instance_variable_set(:@parents, nil)
+    reset_definition_caches
   end
 
   def teardown
-    Addressing::Subdivision.instance_variable_set(:@definitions, nil)
-    Addressing::Subdivision.instance_variable_set(:@parents, nil)
+    reset_definition_caches
   end
 
   def test_all_returns_every_subdivision_in_the_data_files
