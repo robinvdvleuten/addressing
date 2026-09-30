@@ -37,8 +37,7 @@ module Addressing
         # transit, it is desirable for the name of the country of
         # destination to be added in an internationally known language.
         country = view["country"][:value]
-        english_countries = Country.list("en")
-        english_country = english_countries[address.country_code]
+        english_country = country_list("en")[address.country_code]
 
         if country != english_country
           country += " - #{english_country}"

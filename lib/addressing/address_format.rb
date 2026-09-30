@@ -44,8 +44,12 @@ module Addressing
       # @return [AddressFormat] Address format instance
       def get(country_code)
         country_code = country_code.upcase
+        definition = definitions[country_code]
+        # Unknown country codes often come from user input, so they are not cached.
+        return new(process_definition(country_code: country_code)) unless definition
+
         @address_formats ||= {}
-        @address_formats[country_code] ||= new(process_definition(definitions[country_code] || {country_code: country_code}))
+        @address_formats[country_code] ||= new(process_definition(definition))
       end
 
       def all

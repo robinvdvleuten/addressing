@@ -94,9 +94,7 @@ module Addressing
         locale = Locale.resolve(AVAILABLE_LOCALES, locale, fallback_locale)
         definitions = load_definitions(locale)
 
-        definitions.map do |country_code, country_name|
-          [country_code, country_name]
-        end.to_h
+        definitions.dup
       end
 
       protected
