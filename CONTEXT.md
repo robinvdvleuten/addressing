@@ -4,6 +4,10 @@ Describes how each country writes a postal address, so that an address can be fo
 
 ## Language
 
+**Address format**:
+How one country writes a postal address: which fields it uses, in which order and on which lines, which fields are required, and which are written in uppercase.
+_Avoid_: Layout, template
+
 ### Subdivisions
 
 **Subdivision level**:
@@ -27,3 +31,13 @@ _Avoid_: Level, sibling set, subdivision list
 **Field violation**:
 One field of an address that breaks a rule of the address format for its country, together with the kind of rule it breaks. A blank country code is also a field violation, because without a country there is no address format. Validating an address gives a list of field violations; an empty list means the address is valid.
 _Avoid_: Error, validation error
+
+### Formatting
+
+**Postal label**:
+An address written for a mail carrier rather than for display. Fields are uppercased where the address format requires it. Domestic mail leaves out the country; international mail adds the postal code prefix and names the country in the language the label is written in, and in English.
+_Avoid_: Shipping label, mailing address
+
+**Origin country**:
+The country that a postal label is sent from. It decides whether the mail is domestic or international.
+_Avoid_: Sender country, from country
