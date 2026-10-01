@@ -18,6 +18,10 @@ _Avoid_: Known subdivision, valid subdivision
 The predefined subdivisions that match one address, ordered from the administrative area downward. Each entry is the parent of the next.
 _Avoid_: Hierarchy, parents, path
 
+**Subdivision group**:
+The predefined subdivisions of one country that share the same parents. Each subdivision group has its own key, derived from those parents.
+_Avoid_: Level, sibling set, subdivision list
+
 ### Validation
 
 **Field violation**:
