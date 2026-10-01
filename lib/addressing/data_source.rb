@@ -63,6 +63,8 @@ module Addressing
     #
     # A dataset exists only when its name matches a file name exactly, so
     # that a lookup gives the same result on a case-insensitive file system.
+    # The listing is cached like the datasets, so a file added later is not
+    # seen by this instance.
     def filenames(dir)
       (@filenames ||= {})[dir] ||= begin
         path = File.join(@dir, dir)

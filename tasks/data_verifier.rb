@@ -174,20 +174,20 @@ module Addressing
     end
 
     def read_file(name)
-      source = "#{name}.json"
+      filename = "#{name}.json"
       content = @data_source.fetch(name)
 
       if content.nil?
-        report(source, "does not exist")
+        report(filename, "does not exist")
       elsif !content.is_a?(Hash)
-        report(source, "does not hold a JSON object")
+        report(filename, "does not hold a JSON object")
       else
         return content
       end
 
       nil
     rescue JSON::ParserError
-      report(source, "is not valid JSON")
+      report(filename, "is not valid JSON")
       nil
     end
 

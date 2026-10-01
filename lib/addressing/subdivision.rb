@@ -132,7 +132,8 @@ module Addressing
       #
       # Adds keys and values that were removed from the JSON files for brevity.
       def process_definitions(definitions)
-        # Malformed definitions are treated as if they didn't exist.
+        # Definitions of the wrong shape are treated as if they didn't exist.
+        # The data verifier reports them, malformed JSON raises in the data source.
         return {} unless definitions.is_a?(Hash) && definitions["subdivisions"].is_a?(Hash)
 
         definitions["subdivisions"].each do |id, definition|
