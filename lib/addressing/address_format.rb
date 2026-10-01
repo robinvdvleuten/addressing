@@ -44,27 +44,27 @@ module Addressing
       # @return [AddressFormat] Address format instance
       def get(country_code)
         country_code = country_code.upcase
-        definition = definitions[country_code]
         # Unknown country codes often come from user input, so they are not cached.
-        return new(process_definition(country_code: country_code)) unless definition
-
-        @address_formats ||= {}
-        @address_formats[country_code] ||= new(process_definition(definition))
+        address_formats.fetch(country_code) { new(process_definition(country_code: country_code)) }
       end
 
       def all
-        definitions.keys.to_h { |country_code| [country_code, get(country_code)] }
+        address_formats.dup
       end
 
       private
 
-      def definitions
-        @definitions ||= begin
-          filename = File.expand_path("../../../data/address_formats.json", __FILE__)
+      # Gets the address formats by country code.
+      #
+      # All are built when the data is loaded, so that every call returns
+      # the same instance for a country.
+      def address_formats
+        Addressing.data_source.fetch("address_formats") do |definitions|
+          definitions.to_h do |country_code, definition|
+            definition = definition.transform_keys(&:to_sym)
+            definition[:default_values] = definition[:default_values].transform_keys(&:to_sym) if definition[:default_values]
 
-          File.read(filename, encoding: "UTF-8").each_line.to_h do |line|
-            definition = JSON.parse(line, symbolize_names: true)
-            [definition[:country_code], definition]
+            [country_code, new(process_definition(definition))]
           end
         end
       end

@@ -1,0 +1,25 @@
+{
+  "BR": {
+    "country_code": "BR",
+    "format": "%given_name %family_name\n%address_line1\n%locality-%administrative_area\n%postal_code",
+    "required_fields": ["address_line1", "administrative_area", "locality", "postal_code"],
+    "uppercase_fields": ["locality"],
+    "administrative_area_type": "state",
+    "postal_code_pattern": "\\d{5}-\\d{3}",
+    "subdivision_fields": ["administrative_area", "locality"]
+  },
+  "ES": {
+    "country_code": "ES",
+    "format": "%given_name %family_name\n%address_line1\n%postal_code %locality %administrative_area",
+    "required_fields": ["address_line1", "locality", "postal_code"],
+    "administrative_area_type": "island",
+    "locality_type": "district",
+    "default_values": {"administrative_area": "Fixture Island"},
+    "postal_code_pattern": "E\\d{4}",
+    "subdivision_fields": ["administrative_area"]
+  },
+  "RS": {
+    "country_code": "RS",
+    "format": "%given_name %family_name\n%address_line1\n%postal_code %locality"
+  }
+}

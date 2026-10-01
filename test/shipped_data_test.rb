@@ -13,6 +13,14 @@ class ShippedDataTest < Minitest::Test
     assert_operator Addressing::Country.list.size, :>, 200
   end
 
+  def test_address_format
+    address_format = Addressing::AddressFormat.get("SG")
+
+    assert_equal({locality: "Singapore"}, address_format.default_values)
+    assert_equal ["administrative_area", "locality"], Addressing::AddressFormat.get("BR").subdivision_fields
+    assert_operator Addressing::AddressFormat.all.size, :>, 200
+  end
+
   def test_subdivision
     chain = Addressing::Subdivision.chain("BR", ["CE", "Fortaleza"])
 

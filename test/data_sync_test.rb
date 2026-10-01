@@ -84,14 +84,16 @@ class DataSyncTest < Minitest::Test
   def test_writes_address_formats_with_snake_case_fields
     sync
 
-    assert_equal [{
-      "country_code" => "BR",
-      "format" => "%given_name %family_name\n%address_line1\n%dependent_locality\n%locality-%administrative_area\n%postal_code",
-      "required_fields" => ["address_line1", "locality", "administrative_area", "postal_code"],
-      "uppercase_fields" => ["locality", "administrative_area"],
-      "postal_code_pattern" => "\\d{5}-?\\d{3}",
-      "subdivision_fields" => ["administrative_area", "locality"]
-    }], data("address_formats.json").lines.map { |line| JSON.parse(line) }
+    assert_equal({
+      "BR" => {
+        "country_code" => "BR",
+        "format" => "%given_name %family_name\n%address_line1\n%dependent_locality\n%locality-%administrative_area\n%postal_code",
+        "required_fields" => ["address_line1", "locality", "administrative_area", "postal_code"],
+        "uppercase_fields" => ["locality", "administrative_area"],
+        "postal_code_pattern" => "\\d{5}-?\\d{3}",
+        "subdivision_fields" => ["administrative_area", "locality"]
+      }
+    }, JSON.parse(data("address_formats.json")))
   end
 
   def test_writes_the_upstream_version

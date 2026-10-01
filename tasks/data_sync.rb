@@ -142,11 +142,11 @@ module Addressing
         echo json_encode($method->invoke($repository), JSON_THROW_ON_ERROR);
       PHP
 
-      lines = definitions.map do |country_code, definition|
-        JSON.generate({"country_code" => country_code}.merge(normalize_address_format(definition)))
+      address_formats = definitions.to_h do |country_code, definition|
+        [country_code, {"country_code" => country_code}.merge(normalize_address_format(definition))]
       end
 
-      File.write(File.join(@data_dir, "address_formats.json"), lines.join("\n"))
+      write_json("address_formats.json", address_formats)
     end
 
     # Upstream names fields in camelCase, the address formats here use snake_case.

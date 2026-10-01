@@ -25,7 +25,7 @@ module Addressing
       end
     end
 
-    DEFAULT_DATA_DIR = File.expand_path("../data", __dir__)
+    DEFAULT_DATA_DIR = DataSource::DEFAULT_DIR
     KNOWN_DISCREPANCIES = File.expand_path("known_discrepancies.yml", __dir__)
 
     # Reads the discrepancies that are reported upstream and wait for a fix.
@@ -45,6 +45,8 @@ module Addressing
     # @return [Array<Discrepancy>] Empty when the data is consistent
     def discrepancies
       @discrepancies = []
+      # Read the files the way the runtime reads them, with an empty cache.
+      @data_source = DataSource.new(@data_dir)
       @country_codes = read_country_codes
 
       verify_countries
@@ -168,35 +170,31 @@ module Addressing
     end
 
     def read_country_codes
-      read_file("countries.json")&.keys || []
+      read_file("countries")&.keys || []
     end
 
     def read_file(name)
-      content = JSON.parse(File.read(File.join(@data_dir, name), encoding: "UTF-8"))
-      return content if content.is_a?(Hash)
+      source = "#{name}.json"
+      content = @data_source.fetch(name)
 
-      report(name, "does not hold a JSON object")
-      nil
-    rescue Errno::ENOENT
-      report(name, "does not exist")
+      if content.nil?
+        report(source, "does not exist")
+      elsif !content.is_a?(Hash)
+        report(source, "does not hold a JSON object")
+      else
+        return content
+      end
+
       nil
     rescue JSON::ParserError
-      report(name, "is not valid JSON")
+      report(source, "is not valid JSON")
       nil
     end
 
-    def read_files(dataset)
-      Dir[File.join(@data_dir, dataset, "*.json")].sort.each_with_object({}) do |filename, files|
-        name = File.basename(filename, ".json")
-        content = JSON.parse(File.read(filename, encoding: "UTF-8"))
-
-        if content.is_a?(Hash)
-          files[name] = content
-        else
-          report("#{dataset}/#{name}.json", "does not hold a JSON object")
-        end
-      rescue JSON::ParserError
-        report("#{dataset}/#{name}.json", "is not valid JSON")
+    def read_files(dir)
+      @data_source.names(dir).each_with_object({}) do |name, files|
+        content = read_file("#{dir}/#{name}")
+        files[name] = content if content
       end
     end
 
