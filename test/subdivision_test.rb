@@ -1,70 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
-require "minitest/mock"
+require "tmpdir"
 
 class SubdivisionTest < Minitest::Test
-  def setup
-    # Definitions are cached per process, drop anything loaded by other tests
-    # so that the mocked files below are what gets read.
-    reset_definition_caches
-
-    FakeFS.activate!
-
-    subdivision_path = File.expand_path("../data/subdivision", __dir__)
-    FakeFS::FileSystem.clone(subdivision_path)
-    # Locale reads its aliases and parents when a subdivision list matches locales.
-    FakeFS::FileSystem.clone(File.expand_path("../data/locale.json", __dir__))
-
-    mock_definitions("#{subdivision_path}/BR.json") do
-      {
-        country_code: "BR",
-        locale: "pt",
-        subdivisions: {
-          SC: {
-            code: "SC",
-            name: "Santa Catarina",
-            postal_code_pattern: "8[89]",
-            has_children: true
-          },
-          SP: {
-            code: "SP",
-            name: "São Paulo",
-            postal_code_pattern: "[01][1-9]",
-            has_children: true
-          }
-        }
-      }
-    end
-
-    mock_definitions("#{subdivision_path}/BR-SC.json") do
-      {
-        country_code: "BR",
-        parents: ["BR", "SC"],
-        locale: "pt",
-        subdivisions: {
-          "Abelardo Luz": {}
-        }
-      }
-    end
-
-    mock_definitions("#{subdivision_path}/BR-SP.json") do
-      {
-        country_code: "BR",
-        parents: ["BR", "SP"],
-        locale: "pt",
-        subdivisions: {
-          Anhumas: {}
-        }
-      }
-    end
-
-    # Malformed definitions, expected to be ignored.
-    mock_definitions("#{subdivision_path}/US.json") do
-      {country_code: "US"}
-    end
-    File.write("#{subdivision_path}/CA.json", "{invalid json")
-  end
+  include FixtureData
 
   def test_get
     subdivision = Addressing::Subdivision.get("SC", ["BR"])
@@ -80,7 +20,8 @@ class SubdivisionTest < Minitest::Test
     assert_equal "8[89]", subdivision.postal_code_pattern
 
     children = subdivision.children
-    assert_same_elements subdivision_child.to_h, children["Abelardo Luz"].to_h
+    assert_equal subdivision_child.to_h.except(:parent), children["Abelardo Luz"].to_h.except(:parent)
+    assert_equal subdivision_child.parent.to_h.except(:children), children["Abelardo Luz"].parent.to_h.except(:children)
 
     assert_instance_of Addressing::Subdivision, subdivision_child
     assert_equal "Abelardo Luz", subdivision_child.id
@@ -103,10 +44,14 @@ class SubdivisionTest < Minitest::Test
     assert_empty Addressing::Subdivision.all(["US"])
     assert_empty Addressing::Subdivision.list(["US"])
 
-    # Invalid JSON.
-    assert_nil Addressing::Subdivision.get("AB", ["CA"])
-    assert_empty Addressing::Subdivision.all(["CA"])
-    assert_empty Addressing::Subdivision.list(["CA"])
+    # Valid JSON that is not an object.
+    assert_nil Addressing::Subdivision.get("AG", ["MX"])
+    assert_empty Addressing::Subdivision.all(["MX"])
+  end
+
+  def test_invalid_json_raises
+    # The data files are never edited by hand, so this means a sync broke.
+    assert_raises(JSON::ParserError) { Addressing::Subdivision.get("AB", ["CA"]) }
   end
 
   def test_all
@@ -114,7 +59,7 @@ class SubdivisionTest < Minitest::Test
     assert_empty subdivisions
 
     subdivisions = Addressing::Subdivision.all(["BR"])
-    assert_equal 2, subdivisions.length
+    assert_equal ["CE", "SC", "SP"], subdivisions.keys
     assert subdivisions.key?("SC")
     assert subdivisions.key?("SP")
     assert_equal "SC", subdivisions["SC"].code
@@ -131,46 +76,38 @@ class SubdivisionTest < Minitest::Test
     assert_empty list
 
     list = Addressing::Subdivision.list(["BR"])
-    assert_equal({"SC" => "Santa Catarina", "SP" => "São Paulo"}, list)
+    assert_equal({"CE" => "Ceará", "SC" => "Santa Catarina", "SP" => "São Paulo"}, list)
 
     list = Addressing::Subdivision.list(["BR", "SC"])
     assert_equal({"Abelardo Luz" => "Abelardo Luz"}, list)
 
     # The local names default to the latin ones.
     list = Addressing::Subdivision.list(["BR"], "pt")
-    assert_equal({"SC" => "Santa Catarina", "SP" => "São Paulo"}, list)
+    assert_equal({"CE" => "Ceará", "SC" => "Santa Catarina", "SP" => "São Paulo"}, list)
   end
 
   def test_all_without_parent_flag_as_first_call
-    mock_chile_definitions
-
     assert_equal 2, Addressing::Subdivision.all(["CL", "NB"]).size
   end
 
   def test_all_without_parent_flag_after_loading_parent
-    mock_chile_definitions
-
     Addressing::Subdivision.all(["CL"])
 
     assert_equal 2, Addressing::Subdivision.all(["CL", "NB"]).size
   end
 
   def test_children_without_parent_flag
-    mock_chile_definitions
-
     refute Addressing::Subdivision.get("NB", ["CL"]).children?
   end
 
   def test_lowercase_country_code
-    with_case_sensitive_file_system do
-      subdivision = Addressing::Subdivision.get("SC", ["br"])
+    subdivision = Addressing::Subdivision.get("SC", ["br"])
 
-      refute_nil subdivision
-      assert_equal Addressing::Subdivision.get("SC", ["BR"]).to_h.except(:children), subdivision.to_h.except(:children)
-      refute_nil subdivision.children["Abelardo Luz"]
-      assert_equal({"SC" => "Santa Catarina", "SP" => "São Paulo"}, Addressing::Subdivision.list(["br"]))
-      assert_equal ["Abelardo Luz"], Addressing::Subdivision.all(["br", "SC"]).keys
-    end
+    refute_nil subdivision
+    assert_equal Addressing::Subdivision.get("SC", ["BR"]).to_h.except(:children), subdivision.to_h.except(:children)
+    refute_nil subdivision.children["Abelardo Luz"]
+    assert_equal({"CE" => "Ceará", "SC" => "Santa Catarina", "SP" => "São Paulo"}, Addressing::Subdivision.list(["br"]))
+    assert_equal ["Abelardo Luz"], Addressing::Subdivision.all(["br", "SC"]).keys
   end
 
   def test_lowercase_subdivision_id
@@ -179,36 +116,16 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_get_keeps_cached_definitions_unchanged
-    subdivision_path = File.expand_path("../data/subdivision", __dir__)
-    mock_definitions("#{subdivision_path}/BR-SC.json") do
-      {
-        country_code: "BR",
-        parents: ["BR", "SC"],
-        locale: "pt",
-        subdivisions: {
-          "Abelardo Luz": {has_children: true}
-        }
-      }
-    end
-    mock_definitions("#{subdivision_path}/BR--ca6775b8b8c6e4eda90645d99469ed2fff7f38b0.json") do
-      {
-        country_code: "BR",
-        parents: ["BR", "SC", "Abelardo Luz"],
-        locale: "pt",
-        subdivisions: {
-          Centro: {}
-        }
-      }
-    end
+    subdivision = Addressing::Subdivision.get("Centro", ["BR", "SP", "Anhumas"])
+    refute_nil subdivision.parent.parent
+    assert Addressing::Subdivision.get("Anhumas", ["BR", "SP"]).children?
 
-    subdivision = Addressing::Subdivision.get("Abelardo Luz", ["BR", "SC"])
-    refute_nil subdivision.parent
-    assert subdivision.children?
-
-    definitions = Addressing::Subdivision.instance_variable_get(:@definitions)
-    refute definitions["BR"].key?("parents")
-    assert_equal ["BR", "SC"], definitions["BR-SC"]["parents"]
-    definitions.each_value do |group|
+    groups = [["BR"], ["BR", "SP"], ["BR", "SP", "Anhumas"]].to_h do |parents|
+      [parents, Addressing.data_source.fetch("subdivision/#{Addressing::Subdivision.group_key(parents)}")]
+    end
+    refute groups[["BR"]].key?("parents")
+    assert_equal ["BR", "SP"], groups[["BR", "SP"]]["parents"]
+    groups.each_value do |group|
       group["subdivisions"].each_value do |definition|
         refute definition.key?("parent")
         refute definition.key?("children")
@@ -231,8 +148,6 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_chain
-    mock_ceara_definitions
-
     chain = Addressing::Subdivision.chain("BR", ["CE", "Fortaleza"])
 
     assert_equal ["CE", "Fortaleza"], chain.subdivisions.map(&:id)
@@ -240,8 +155,6 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_chain_with_unmatched_level
-    mock_ceara_definitions
-
     chain = Addressing::Subdivision.chain("BR", ["CE", "Nowhere"])
     assert_equal ["CE"], chain.subdivisions.map(&:id)
     assert_equal 1, chain.unmatched_level
@@ -256,8 +169,6 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_chain_stops_at_empty_level
-    mock_ceara_definitions
-
     [["CE", ""], ["CE", nil], ["CE", "  "], ["CE", "", "Fortaleza"]].each do |values|
       chain = Addressing::Subdivision.chain("BR", values)
       assert_equal ["CE"], chain.subdivisions.map(&:id), values.inspect
@@ -270,8 +181,6 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_chain_stops_at_subdivision_without_children
-    mock_ceara_definitions
-
     chain = Addressing::Subdivision.chain("BR", ["CE", "Fortaleza", "Centro"])
 
     assert_equal ["CE", "Fortaleza"], chain.subdivisions.map(&:id)
@@ -279,8 +188,6 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_chain_for_country_without_predefined_subdivisions
-    FileUtils.rm_f(File.expand_path("../data/subdivision/ZZ.json", __dir__))
-
     chain = Addressing::Subdivision.chain("ZZ", ["Somewhere", "Else"])
 
     assert_empty chain.subdivisions
@@ -288,21 +195,15 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_chain_with_lowercase_country_code
-    mock_ceara_definitions
+    expected = Addressing::Subdivision.chain("BR", ["CE"])
+    chain = Addressing::Subdivision.chain("br", ["CE"])
 
-    with_case_sensitive_file_system do
-      expected = Addressing::Subdivision.chain("BR", ["CE"])
-      chain = Addressing::Subdivision.chain("br", ["CE"])
-
-      assert_equal expected.subdivisions.map { |s| s.to_h.except(:children) }, chain.subdivisions.map { |s| s.to_h.except(:children) }
-      assert_equal ["CE"], chain.subdivisions.map(&:id)
-      assert_nil chain.unmatched_level
-    end
+    assert_equal expected.subdivisions.map { |s| s.to_h.except(:children) }, chain.subdivisions.map { |s| s.to_h.except(:children) }
+    assert_equal ["CE"], chain.subdivisions.map(&:id)
+    assert_nil chain.unmatched_level
   end
 
   def test_chain_values_argument_unchanged
-    mock_ceara_definitions
-
     values = ["CE", "Fortaleza"]
     Addressing::Subdivision.chain("BR", values)
     assert_equal ["CE", "Fortaleza"], values
@@ -312,8 +213,6 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_children_behave_like_all
-    mock_ceara_definitions
-
     children = Addressing::Subdivision.get("CE", ["BR"]).children
     all = Addressing::Subdivision.all(["BR", "CE"])
 
@@ -335,25 +234,22 @@ class SubdivisionTest < Minitest::Test
   end
 
   def test_children_load_on_first_access
-    mock_ceara_definitions
-    subdivision_path = File.expand_path("../data/subdivision", __dir__)
-
     children = Addressing::Subdivision.get("CE", ["BR"]).children
 
-    # Written after the lookup, so only a lazy load can pick it up.
-    mock_definitions("#{subdivision_path}/BR-CE.json") do
-      {
+    # Only a lazy load reads the children from the data source that is
+    # current when they are first accessed.
+    Dir.mktmpdir do |dir|
+      FileUtils.mkdir_p(File.join(dir, "subdivision"))
+      File.write(File.join(dir, "subdivision", "BR-CE.json"), JSON.dump({
         country_code: "BR",
         parents: ["BR", "CE"],
-        locale: "pt",
-        subdivisions: {
-          Fortaleza: {},
-          Sobral: {}
-        }
-      }
-    end
+        subdivisions: {Fortaleza: [], Sobral: []}
+      }))
 
-    assert_equal ["Fortaleza", "Sobral"], children.keys
+      with_data_source(Addressing::DataSource.new(dir)) do
+        assert_equal ["Fortaleza", "Sobral"], children.keys
+      end
+    end
   end
 
   def test_missing_property
@@ -390,76 +286,5 @@ class SubdivisionTest < Minitest::Test
     assert_equal "9[0-5]|96[01]", subdivision.postal_code_pattern
     assert_equal children, subdivision.children
     assert subdivision.children?
-  end
-
-  def teardown
-    FakeFS.deactivate!
-    reset_definition_caches
-  end
-
-  private
-
-  # The file system that runs the tests can ignore case, so only a file whose
-  # name matches in case is taken to exist.
-  def with_case_sensitive_file_system(&)
-    exact_case_exist = ->(path) { File.directory?(File.dirname(path)) && Dir.children(File.dirname(path)).include?(File.basename(path)) }
-    File.stub(:exist?, exact_case_exist, &)
-  end
-
-  # The parent definition lacks the has_children flag, while the file with its
-  # children exists.
-  def mock_chile_definitions
-    subdivision_path = File.expand_path("../data/subdivision", __dir__)
-
-    mock_definitions("#{subdivision_path}/CL.json") do
-      {
-        country_code: "CL",
-        subdivisions: {
-          NB: {name: "Ñuble"}
-        }
-      }
-    end
-
-    mock_definitions("#{subdivision_path}/CL-NB.json") do
-      {
-        country_code: "CL",
-        parents: ["CL", "NB"],
-        subdivisions: {
-          Coihueco: {},
-          Yungay: {}
-        }
-      }
-    end
-  end
-
-  # Brazil with the state Ceará (CE), which has predefined localities.
-  def mock_ceara_definitions
-    subdivision_path = File.expand_path("../data/subdivision", __dir__)
-
-    mock_definitions("#{subdivision_path}/BR.json") do
-      {
-        country_code: "BR",
-        locale: "pt",
-        subdivisions: {
-          CE: {code: "CE", name: "Ceará", has_children: true}
-        }
-      }
-    end
-
-    mock_definitions("#{subdivision_path}/BR-CE.json") do
-      {
-        country_code: "BR",
-        parents: ["BR", "CE"],
-        locale: "pt",
-        subdivisions: {
-          Fortaleza: {}
-        }
-      }
-    end
-  end
-
-  def mock_definitions(filename, &block)
-    FileUtils.mkdir_p(File.dirname(filename))
-    File.write(filename, JSON.dump(block.call))
   end
 end

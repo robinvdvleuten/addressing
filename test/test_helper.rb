@@ -6,11 +6,9 @@ Bundler.require(:default)
 
 require "minitest/autorun"
 require "minitest/pride"
-require "fakefs/safe"
 
 require_relative "support/assertions"
 require_relative "support/data_source"
-require_relative "support/definition_caches"
 
 ActiveRecord::Base.logger = ActiveSupport::Logger.new(ENV["VERBOSE"] ? $stdout : nil)
 ActiveRecord::Migration.verbose = ENV["VERBOSE"]

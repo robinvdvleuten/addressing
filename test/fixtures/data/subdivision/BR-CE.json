@@ -1,0 +1,8 @@
+{
+  "country_code": "BR",
+  "parents": ["BR", "CE"],
+  "locale": "pt",
+  "subdivisions": {
+    "Fortaleza": []
+  }
+}

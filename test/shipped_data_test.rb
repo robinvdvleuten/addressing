@@ -13,6 +13,12 @@ class ShippedDataTest < Minitest::Test
     assert_operator Addressing::Country.list.size, :>, 200
   end
 
+  def test_subdivision
+    chain = Addressing::Subdivision.chain("BR", ["CE", "Fortaleza"])
+
+    assert_equal ["Ceará", "Fortaleza"], chain.subdivisions.map(&:name)
+  end
+
   def test_locale
     assert_equal ["zh-Hans-CN", "zh-Hans", "zh"], Addressing::Locale.candidates("zh-CN")
   end

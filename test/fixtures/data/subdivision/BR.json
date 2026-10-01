@@ -1,0 +1,23 @@
+{
+  "country_code": "BR",
+  "locale": "pt",
+  "subdivisions": {
+    "CE": {
+      "code": "CE",
+      "name": "Ceará",
+      "has_children": true
+    },
+    "SC": {
+      "code": "SC",
+      "name": "Santa Catarina",
+      "postal_code_pattern": "8[89]",
+      "has_children": true
+    },
+    "SP": {
+      "code": "SP",
+      "name": "São Paulo",
+      "postal_code_pattern": "[01][1-9]",
+      "has_children": true
+    }
+  }
+}

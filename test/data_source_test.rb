@@ -40,6 +40,14 @@ class DataSourceTest < Minitest::Test
     assert_nil @source.fetch("subdivision/ZZ")
   end
 
+  def test_fetch_matches_the_name_in_case
+    # Subdivision IDs are case-sensitive, also on a file system that is not.
+    write("subdivision/BR-SC", "{}")
+
+    assert_nil @source.fetch("subdivision/BR-sc")
+    assert_equal({}, @source.fetch("subdivision/BR-SC"))
+  end
+
   def test_fetch_raises_for_a_malformed_dataset
     write("countries", "{")
 

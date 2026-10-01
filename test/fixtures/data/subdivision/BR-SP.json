@@ -1,0 +1,10 @@
+{
+  "country_code": "BR",
+  "parents": ["BR", "SP"],
+  "locale": "pt",
+  "subdivisions": {
+    "Anhumas": {
+      "has_children": true
+    }
+  }
+}

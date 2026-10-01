@@ -3,7 +3,6 @@ source "https://rubygems.org"
 gemspec
 
 gem "activerecord"
-gem "fakefs", require: false
 gem "minitest"
 gem "minitest-mock"
 gem "rake"

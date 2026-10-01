@@ -122,24 +122,10 @@ module Addressing
       protected
 
       # Loads the subdivision definitions for the provided parents.
-      def load_definitions(parents)
-        key = group_key(parents)
-
-        (@definitions ||= {})[key] ||= begin
-          filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{key}.json")
-
-          File.exist?(filename) ? process_definitions(parse_definitions(File.read(filename, encoding: "UTF-8"))) : {}
-        end
-      end
-
-      # Parses a raw definition file.
       #
-      # Malformed JSON is treated as if the file didn't exist.
-      def parse_definitions(raw_definition)
-        definitions = JSON.parse(raw_definition)
-        definitions.is_a?(Hash) ? definitions : {}
-      rescue JSON::ParserError
-        {}
+      # A subdivision group without a data file has no definitions.
+      def load_definitions(parents)
+        Addressing.data_source.fetch("subdivision/#{group_key(parents)}") { |definitions| process_definitions(definitions) } || {}
       end
 
       # Processes the loaded definitions.
@@ -147,7 +133,7 @@ module Addressing
       # Adds keys and values that were removed from the JSON files for brevity.
       def process_definitions(definitions)
         # Malformed definitions are treated as if they didn't exist.
-        return {} unless definitions["subdivisions"].is_a?(Hash)
+        return {} unless definitions.is_a?(Hash) && definitions["subdivisions"].is_a?(Hash)
 
         definitions["subdivisions"].each do |id, definition|
           # Upstream writes a definition without keys as an empty JSON array.
@@ -195,10 +181,7 @@ module Addressing
         parents = definitions["parents"] || [definitions["country_code"]]
 
         # Load the parent, if known.
-        if parents.size > 1
-          @parents ||= {}
-          parent = @parents[parents] ||= get(parents[-1], parents[0...-1])
-        end
+        parent = get(parents[-1], parents[0...-1]) if parents.size > 1
 
         # Prepare children.
         children = definition["has_children"] ? LazySubdivisions.new(parents + [id]) : {}

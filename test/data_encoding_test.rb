@@ -12,12 +12,10 @@ class DataEncodingTest < Minitest::Test
   def setup
     @default_external = Encoding.default_external
     set_default_external(Encoding::US_ASCII)
-    reset_definition_caches
   end
 
   def teardown
     set_default_external(@default_external)
-    reset_definition_caches
   end
 
   def test_country_names_are_utf8

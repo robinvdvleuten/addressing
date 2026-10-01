@@ -3,12 +3,9 @@
 require_relative "test_helper"
 
 class SubdivisionDataTest < Minitest::Test
-  def setup
-    reset_definition_caches
-  end
-
-  def teardown
-    reset_definition_caches
+  # A new data source, so that the groups are loaded in the order below.
+  def run(...)
+    with_data_source(Addressing::DataSource.new(Addressing::DataSource::DEFAULT_DIR)) { super }
   end
 
   def test_all_returns_every_subdivision_in_the_data_files

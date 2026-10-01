@@ -1,0 +1,8 @@
+{
+  "country_code": "BR",
+  "parents": ["BR", "SP", "Anhumas"],
+  "locale": "pt",
+  "subdivisions": {
+    "Centro": []
+  }
+}

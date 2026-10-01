@@ -42,10 +42,10 @@ module Addressing
     def fetch(name)
       return @cache[name] if @cache.key?(name)
 
-      filename = File.join(@dir, "#{name}.json")
-      return @cache[name] = nil unless File.exist?(filename)
+      dir, basename = File.split(name)
+      return @cache[name] = nil unless filenames(dir).include?("#{basename}.json")
 
-      json = JSON.parse(File.read(filename, encoding: "UTF-8"))
+      json = JSON.parse(File.read(File.join(@dir, "#{name}.json"), encoding: "UTF-8"))
       @cache[name] = block_given? ? yield(json) : json
     end
 
@@ -54,7 +54,20 @@ module Addressing
     # @param dir [String] Directory relative to the data directory (e.g. "country")
     # @return [Array<String>] Sorted names (e.g. ["af", "ak", ...])
     def names(dir)
-      Dir[File.join(@dir, dir, "*.json")].map { |filename| File.basename(filename, ".json") }.sort
+      filenames(dir).filter_map { |filename| File.basename(filename, ".json") if filename.end_with?(".json") }.sort
+    end
+
+    private
+
+    # Gets the file names in a directory of the data directory.
+    #
+    # A dataset exists only when its name matches a file name exactly, so
+    # that a lookup gives the same result on a case-insensitive file system.
+    def filenames(dir)
+      (@filenames ||= {})[dir] ||= begin
+        path = File.join(@dir, dir)
+        Dir.exist?(path) ? Dir.children(path).to_set : Set.new
+      end
     end
   end
 end

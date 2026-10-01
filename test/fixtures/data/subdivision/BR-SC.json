@@ -1,0 +1,8 @@
+{
+  "country_code": "BR",
+  "parents": ["BR", "SC"],
+  "locale": "pt",
+  "subdivisions": {
+    "Abelardo Luz": []
+  }
+}
