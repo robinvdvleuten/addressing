@@ -8,6 +8,10 @@ class DataVerifierTest < Minitest::Test
   def setup
     @data_dir = Dir.mktmpdir
 
+    write("countries.json", {
+      BR: {three_letter_code: "BRA", numeric_code: "076", currency_code: "BRL"},
+      CL: {three_letter_code: "CHL", numeric_code: "152", currency_code: "CLP"}
+    })
     write("country/en.json", {"BR" => "Brazil", "CL" => "Chile"})
 
     write("subdivision/BR.json", {
@@ -168,11 +172,20 @@ class DataVerifierTest < Minitest::Test
     write("country/tlh.json", {"BR" => "Brazil", "CL" => "Chile"})
 
     assert_equal [
-      "country: locale pt has no data file",
       "country/en.json: has no name for country CL",
-      "country/en.json: names the unknown country XX",
-      "country/tlh.json: is not a locale known to Country"
-    ], discrepancies(locales: ["en", "pt"])
+      "country/en.json: names the unknown country XX"
+    ], discrepancies
+  end
+
+  def test_missing_countries_file
+    FileUtils.rm(File.join(@data_dir, "countries.json"))
+
+    assert_equal [
+      "countries.json: does not exist",
+      "country/en.json: names the unknown country BR",
+      "country/en.json: names the unknown country CL",
+      "address_formats.json (BR): is for an unknown country"
+    ], discrepancies
   end
 
   def test_address_format_for_unknown_country
@@ -185,7 +198,7 @@ class DataVerifierTest < Minitest::Test
     verifier(**options).discrepancies.map(&:to_s)
   end
 
-  def verifier(subdivision_fields: ["administrative_area", "locality"], formats: {}, locales: ["en"])
+  def verifier(subdivision_fields: ["administrative_area", "locality"], formats: {})
     formats = {"BR" => subdivision_fields}.merge(formats)
     address_formats = formats.to_h do |country_code, fields|
       [country_code, Addressing::AddressFormat.new(country_code: country_code, format: "%locality", subdivision_fields: fields)]
@@ -193,9 +206,7 @@ class DataVerifierTest < Minitest::Test
 
     Addressing::DataVerifier.new(
       data_dir: @data_dir,
-      address_formats: address_formats,
-      country_codes: ["BR", "CL"],
-      locales: locales
+      address_formats: address_formats
     )
   end
 

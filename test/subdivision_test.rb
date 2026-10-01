@@ -13,6 +13,8 @@ class SubdivisionTest < Minitest::Test
 
     subdivision_path = File.expand_path("../data/subdivision", __dir__)
     FakeFS::FileSystem.clone(subdivision_path)
+    # Locale reads its aliases and parents when a subdivision list matches locales.
+    FakeFS::FileSystem.clone(File.expand_path("../data/locale.json", __dir__))
 
     mock_definitions("#{subdivision_path}/BR.json") do
       {

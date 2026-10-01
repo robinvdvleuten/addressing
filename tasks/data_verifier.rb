@@ -37,18 +37,15 @@ module Addressing
 
     # @param data_dir [String] Directory that holds the country and subdivision data
     # @param address_formats [Hash<String, AddressFormat>] Address formats by country code
-    # @param country_codes [Array<String>] Country codes known to Country
-    # @param locales [Array<String>] Locales known to Country
-    def initialize(data_dir: DEFAULT_DATA_DIR, address_formats: AddressFormat.all, country_codes: Country.send(:base_definitions).keys, locales: Country.singleton_class::AVAILABLE_LOCALES)
+    def initialize(data_dir: DEFAULT_DATA_DIR, address_formats: AddressFormat.all)
       @data_dir = data_dir
       @address_formats = address_formats
-      @country_codes = country_codes
-      @locales = locales
     end
 
     # @return [Array<Discrepancy>] Empty when the data is consistent
     def discrepancies
       @discrepancies = []
+      @country_codes = read_country_codes
 
       verify_countries
       verify_address_formats
@@ -74,14 +71,9 @@ module Addressing
     private
 
     def verify_countries
-      files = read_files("country")
-
-      (@locales - files.keys).each { |locale| report("country", "locale #{locale} has no data file") }
-
-      files.each do |locale, names|
+      # The locales are the names of the files, so only their content can disagree.
+      read_files("country").each do |locale, names|
         source = "country/#{locale}.json"
-
-        report(source, "is not a locale known to Country") unless @locales.include?(locale)
 
         (@country_codes - names.keys).each { |code| report(source, "has no name for country #{code}") }
         (names.keys - @country_codes).each { |code| report(source, "names the unknown country #{code}") }
@@ -173,6 +165,24 @@ module Addressing
     # The 'parents' key is omitted when it contains just the country code.
     def parents_of(definitions)
       definitions["parents"] || [definitions["country_code"]]
+    end
+
+    def read_country_codes
+      read_file("countries.json")&.keys || []
+    end
+
+    def read_file(name)
+      content = JSON.parse(File.read(File.join(@data_dir, name), encoding: "UTF-8"))
+      return content if content.is_a?(Hash)
+
+      report(name, "does not hold a JSON object")
+      nil
+    rescue Errno::ENOENT
+      report(name, "does not exist")
+      nil
+    rescue JSON::ParserError
+      report(name, "is not valid JSON")
+      nil
     end
 
     def read_files(dataset)
