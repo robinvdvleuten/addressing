@@ -54,7 +54,7 @@ module Addressing
     # @param dir [String] Directory relative to the data directory (e.g. "country")
     # @return [Array<String>] Sorted names (e.g. ["af", "ak", ...])
     def names(dir)
-      filenames(dir).filter_map { |filename| File.basename(filename, ".json") if filename.end_with?(".json") }.sort
+      (@names ||= {})[dir] ||= filenames(dir).filter_map { |filename| File.basename(filename, ".json") if filename.end_with?(".json") }.sort.freeze
     end
 
     private

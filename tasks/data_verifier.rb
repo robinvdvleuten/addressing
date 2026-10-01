@@ -95,7 +95,7 @@ module Addressing
       files = read_files("subdivision")
       # The files are found through the parents they declare and not through
       # their names, so that a wrong name is reported and does not hide them.
-      groups = files.each_value.to_h { |definitions| [parents_of(definitions), definitions] }
+      groups = files.each_value.to_h { |definitions| [Subdivision.parents_of(definitions), definitions] }
 
       files.each do |name, definitions|
         source = "subdivision/#{name}.json"
@@ -105,7 +105,7 @@ module Addressing
           next
         end
 
-        parents = parents_of(definitions)
+        parents = Subdivision.parents_of(definitions)
 
         verify_group_name(source, name, parents)
         verify_levels(source, parents)
@@ -162,11 +162,6 @@ module Addressing
       Regexp.new(pattern) if pattern
     rescue RegexpError => e
       report(source, "has an invalid postal code pattern (#{e.message})")
-    end
-
-    # The 'parents' key is omitted when it contains just the country code.
-    def parents_of(definitions)
-      definitions["parents"] || [definitions["country_code"]]
     end
 
     def read_country_codes

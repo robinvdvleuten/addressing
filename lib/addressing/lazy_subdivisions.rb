@@ -16,7 +16,7 @@ module Addressing
 
     # Checks for children without building them.
     def empty?
-      @subdivisions ? @subdivisions.empty? : Subdivision.list(@parents).empty?
+      @subdivisions ? @subdivisions.empty? : !Subdivision.any?(@parents)
     end
 
     def any?(*args, &block)

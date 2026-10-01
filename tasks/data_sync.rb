@@ -15,7 +15,7 @@ module Addressing
     UPSTREAM_REPOSITORY = "https://github.com/commerceguys/addressing.git"
     UPSTREAM_VERSION = "v2.3.1"
 
-    DEFAULT_DATA_DIR = File.expand_path("../data", __dir__)
+    DEFAULT_DATA_DIR = DataSource::DEFAULT_DIR
     DEFAULT_UPSTREAM_DIR = File.expand_path("../tmp/addressing", __dir__)
 
     # Runs a PHP script and decodes the JSON it prints.
@@ -85,9 +85,7 @@ module Addressing
 
       Dir[upstream("resources/subdivision/*.json")].each do |filename|
         definitions = JSON.parse(File.read(filename, encoding: "UTF-8"))
-        # The 'parents' key is omitted when it contains just the country code.
-        parents = definitions["parents"] || [definitions["country_code"]]
-        group_key = Subdivision.group_key(parents)
+        group_key = Subdivision.group_key(Subdivision.parents_of(definitions))
 
         destination = File.join(target, "#{group_key}.json")
         raise "Two upstream files share the subdivision group key #{group_key}" if File.exist?(destination)

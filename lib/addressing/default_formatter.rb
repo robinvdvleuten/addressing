@@ -60,9 +60,9 @@ module Addressing
       values = values(address, address_format).merge("country" => countries.fetch(address.country_code, address.country_code))
       used_fields = address_format.used_fields + ["country"]
 
-      used_fields.map do |field|
+      used_fields.to_h do |field|
         [field, {html: options[:html], html_tag: "span", html_attributes: {class: field.tr("_", "-")}, value: values[field]}]
-      end.to_h
+      end
     end
 
     # Gets the country list for a locale, with caching.

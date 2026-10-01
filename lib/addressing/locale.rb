@@ -16,12 +16,7 @@ module Addressing
     def self.match_candidates(first_locale, second_locale)
       return false if first_locale.to_s.empty? || second_locale.to_s.empty?
 
-      first_locale = canonicalize(first_locale)
-      second_locale = canonicalize(second_locale)
-      first_locale_candidates = candidates(first_locale)
-      second_locale_candidates = candidates(second_locale)
-
-      (first_locale_candidates & second_locale_candidates).any?
+      (candidates(canonicalize(first_locale)) & candidates(canonicalize(second_locale))).any?
     end
 
     # Resolves the locale from the available locales.
@@ -90,23 +85,11 @@ module Addressing
 
     # Gets the parent for the given locale.
     def self.parent(locale)
-      parent = nil
-
-      if definitions["parents"].key?(locale)
-        parent = definitions["parents"][locale]
-      elsif locale.include?("-")
-        locale_parts = locale.split("-")
-        locale_parts.pop
-        parent = locale_parts.join("-")
-      end
+      parent = definitions["parents"].fetch(locale) { locale.include?("-") ? locale.rpartition("-").first : nil }
 
       # The library doesn't have data for the empty `und` locale, it
       # is more user friendly to use the configured fallback instead.
-      if parent == "und"
-        parent = nil
-      end
-
-      parent
+      (parent == "und") ? nil : parent
     end
 
     # Replaces a locale alias with the real locale.

@@ -70,7 +70,10 @@ module Addressing
       # @return [Subdivision, nil] Subdivision instance or nil if not found
       def get(id, parents)
         definitions = load_definitions(parents)
-        create_subdivision_from_definitions(id, definitions)
+        # No matching definition found.
+        return nil unless definitions.dig("subdivisions", id)
+
+        create_subdivision_from_definitions(id, definitions, load_parent(definitions))
       end
 
       # Returns all subdivision instances for the provided parents.
@@ -81,7 +84,18 @@ module Addressing
         definitions = load_definitions(parents)
         return {} if definitions.empty?
 
-        definitions["subdivisions"].keys.to_h { |id| [id, create_subdivision_from_definitions(id, definitions)] }
+        # The siblings share one parent, so it is loaded once.
+        parent = load_parent(definitions)
+        definitions["subdivisions"].keys.to_h { |id| [id, create_subdivision_from_definitions(id, definitions, parent)] }
+      end
+
+      # Checks whether there are subdivisions for the provided parents, without building them.
+      #
+      # @api private
+      # @param parents [Array<String>] Parent hierarchy (e.g., ['BR'] or ['BR', 'CE'])
+      # @return [Boolean]
+      def any?(parents)
+        !load_definitions(parents).fetch("subdivisions", {}).empty?
       end
 
       # Returns a list of subdivisions for the provided parents.
@@ -117,6 +131,16 @@ module Addressing
         # A dash per key allows the depth to be guessed later.
         # Hash the remaining keys to ensure that the group is ASCII safe.
         country_code + "-" * subdivision_ids.length + Digest::SHA1.hexdigest(subdivision_ids.join("-"))
+      end
+
+      # Gets the parents of a subdivision group from its definitions.
+      #
+      # @api private
+      # @param definitions [Hash] Definitions of a subdivision group
+      # @return [Array<String>]
+      def parents_of(definitions)
+        # The 'parents' key is omitted when it contains just the country code.
+        definitions["parents"] || [definitions["country_code"]]
       end
 
       protected
@@ -172,17 +196,16 @@ module Addressing
         definitions
       end
 
+      # Loads the parent of a subdivision group, if known.
+      def load_parent(definitions)
+        parents = parents_of(definitions)
+        get(parents[-1], parents[0...-1]) if parents.size > 1
+      end
+
       # Creates a subdivision object from the provided definitions.
-      def create_subdivision_from_definitions(id, definitions)
-        definition = definitions.dig("subdivisions", id)
-        # No matching definition found.
-        return nil unless definition
-
-        # The 'parents' key is omitted when it contains just the country code.
-        parents = definitions["parents"] || [definitions["country_code"]]
-
-        # Load the parent, if known.
-        parent = get(parents[-1], parents[0...-1]) if parents.size > 1
+      def create_subdivision_from_definitions(id, definitions, parent)
+        definition = definitions["subdivisions"][id]
+        parents = parents_of(definitions)
 
         # Prepare children.
         children = definition["has_children"] ? LazySubdivisions.new(parents + [id]) : {}
