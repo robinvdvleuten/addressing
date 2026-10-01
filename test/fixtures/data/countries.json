@@ -8,5 +8,10 @@
     "three_letter_code": "USX",
     "numeric_code": "902",
     "currency_code": "USX"
+  },
+  "XA": {
+    "three_letter_code": "XAA",
+    "numeric_code": "903",
+    "currency_code": "XAX"
   }
 }

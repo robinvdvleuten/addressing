@@ -6,9 +6,18 @@ module Addressing
 
     protected
 
-    def build_view(address, address_format, options)
-      raise ArgumentError, "The origin_country option cannot be empty." if options[:origin_country].nil? || options[:origin_country].empty?
+    # The origin country has no default, so format raises until it is given,
+    # to the constructor or to format.
+    def assert_options(options)
+      super
 
+      return unless options.key?(:origin_country)
+
+      origin_country = options[:origin_country]
+      raise ArgumentError, "The option `origin_country` must be a non-empty string." unless origin_country.is_a?(String) && !origin_country.empty?
+    end
+
+    def build_view(address, address_format, options)
       view = super
       view.each do |key, element|
         # Uppercase fields where required by the format.

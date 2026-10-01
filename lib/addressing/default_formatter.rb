@@ -24,9 +24,8 @@ module Addressing
     end
 
     def format(address, options = {})
-      assert_options(options)
-
       options = @default_options.merge(options)
+      assert_options(options)
       address_format = AddressFormat.get(address.country_code)
 
       # Add the country to the bottom or the top of the format string,
@@ -165,11 +164,10 @@ module Addressing
       end
     end
 
-    private
-
     # Validates the provided options.
     #
     # Ensures the absence of unknown keys, correct data types and values.
+    # A subclass with more options extends this and calls super.
     def assert_options(options)
       options.each do |option, value|
         unless self.class::DEFAULT_OPTIONS.key?(option)

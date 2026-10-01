@@ -2,60 +2,12 @@
 
 require_relative "test_helper"
 
+# Regression tests against the data that ships with the gem: the output of
+# real countries must stay the same byte for byte. A data sync can change
+# them. The formatting rules are tested with fixtures in formatting_test.rb.
 class DefaultFormatterTest < Minitest::Test
   def setup
     @formatter = Addressing::DefaultFormatter.new
-  end
-
-  def test_unrecognized_option
-    assert_raises(ArgumentError) do
-      Addressing::DefaultFormatter.new(unrecognized: "123")
-    end
-  end
-
-  def test_invalid_option
-    assert_raises(ArgumentError) do
-      Addressing::DefaultFormatter.new(html: "INVALID")
-    end
-  end
-
-  def test_invalid_html_tag_option
-    address = Addressing::Address.new(country_code: "US")
-
-    ["", nil, 1, "p onclick=\"alert(1)\"", "<p>", "1p"].each do |html_tag|
-      error = assert_raises(ArgumentError) { Addressing::DefaultFormatter.new(html_tag: html_tag) }
-      assert_equal "The option `html_tag` must be an HTML tag name.", error.message
-
-      assert_raises(ArgumentError) { @formatter.format(address, html_tag: html_tag) }
-    end
-  end
-
-  def test_valid_html_tag_option
-    address = Addressing::Address.new(country_code: "US")
-
-    ["div", :div, "H1", "address-block"].each do |html_tag|
-      lines = @formatter.format(address, html_tag: html_tag).lines(chomp: true)
-
-      assert_equal "<#{html_tag} translate=\"no\">", lines.first
-      assert_equal "</#{html_tag}>", lines.last
-    end
-  end
-
-  def test_invalid_locale_option
-    address = Addressing::Address.new(country_code: "US")
-
-    [nil, :fr, 1].each do |locale|
-      error = assert_raises(ArgumentError) { Addressing::DefaultFormatter.new(locale: locale) }
-      assert_equal "The option `locale` must be a string.", error.message
-
-      assert_raises(ArgumentError) { @formatter.format(address, locale: locale) }
-    end
-  end
-
-  def test_unknown_locale_falls_back
-    address = Addressing::Address.new(country_code: "US")
-
-    assert_equal "United States", @formatter.format(address, html: false, locale: "xx")
   end
 
   def test_andorra_address

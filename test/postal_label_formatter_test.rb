@@ -2,26 +2,13 @@
 
 require_relative "test_helper"
 
+# Regression tests against the data that ships with the gem: the postal
+# labels of real countries must stay the same byte for byte. A data sync can
+# change them. The postal label rules are tested with fixtures in
+# formatting_test.rb.
 class PostalLabelFormatterTest < Minitest::Test
   def setup
     @formatter = Addressing::PostalLabelFormatter.new
-  end
-
-  def test_missing_origin_country_code
-    address = Addressing::Address.new(country_code: "US")
-    message = "The origin_country option cannot be empty."
-
-    error = assert_raises(ArgumentError) { @formatter.format(address) }
-    assert_equal message, error.message
-
-    [nil, ""].each do |origin_country|
-      error = assert_raises(ArgumentError) { @formatter.format(address, origin_country: origin_country) }
-      assert_equal message, error.message
-
-      formatter = Addressing::PostalLabelFormatter.new(origin_country: origin_country)
-      error = assert_raises(ArgumentError) { formatter.format(address) }
-      assert_equal message, error.message
-    end
   end
 
   def test_empty_address

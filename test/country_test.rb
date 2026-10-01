@@ -46,7 +46,7 @@ class CountryTest < Minitest::Test
   def test_all
     # Explicit locale.
     countries = Addressing::Country.all("es")
-    assert_equal ["FR", "US"], countries.keys
+    assert_equal ["FR", "US", "XA"], countries.keys
     assert_equal "Francia de prueba", countries["FR"].name
     assert_equal "Estados de prueba", countries["US"].name
     assert_equal "USX", countries["US"].three_letter_code
@@ -64,13 +64,13 @@ class CountryTest < Minitest::Test
 
   def test_list
     # Explicit locale.
-    assert_equal({"FR" => "Francia de prueba", "US" => "Estados de prueba"}, Addressing::Country.list("es"))
+    assert_equal({"FR" => "Francia de prueba", "US" => "Estados de prueba", "XA" => "Tierra de prueba"}, Addressing::Country.list("es"))
 
     # Default locale.
-    assert_equal({"FR" => "Fixture France", "US" => "Fixture States"}, Addressing::Country.list)
+    assert_equal({"FR" => "Fixture France", "US" => "Fixture States", "XA" => "Fixtureland"}, Addressing::Country.list)
 
     # Fallback locale.
-    assert_equal({"FR" => "Fixture France", "US" => "Fixture States"}, Addressing::Country.list("INVALID-LOCALE"))
+    assert_equal({"FR" => "Fixture France", "US" => "Fixture States", "XA" => "Fixtureland"}, Addressing::Country.list("INVALID-LOCALE"))
   end
 
   def test_list_cannot_change_the_cached_names
