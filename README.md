@@ -317,7 +317,7 @@ bundle install
 bundle exec rake test
 ```
 
-Refreshing the country and address data from upstream (`rake addressing:generate`) additionally requires PHP, since it reads the definitions out of the commerceguys library.
+Refreshing the country and address data from upstream (`rake addressing:generate`) additionally requires PHP, since it reads the definitions out of the commerceguys library. It syncs the version pinned in `tasks/data_sync.rb`, or another tag with `rake "addressing:generate[v2.3.2]"`, and writes only to `data/`. `data/UPSTREAM_VERSION` records which tag the data comes from.
 
 Upstream maintains the subdivisions and address formats by hand, so the data files can disagree with each other. `rake addressing:verify` reports such discrepancies, and runs at the end of every refresh and in the Verify data workflow. Report a discrepancy upstream instead of editing the data files here, and add it to `tasks/known_discrepancies.yml` until the fix arrives.
 
