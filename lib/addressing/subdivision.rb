@@ -150,6 +150,9 @@ module Addressing
         return {} unless definitions["subdivisions"].is_a?(Hash)
 
         definitions["subdivisions"].each do |id, definition|
+          # Upstream writes a definition without keys as an empty JSON array.
+          definition = definitions["subdivisions"][id] = {} unless definition.is_a?(Hash)
+
           # Add common keys from the root level.
           definition["country_code"] = definitions["country_code"]
           definition["id"] = id

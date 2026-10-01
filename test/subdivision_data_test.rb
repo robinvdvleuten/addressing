@@ -30,6 +30,15 @@ class SubdivisionDataTest < Minitest::Test
     end
   end
 
+  def test_definition_without_keys
+    # Upstream writes this definition as an empty JSON array.
+    subdivision = Addressing::Subdivision.get("Abreu e Lima", ["BR", "PE"])
+
+    assert_equal "Abreu e Lima", subdivision.name
+    assert_equal "Abreu e Lima", subdivision.code
+    assert_equal "PE", subdivision.parent.code
+  end
+
   def test_chilean_localities_without_parent_flag
     Addressing::Subdivision.all(["CL"])
 

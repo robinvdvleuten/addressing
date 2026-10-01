@@ -20,7 +20,7 @@ class DataVerifierTest < Minitest::Test
     write("subdivision/BR-CE.json", {
       country_code: "BR",
       parents: ["BR", "CE"],
-      subdivisions: {Fortaleza: {}}
+      subdivisions: {Fortaleza: []}
     })
   end
 

@@ -8,6 +8,9 @@ class PostalCodePatternDataTest < Minitest::Test
 
     Dir[File.expand_path("../data/subdivision/*.json", __dir__)].each do |filename|
       JSON.parse(File.read(filename, encoding: "UTF-8"))["subdivisions"].each do |id, definition|
+        # Upstream writes a definition without keys as an empty JSON array.
+        next unless definition.is_a?(Hash)
+
         patterns["#{File.basename(filename, ".json")} #{id}"] = definition["postal_code_pattern"]
       end
     end

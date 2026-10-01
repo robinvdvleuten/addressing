@@ -118,6 +118,9 @@ module Addressing
         verify_parent(source, parents, groups)
 
         definitions["subdivisions"].each do |id, definition|
+          # Upstream writes a definition without keys as an empty JSON array.
+          definition = {} unless definition.is_a?(Hash)
+
           verify_pattern("#{source} (#{id})", definition["postal_code_pattern"])
 
           if definition["has_children"] && !groups.key?(parents + [id])
