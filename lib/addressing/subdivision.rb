@@ -94,14 +94,39 @@ module Addressing
         definitions["subdivisions"].transform_values { |definition| use_local_name ? definition["local_name"] : definition["name"] }
       end
 
+      # Gets the key of the subdivision group for the provided parents.
+      #
+      # The key names the data file of the subdivision group. The data sync
+      # names the files with it, so this is the only home of the naming rule.
+      #
+      # @api private
+      # @param parents [Array<String>] Parent hierarchy (e.g., ['BR'] or ['BR', 'CE'])
+      # @return [String]
+      def group_key(parents)
+        raise ArgumentError, "The parents argument must not be empty." if parents.empty?
+
+        # Country codes are matched case-insensitively, subdivision IDs are not.
+        country_code = parents[0].upcase
+        subdivision_ids = parents.drop(1)
+
+        return country_code if subdivision_ids.empty?
+
+        # The second parent is an ISO code, it can be used as-is.
+        return "#{country_code}-#{subdivision_ids[0]}" if subdivision_ids.length == 1 && subdivision_ids[0].length <= 3
+
+        # A dash per key allows the depth to be guessed later.
+        # Hash the remaining keys to ensure that the group is ASCII safe.
+        country_code + "-" * subdivision_ids.length + Digest::SHA1.hexdigest(subdivision_ids.join("-"))
+      end
+
       protected
 
       # Loads the subdivision definitions for the provided parents.
       def load_definitions(parents)
-        group = build_group(parents)
+        key = group_key(parents)
 
-        (@definitions ||= {})[group] ||= begin
-          filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{group}.json")
+        (@definitions ||= {})[key] ||= begin
+          filename = File.join(File.expand_path("../../../data/subdivision", __FILE__).to_s, "#{key}.json")
 
           File.exist?(filename) ? process_definitions(parse_definitions(File.read(filename, encoding: "UTF-8"))) : {}
         end
@@ -155,26 +180,6 @@ module Addressing
         end
 
         definitions
-      end
-
-      # Builds a group from the provided parents.
-      #
-      # Used for storing a country's subdivisions of a specific level.
-      def build_group(parents)
-        raise ArgumentError, "The parents argument must not be empty." if parents.empty?
-
-        # Country codes are matched case-insensitively, subdivision IDs are not.
-        country_code = parents[0].upcase
-        subdivision_ids = parents.drop(1)
-
-        return country_code if subdivision_ids.empty?
-
-        # The second parent is an ISO code, it can be used as-is.
-        return "#{country_code}-#{subdivision_ids[0]}" if subdivision_ids.length == 1 && subdivision_ids[0].length <= 3
-
-        # A dash per key allows the depth to be guessed later.
-        # Hash the remaining keys to ensure that the group is ASCII safe.
-        country_code + "-" * subdivision_ids.length + Digest::SHA1.hexdigest(subdivision_ids.join("-"))
       end
 
       # Creates a subdivision object from the provided definitions.

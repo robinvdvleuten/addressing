@@ -135,7 +135,7 @@ module Addressing
 
     def verify_group_name(source, name, parents)
       # The naming rule has one home, which is the one that reads the files.
-      expected = Subdivision.send(:build_group, parents.dup)
+      expected = Subdivision.group_key(parents)
 
       report(source, "is never read, the file for parents #{parents.inspect} must be named #{expected}.json") unless name == expected
     end
