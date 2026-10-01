@@ -75,25 +75,19 @@ module Addressing
 
       # Loads the country definitions for the provided locale.
       def load_definitions(locale)
-        (@definitions ||= {})[locale] ||= begin
-          filename = File.join(File.expand_path("../../../data/country", __FILE__).to_s, "#{locale}.json")
-          JSON.parse(File.read(filename, encoding: "UTF-8"))
-        end
+        Addressing.data_source.fetch("country/#{locale}")
       end
 
       # Gets the locales that have country names, one data file each.
       def available_locales
-        @available_locales ||= Dir[File.expand_path("../../../data/country/*.json", __FILE__)].map { |filename| File.basename(filename, ".json") }.sort
+        Addressing.data_source.names("country")
       end
 
       # Gets the base country definitions.
       #
       # Contains data common to all locales: three letter code, numeric code, currency code.
       def base_definitions
-        @base_definitions ||= begin
-          filename = File.expand_path("../../../data/countries.json", __FILE__)
-          JSON.parse(File.read(filename, encoding: "UTF-8"))
-        end
+        Addressing.data_source.fetch("countries")
       end
     end
 

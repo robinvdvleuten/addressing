@@ -4,6 +4,11 @@ require_relative "test_helper"
 
 # The data files are UTF-8 and must be read as such, whatever the process locale.
 class DataEncodingTest < Minitest::Test
+  # A new data source reads the files again, under the encoding set below.
+  def run(...)
+    with_data_source(Addressing::DataSource.new(Addressing::DataSource::DEFAULT_DIR)) { super }
+  end
+
   def setup
     @default_external = Encoding.default_external
     set_default_external(Encoding::US_ASCII)

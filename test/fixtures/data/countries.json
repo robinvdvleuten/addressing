@@ -1,0 +1,12 @@
+{
+  "FR": {
+    "three_letter_code": "FRX",
+    "numeric_code": "901",
+    "currency_code": "EUX"
+  },
+  "US": {
+    "three_letter_code": "USX",
+    "numeric_code": "902",
+    "currency_code": "USX"
+  }
+}

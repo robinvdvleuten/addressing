@@ -3,29 +3,31 @@
 require_relative "test_helper"
 
 class CountryTest < Minitest::Test
+  include FixtureData
+
   def test_get
     # Explicit locale.
     country = Addressing::Country.get("FR", "es")
     assert_instance_of Addressing::Country, country
     assert_equal "FR", country.country_code
-    assert_equal "Francia", country.name
-    assert_equal "FRA", country.three_letter_code
-    assert_equal "250", country.numeric_code
-    assert_equal "EUR", country.currency_code
+    assert_equal "Francia de prueba", country.name
+    assert_equal "FRX", country.three_letter_code
+    assert_equal "901", country.numeric_code
+    assert_equal "EUX", country.currency_code
     assert_equal "es", country.locale
 
-    # Lowercase country code.
-    country = Addressing::Country.get("fr", "de")
+    # Lowercase country code, locale resolved through its parent.
+    country = Addressing::Country.get("fr", "es-MX")
     assert_instance_of Addressing::Country, country
     assert_equal "FR", country.country_code
-    assert_equal "Frankreich", country.name
-    assert_equal "de", country.locale
+    assert_equal "Francia latina de prueba", country.name
+    assert_equal "es-419", country.locale
 
     # Fallback locale.
     country = Addressing::Country.get("FR", "INVALID-LOCALE")
     assert_instance_of Addressing::Country, country
     assert_equal "FR", country.country_code
-    assert_equal "France", country.name
+    assert_equal "Fixture France", country.name
     assert_equal "en", country.locale
   end
 
@@ -35,41 +37,46 @@ class CountryTest < Minitest::Test
     end
   end
 
+  def test_get_unavailable_locale_without_fallback
+    assert_raises Addressing::UnknownLocaleError do
+      Addressing::Country.get("FR", "de", "de")
+    end
+  end
+
   def test_all
     # Explicit locale.
     countries = Addressing::Country.all("es")
-    assert countries.key?("FR")
-    assert countries.key?("US")
-    assert_equal "Francia", countries["FR"].name
-    assert_equal "Estados Unidos", countries["US"].name
+    assert_equal ["FR", "US"], countries.keys
+    assert_equal "Francia de prueba", countries["FR"].name
+    assert_equal "Estados de prueba", countries["US"].name
+    assert_equal "USX", countries["US"].three_letter_code
 
     # Default locale.
     countries = Addressing::Country.all
-    assert countries.key?("FR")
-    assert countries.key?("US")
-    assert_equal "France", countries["FR"].name
-    assert_equal "United States", countries["US"].name
+    assert_equal "Fixture France", countries["FR"].name
+    assert_equal "Fixture States", countries["US"].name
 
     # Fallback locale.
     countries = Addressing::Country.all("INVALID-LOCALE")
-    assert countries.key?("FR")
-    assert countries.key?("US")
-    assert_equal "France", countries["FR"].name
-    assert_equal "United States", countries["US"].name
+    assert_equal "Fixture France", countries["FR"].name
+    assert_equal "Fixture States", countries["US"].name
   end
 
   def test_list
     # Explicit locale.
-    list = Addressing::Country.list("es")
-    assert list >= {"FR" => "Francia", "US" => "Estados Unidos"}
+    assert_equal({"FR" => "Francia de prueba", "US" => "Estados de prueba"}, Addressing::Country.list("es"))
 
     # Default locale.
-    list = Addressing::Country.list
-    assert list >= {"FR" => "France", "US" => "United States"}
+    assert_equal({"FR" => "Fixture France", "US" => "Fixture States"}, Addressing::Country.list)
 
     # Fallback locale.
-    list = Addressing::Country.list("INVALID-LOCALE")
-    assert list >= {"FR" => "France", "US" => "United States"}
+    assert_equal({"FR" => "Fixture France", "US" => "Fixture States"}, Addressing::Country.list("INVALID-LOCALE"))
+  end
+
+  def test_list_cannot_change_the_cached_names
+    Addressing::Country.list["FR"] = "Changed"
+
+    assert_equal "Fixture France", Addressing::Country.list["FR"]
   end
 
   def test_missing_property

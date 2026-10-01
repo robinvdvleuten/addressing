@@ -118,10 +118,7 @@ module Addressing
 
     # Gets the locale aliases and parents.
     def self.definitions
-      @definitions ||= begin
-        filename = File.expand_path("../../../data/locale.json", __FILE__)
-        JSON.parse(File.read(filename, encoding: "UTF-8"))
-      end
+      Addressing.data_source.fetch("locale")
     end
     private_class_method :definitions
   end

@@ -1,0 +1,13 @@
+{
+  "aliases": {
+    "sh": "sr-Latn",
+    "zh-CN": "zh-Hans-CN"
+  },
+  "parents": {
+    "en-AU": "en-001",
+    "es-MX": "es-419",
+    "hi-Latn": "und",
+    "sr-Latn": "und",
+    "zh-Hant": "und"
+  }
+}

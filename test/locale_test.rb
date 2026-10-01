@@ -3,6 +3,8 @@
 require_relative "test_helper"
 
 class LocaleTest < Minitest::Test
+  include FixtureData
+
   def test_match
     assert Addressing::Locale.match("en-US", "EN_us")
     assert Addressing::Locale.match("de", "de")
